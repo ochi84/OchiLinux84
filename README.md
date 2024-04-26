@@ -1,2 +1,2 @@
-# git_config_files
+# dotfiles
 backup of my config files
