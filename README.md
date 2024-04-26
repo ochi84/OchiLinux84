@@ -1,2 +1,2 @@
-# dotfiles
+# github
 backup of my dotfiles
