@@ -1,2 +1,2 @@
 # dotfiles
-backup of my config files
+backup of my dotfiles
