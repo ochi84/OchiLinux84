@@ -1,2 +1,2 @@
 # github
-backup of my dotfiles
+backup of my dotfiles, scripts etc.
