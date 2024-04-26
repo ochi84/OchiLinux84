@@ -1,0 +1,66 @@
+Color Codes
+
+    "\[\033[0m\]"       # no colors (reset)
+    "\[\033[0;30m\]"    # black
+    "\[\033[0;31m\]"    # red
+    "\[\033[0;32m\]"    # green
+    "\[\033[0;33m\]"    # yellow
+    "\[\033[0;34m\]"    # blue
+    "\[\033[0;35m\]"    # magenta
+    "\[\033[0;36m\]"    # cyan
+    "\[\033[37m\]"      # white
+
+    # emphasized (bolded) colors
+    "\[\033[1;30m\]"    # black
+    "\[\033[1;31m\]"    # red
+    "\[\033[1;32m\]"    # green
+    "\[\033[1;33m\]"    # yellow
+    "\[\033[1;34m\]"    # blue
+    "\[\033[1;35m\]"    # magenta
+    "\[\033[1;36m\]"    # cyan
+    "\[\033[1;37m\]"    # white
+
+    # background colors
+    "\[\033[40m\]"    # black   
+    "\[\033[41m\]"    # red     
+    "\[\033[42m\]"    # green   
+    "\[\033[43m\]"    # yellow  
+    "\[\033[44m\]"    # blue    
+    "\[\033[45m\]"    # magenta 
+    "\[\033[46m\]"    # cyan    
+    "\[\033[47m\]"    # white   
+
+# The first number in the color codes specifies the typeface (0;32m)
+0 - normal
+1 - bold
+3 - dim
+4 - unterlined
+
+Variables
+
+    \a	das ASCII bell Zeichen (07)
+    \A	Uhrzeit im 24-Stunden Format (hh:mm)
+    \d	Datum in "Wochentag Monat Tag" z.B., "Mit Mai 26")
+    \e	ASCII escape Zeichen (033)
+    \h	Hostname auf dem die Shell läuft bis zum ersten "."
+    \H	Hostname komplett
+    \j	Anzahl der Jobs in der Shell
+    \l	Das tty, auf dem die Shell läuft
+    \n	Neue Zeile
+    \t	Uhrzeit im 24-Stunden Format (hh:mm:ss)
+    \T	Uhrzeit im 12-Stunden Format (hh:mm:ss)
+    \r	carriage return
+    \s	Name der verwendeten Shell (sh, bash, ..)
+    \u	Name des Nutzers, der die Shell gestartet hat
+    \v	Version der bash (z.B. 2.00)
+    \V	Release der bash, Version, Patchlevel
+    \w	momentanes Arbeitsverzeichnis
+    \W	letzte Komponente des Arbeitsverzeichnisses
+    \! 	Aktuelle History-Nummer
+    \# 	Aktuelle Befehls-Nummer
+    \$ 	Wenn root ein "#", sonst ein "$"
+    \\ 	Backslash
+    \nnn	Zeichen entsprechend der oktalen Zahl nnn
+    \[	Beginn einer Sequenz von nicht-darstellbaren Zeichen
+    \]	Ende einer Sequenz von nicht-darstellbaren Zeichen
+    \@	Aktuelle Zeit im 12-Stunden am/pm Format 

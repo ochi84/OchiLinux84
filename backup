@@ -1,0 +1,58 @@
+#!/bin/bash
+
+echo "Starte Systembereinigung..."
+echo
+sudo apt clean
+sudo apt autoremove -y
+
+echo
+echo "Starte Backup..."
+echo
+
+# Definieren Sie den Pfad für das Backup-Ziel
+backup_path="$HOME/.backups"
+backup_path_ext="/media/jens/Elements/hpbackup/"
+backup_filename="backup_$(date +%Y%m%d).tar.gz"
+upload_path="$HOME/Uploads"
+github="$HOME/github"
+
+# Backup-Verzeichnis erstellen, falls es nicht existiert
+mkdir -p "$backup_path"
+
+# Erstellen des tar.gz-Archivs, inklusive versteckter Dateien und Verzeichnisse
+# --exclude wird verwendet, um das Backup-Verzeichnis selbst auszuschließen und so eine Endlosschleife zu verhindern
+# tar -czf "$backup_path/$backup_filename" --exclude="$backup_path" .
+tar -czf "$backup_path/$backup_filename" "$HOME" --exclude="$backup_path" .
+
+# Dateien separat in Ziel-Pfad kopieren
+cp -u $HOME/.bashrc "$backup_path" 2>/dev/null
+cp -u $HOME/.bashrc "$HOME/.bashrc.bak" 2>/dev/null
+cp -u $HOME/.bashrc.bak "$backup_path" 2>/dev/null
+cp -u $HOME/.vimrc "$backup_path" 2>/dev/null
+cp -u $HOME/.local/share/backgrounds/* "$backup_path" 2>/dev/null
+
+echo
+echo "Backup erstellt in: "$backup_path""
+echo
+
+# Dateien von lokaler auf externe Festplatte kopieren
+echo "Kopiere Dateien von "$backup_path" nach "$backup_path_ext"... "
+echo
+
+cp -u $backup_path/* $backup_path_ext 
+cp -u $backup_path/.bashrc $backup_path_ext 
+cp -u $backup_path/.bashrc.bak $backup_path_ext 
+cp -u $backup_path/.vimrc $backup_path_ext 
+
+echo "Fertig"
+echo
+echo "Kopiere Dateien für GitHub..."
+
+# Dateien für GitHub kopieren
+cp -u $HOME/.bashrc "$github/bashrc"
+cp -u $HOME/.vimrc "$github/vimrc"
+cp -u $HOME/.config/ranger/rc.conf "$github/rc.conf"
+cp -u $HOME/Dokumente/scripts/* "$github"
+cp -u $HOME/Dokumente/* "$github"
+
+echo "Fertig"

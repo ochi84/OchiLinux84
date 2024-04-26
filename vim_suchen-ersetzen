@@ -1,0 +1,2 @@
+# Suchen und ersetzten in vim
+%s/Suchbegriff/Ersetzung/g

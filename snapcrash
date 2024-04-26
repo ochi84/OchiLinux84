@@ -1,0 +1,6 @@
+# Wenn das Software-Center mal wieder nicht läuft:
+killall snap-store
+sudo snap refresh
+sudo apt update && sudo apt full-upgrade
+sudo snap remove snap-store
+sudo snap install snap-store

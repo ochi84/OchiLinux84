@@ -1,0 +1,3 @@
+sudo update-alternatives --config x-terminal-emulator
+
+# Es werden alle auf Ihrem System vorhandenen Terminalemulatoren angezeigt, die standardmäßig verwendet werden können. Das aktuelle Standardterminal ist mit dem Sternchen gekennzeichnet.
