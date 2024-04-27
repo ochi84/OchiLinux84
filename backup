@@ -12,7 +12,8 @@ echo
 # Definieren Sie den Pfad für das Backup-Ziel
 backup_path="$HOME/.backups"
 backup_path_ext="/media/jens/Elements/hpbackup/"
-backup_filename="backup_$(date +%Y%m%d).tar.gz"
+# backup_filename="backup_$(date +%Y%m%d).tar.gz"
+backup_filename="hpbackup.tar.gz"
 upload_path="$HOME/Uploads"
 github="$HOME/github"
 
@@ -54,5 +55,9 @@ cp -u $HOME/.vimrc "$github/vimrc"
 cp -u $HOME/.config/ranger/rc.conf "$github/rc.conf"
 cp -u $HOME/Dokumente/scripts/* "$github"
 cp -u $HOME/Dokumente/* "$github"
+cp -u $HOME/.config/bpytop/bpytop.conf "$github"
+cp -u $HOME/.config/htop/htoprc "$github"
+cp -u $HOME/.config/neofetch/config.conf "$github/neofetch_config.conf"
+
 
 echo "Fertig"

@@ -100,6 +100,7 @@ alias l.='exa -a | grep "^\."'					# list all hidden files in dir
 
 alias ..='cd ..'
 alias ...='cd ../..'
+alias ....='cd ../../..'
 
 alias btop='bpytop -lc'
 alias edit='micro'
