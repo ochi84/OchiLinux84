@@ -115,6 +115,13 @@ alias bye='shutdown -P now'
 alias r='ranger'
 alias cl='clear'
 
+alias gs='git status'
+alias ga='git add'
+alias gau='git add -u'
+alias gc='git commit -m'
+alias gps='git push'
+alias gpl='git pull'
+
 #alias rm='rm -i'
 #alias mv='mv -i'
 #alias cp='cp -i'
