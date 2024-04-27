@@ -1,0 +1,15 @@
+#!/bin/bash
+
+github="$HOME/github"
+
+# Dateien für GitHub kopieren
+cp -u $HOME/.bashrc "$github/bashrc"
+cp -u $HOME/.vimrc "$github/vimrc"
+cp -u $HOME/.config/ranger/rc.conf "$github/rc.conf"
+cp -u /usr/local/bin/* "$github"
+cp -u $HOME/Dokumente/info/* "$github"
+cp -u $HOME/.config/bpytop/bpytop.conf "$github"
+cp -u $HOME/.config/htop/htoprc "$github"
+cp -u $HOME/.config/neofetch/config.conf "$github/neofetch_config.conf"
+
+exit
