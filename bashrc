@@ -93,28 +93,34 @@ fi
 
 ### ALIASES ###
 
+# lsaliases
 alias ll='exa -l --color=always --group-directories-first'	# my preferred listing
 alias la='exa -al --color=always --group-directories-first'	# all files and dirs
 alias lt='exa -T --color=always --group-directories-first'	# tree listing
 alias l.='exa -a | grep "^\."'					# list all hidden files in dir
 
+# cdaliases
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+# programaliases
 alias btop='bpytop -lc'
 alias edit='micro'
 alias web='w3m'
 alias x='cmatrix -b -u8'
 alias nf='neofetch --backend'
+alias r='ranger'
 
+# commandaliases
 alias yep='sudo apt install $1'
 alias nop='sudo apt remove $1'
 alias bye='shutdown -P now'
-
-alias r='ranger'
+alias fz='fzf'
+alias fz.='find . | fzf'
 alias cl='clear'
 
+# githubaliases
 alias gs='git status'
 alias ga='git add'
 alias gau='git add -u'
