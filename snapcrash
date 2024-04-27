@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Wenn das Software-Center mal wieder nicht läuft:
+
+echo
+echo "lösche alle Snap-Store-Prozesse..."
+killall snap-store
+
+echo
+echo "aktualisiere Snaps..." 
+sudo snap refresh
+
+echo
+echo "warten auf update & full-upgrade..."
+sudo apt update && sudo apt full-upgrade
+
+echo
+echo "lösche Snap-Store..."
+sudo snap remove snap-store
+
+echo
+echo "installiere Snap-Store..."
+sudo snap install snap-store
