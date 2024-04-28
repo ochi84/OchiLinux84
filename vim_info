@@ -1,0 +1,18 @@
+# Suchen und ersetzten in vim
+%s/Suchbegriff/Ersetzung/g
+
+# Fenster teilen
+:vsplit
+
+# Sitzung speichern (Fensterteilung und geöffnete Dateien)
+:mksession	# "FILENAME.VIM"
+# zum öffnen "vim -S FILENAME.VIM"
+
+# Dateimanager (intern)
+:explore	# Dateimanager im ganzen Fenster
+:Lex		# Dateimanager links, Datei rechts
+:Lex!		# Dateimanager rechts, Datei links
+
+# Fenster wechseln
+STRG + w	followed by w to toggle between open windows
+STRG + w	followed by h, j, k, l, to move to the left/bottom/top/right window accordingly
