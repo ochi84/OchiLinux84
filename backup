@@ -14,7 +14,6 @@ backup_path="$HOME/.backups"
 backup_path_ext="/media/jens/Elements/hpbackup/"
 # backup_filename="backup_$(date +%Y%m%d).tar.gz"
 backup_filename="hpbackup.tar.gz"
-upload_path="$HOME/Uploads"
 github="$HOME/github"
 
 # Backup-Verzeichnis erstellen, falls es nicht existiert
