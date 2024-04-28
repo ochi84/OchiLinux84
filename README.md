@@ -1,4 +1,4 @@
-## backups of my dotfiles, scripts and stuff
+## backup of my dotfiles, scripts and stuff
 
 #### System
 OS: Ubuntu 22.04.4 LTS x86_64
