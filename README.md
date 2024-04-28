@@ -1,1 +1,1 @@
-just a backup of my dotfiles, scripts and stuff
+just backups of my dotfiles, scripts and stuff
