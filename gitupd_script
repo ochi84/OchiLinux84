@@ -13,7 +13,7 @@ cp -u $HOME/.config/ranger/rc.conf "$github/rc.conf"
 cp -u /usr/local/bin/* "$github/*_script"  #check functionality
 
 # info files
-cp -u $HOME/Dokumente/info/* "$github/*_info" #check functionality
+cp -u $HOME/Dokumente/info/* "$github/"
 
 # config files
 cp -u $HOME/.config/bpytop/bpytop.conf "$github"
