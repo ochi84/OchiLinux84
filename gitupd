@@ -7,7 +7,7 @@ GITHUB_DIR="$HOME/github"
 # dotfiles
 cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc"
 cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc"
-cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
+cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/ranger_rc.conf"
 
 # scripts
 cp -u /usr/local/bin/* "$GITHUB_DIR/"
@@ -17,5 +17,5 @@ cp -u $HOME/Dokumente/info/* "$GITHUB_DIR/"
 
 # config files
 cp -u $HOME/.config/bpytop/bpytop.conf "$GITHUB_DIR"
-cp -u $HOME/.config/htop/htoprc "$GITHUB_DIR"
-cp -u $HOME/.config/neofetch/config.conf "$GITHUB_DIR/neofetch_config.conf"
+cp -u $HOME/.config/htop/htoprc "$GITHUB_DIR/dot.htoprc"
+cp -u $HOME/.config/neofetch/config.conf "$GITHUB_DIR/nf_config.conf"
