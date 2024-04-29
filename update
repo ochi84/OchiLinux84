@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# file information
+# name:		update (script)
+# location:	/usr/local/bin
+# function:	"update, upgrade and remove"
+
 # Update package lists
 sudo apt update
 

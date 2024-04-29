@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# file information
+# name:		dispatch (script)
+# location:	/usr/local/bin
+# function:	copy all files from github-dir to local location-dirs
+
 BASHRC_DIR="$HOME"
 BIN_DIR="/usr/local/bin"
 BPYTOP_DIR="$HOME/.config/bpytop"
@@ -24,7 +29,6 @@ sudo chmod +x "$BIN_DIR/update"
 
 # dotfiles
 cp -u "$GITHUB_DIR/dot.bashrc" "$BASHRC_DIR/.bashrc"
-cp -u "$GITHUB_DIR/dot.bashrc_original" "$BASHRC_DIR/.bashrc_original"
 cp -u "$GITHUB_DIR/dot.htoprc" "$HTOPRC_DIR/htoprc"
 cp -u "$GITHUB_DIR/dot.vimrc" "$VIMRC_DIR/.vimrc"
 
@@ -34,11 +38,11 @@ cp -u "$GITHUB_DIR/nf_config.conf" "$NEOFETCH_DIR/config.conf"
 cp -u "$GITHUB_DIR/ranger_rc.conf" "$RANGER_DIR/rc.conf"
 
 # info files
-cp -u "$GITHUB_DIR/bashrc_info" "$INFO_DIR"
-cp -u "$GITHUB_DIR/centwind_info" "$INFO_DIR"
-cp -u "$GITHUB_DIR/chtermemul_info" "$INFO_DIR"
-cp -u "$GITHUB_DIR/github_info" "$INFO_DIR"
-cp -u "$GITHUB_DIR/promptvar_info" "$INFO_DIR"
-cp -u "$GITHUB_DIR/rangerconfig_info" "$INFO_DIR"
-cp -u "$GITHUB_DIR/rangerkeybind_info" "$INFO_DIR"
-cp -u "$GITHUB_DIR/vim_info" "$INFO_DIR"
+cp -u "$GITHUB_DIR/bashrc_info" "$INFO_DIR/"
+cp -u "$GITHUB_DIR/centwind_info" "$INFO_DIR/"
+cp -u "$GITHUB_DIR/chtermemul_info" "$INFO_DIR/"
+cp -u "$GITHUB_DIR/github_info" "$INFO_DIR/"
+cp -u "$GITHUB_DIR/promptvar_info" "$INFO_DIR/"
+cp -u "$GITHUB_DIR/rangerconfig_info" "$INFO_DIR/"
+cp -u "$GITHUB_DIR/rangerkeybind_info" "$INFO_DIR/"
+cp -u "$GITHUB_DIR/vim_info" "$INFO_DIR/"

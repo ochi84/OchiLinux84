@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# file information
+# name:		backup (script)
+# location:	/usr/local/bin
+# function:	create HOME-backup (local & ext) and copy files for GITHUB_DIR
+
 echo "Starte Systembereinigung..."
 echo
 sudo apt clean

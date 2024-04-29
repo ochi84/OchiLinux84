@@ -1,8 +1,11 @@
 #!/bin/bash
 
-GITHUB_DIR="$HOME/github"
+# file information
+# name:		gitupd (script)
+# location:	/usr/local/bin
+# function:	copy files for GITHUB_DIR
 
-## copy files for GITHUB_DIR
+GITHUB_DIR="$HOME/github"
 
 # dotfiles
 cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc"
