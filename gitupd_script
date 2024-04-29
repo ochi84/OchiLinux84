@@ -10,10 +10,10 @@ cp -u $HOME/.vimrc "$github/dot.vimrc"
 cp -u $HOME/.config/ranger/rc.conf "$github/rc.conf"
 
 # scripts
-cp -u /usr/local/bin/* "$github"
+cp -u /usr/local/bin/* "$github/*_script"  #check functionality
 
 # info files
-cp -u $HOME/Dokumente/info/* "$github"
+cp -u $HOME/Dokumente/info/* "$github/*_info" #check functionality
 
 # config files
 cp -u $HOME/.config/bpytop/bpytop.conf "$github"
