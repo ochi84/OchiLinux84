@@ -1,23 +1,23 @@
 #!/bin/bash
 
-github="$HOME/github"
+GITHUB_DIR="$HOME/GITHUB_DIR"
 
-## copy files for github
+## copy files for GITHUB_DIR
 
 # dotfiles
-cp -u $HOME/.bashrc "$github/dot.bashrc"
-cp -u $HOME/.vimrc "$github/dot.vimrc"
-cp -u $HOME/.config/ranger/rc.conf "$github/rc.conf"
+cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc"
+cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc"
+cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
 
 # scripts
-cp -u /usr/local/bin/* "$github/*_script"  #check functionality
+cp -u /usr/local/bin/* "$GITHUB_DIR/*_script"  #check functionality
 
 # info files
-cp -u $HOME/Dokumente/info/* "$github/"
+cp -u $HOME/Dokumente/info/* "$GITHUB_DIR/"
 
 # config files
-cp -u $HOME/.config/bpytop/bpytop.conf "$github"
-cp -u $HOME/.config/htop/htoprc "$github"
-cp -u $HOME/.config/neofetch/config.conf "$github/neofetch_config.conf"
+cp -u $HOME/.config/bpytop/bpytop.conf "$GITHUB_DIR"
+cp -u $HOME/.config/htop/htoprc "$GITHUB_DIR"
+cp -u $HOME/.config/neofetch/config.conf "$GITHUB_DIR/neofetch_config.conf"
 
 #exit
