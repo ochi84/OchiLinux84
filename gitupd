@@ -3,8 +3,8 @@
 github="$HOME/github"
 
 # Dateien für GitHub kopieren
-cp -u $HOME/.bashrc "$github/bashrc"
-cp -u $HOME/.vimrc "$github/vimrc"
+cp -u $HOME/.bashrc "$github/dot.bashrc"
+cp -u $HOME/.vimrc "$github/dot.vimrc"
 cp -u $HOME/.config/ranger/rc.conf "$github/rc.conf"
 cp -u /usr/local/bin/* "$github"
 cp -u $HOME/Dokumente/info/* "$github"
