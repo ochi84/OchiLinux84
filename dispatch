@@ -1,0 +1,42 @@
+#!/bin/bash
+
+BASHRC_DIR="$HOME"
+BIN_DIR="/usr/local/bin"
+BPYTOP_DIR="$HOME/.config/bpytop"
+GITHUB_DIR="$HOME/github"
+HTOPRC_DIR="$HOME/.config/htop"
+INFO_DIR="$HOME/Dokumente/info"
+NEOFETCH_DIR="$HOME/.config/neofetch"
+RANGER_DIR="$HOME/.config/ranger"
+VIMRC_DIR="$HOME"
+
+# scripts
+sudo cp -u "$GITHUB_DIR/backup_script" "$BIN_DIR/backup"
+sudo cp -u "$GITHUB_DIR/gitupd_script" "$BIN_DIR/gitupd"
+sudo cp -u "$GITHUB_DIR/snapcrash_script" "$BIN_DIR/snapcrash"
+sudo cp -u "$GITHUB_DIR/update_script" "$BIN_DIR/update"
+
+sudo chmod +x "$BIN_DIR/backup"
+sudo chmod +x "$BIN_DIR/gitupd"
+sudo chmod +x "$BIN_DIR/snapcrash"
+sudo chmod +x "$BIN_DIR/update"
+
+# dotfiles
+cp -u "$GITHUB_DIR/dot.bashrc" "$BASHRC_DIR/.bashrc"
+cp -u "$GITHUB_DIR/dot.bashrc_original" "$BASHRC_DIR/.bashrc_original"
+cp -u "$GITHUB_DIR/dot.htoprc" "$HTOPRC_DIR/htoprc"
+cp -u "$GITHUB_DIR/dot.vimrc" "$VIMRC_DIR/.vimrc"
+
+# config files
+cp -u "$GITHUB_DIR/bpytop.conf" "$BPYTOP_DIR/"
+cp -u "$GITHUB_DIR/nf_config.conf" "$NEOFETCH_DIR/config.conf"
+cp -u "$GITHUB_DIR/rc.conf" "$RANGER_DIR/rc.conf"
+
+# info files
+#cp -u "$GITHUB_DIR/*_info" "$INFO_DIR"  #check first, then delete other lines
+
+cp -u "$GITHUB_DIR/bashrc_info" "$INFO_DIR"
+cp -u "$GITHUB_DIR/centwind_info" "$INFO_DIR"
+cp -u "$GITHUB_DIR/chtermemul_info" "$INFO_DIR"
+cp -u "$GITHUB_DIR/github_info" "$INFO_DIR"
+cp -u "$GITHUB_DIR/promptvar_info" "$INFO_DIR"

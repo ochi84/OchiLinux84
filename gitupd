@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GITHUB_DIR="$HOME/GITHUB_DIR"
+GITHUB_DIR="$HOME/github"
 
 ## copy files for GITHUB_DIR
 
@@ -10,7 +10,7 @@ cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc"
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
 
 # scripts
-cp -u /usr/local/bin/* "$GITHUB_DIR/*_script"  #check functionality
+cp -u /usr/local/bin/* "$GITHUB_DIR/"
 
 # info files
 cp -u $HOME/Dokumente/info/* "$GITHUB_DIR/"
@@ -19,5 +19,3 @@ cp -u $HOME/Dokumente/info/* "$GITHUB_DIR/"
 cp -u $HOME/.config/bpytop/bpytop.conf "$GITHUB_DIR"
 cp -u $HOME/.config/htop/htoprc "$GITHUB_DIR"
 cp -u $HOME/.config/neofetch/config.conf "$GITHUB_DIR/neofetch_config.conf"
-
-#exit
