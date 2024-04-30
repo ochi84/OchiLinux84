@@ -1,44 +1,43 @@
 #!/bin/bash
 
-# file information
-# name:     update (script)
-# location: /usr/local/bin
-# function: "update, upgrade, and remove unused packages"
+# Combined update and cleanup script for Ubuntu 22.04 systems
 
-LOGFILE="/var/log/update_script.log"
-
-# Log function to handle messages
-log_message() {
-    echo "$(date +"%Y-%m-%d %H:%M:%S") - $1" | tee -a $LOGFILE
-}
-
-log_message "Starting system update process."
-
-# Update package lists
-log_message "Updating package lists..."
-if sudo apt update; then
-    log_message "Package lists updated successfully."
-else
-    log_message "Failed to update package lists."
-    exit 1
+# Ensure the script is run as root
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
 fi
 
-# Upgrade all installed packages to their latest versions
-log_message "Upgrading installed packages..."
-if sudo apt dist-upgrade -y; then
-    log_message "Packages upgraded successfully."
-else
-    log_message "Failed to upgrade packages."
-    exit 1
-fi
+echo "Starting system update..."
 
-# Remove packages that are no more needed
-log_message "Removing unnecessary packages..."
-if sudo apt autoremove -y; then
-    log_message "Unnecessary packages removed successfully."
-else
-    log_message "Failed to remove unnecessary packages."
-    exit 1
-fi
+# Update system packages
+echo "Updating all installed packages..."
+apt update
+apt full-upgrade -y
 
-log_message "System update process completed successfully."
+echo "Starting system cleanup..."
+
+# Delete temporary files
+echo "Deleting temporary files..."
+rm -rf /tmp/*
+rm -rf /var/tmp/*
+
+# Empty the trash
+echo "Emptying the trash..."
+rm -rf ~/.local/share/Trash/*
+
+# Clean up the apt cache
+echo "Cleaning APT cache..."
+apt autoremove -y
+apt autoclean
+
+# Remove old kernels (this tool is part of byobu package, you may need to install it)
+echo "Removing old kernels..."
+apt install byobu -y
+purge-old-kernels
+
+# Clean up journal logs (keeping only the last two days)
+echo "Cleaning up journal logs..."
+journalctl --vacuum-time=2d
+
+echo "Update and cleanup completed!"
