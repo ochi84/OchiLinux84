@@ -13,6 +13,37 @@
 :Lex		# Dateimanager links, Datei rechts
 :Lex!		# Dateimanager rechts, Datei links
 
+# you can start opening file explorer in vim by typing one of these commands
+:edit.
+:e.
+:sp.	(horizontal)
+:vs.	(vertical)
+
+# or by searching
+/filename
+
+# file operations commands
+%	=>	create new file
+d	=>	create new dir
+R	=>	renaming
+D	=>	deleting
+
+# you can close from file explorer by typing :bd
+
 # Fenster wechseln
 STRG + w	followed by w to toggle between open windows
 STRG + w	followed by h, j, k, l, to move to the left/bottom/top/right window accordingly
+
+### PLUGINS
+
+## VIM-AIRLINE (installed with synaptic)
+# a themable vim status bar
+
+# set theme (temporary, or is it fix for the opened file?)
+:AirlineTheme [TAB]
+# set in .vimrc
+let g:airline_theme='theme'
+
+## VIM-FUGITIVE (installed with synaptic)
+# command line interface to Git
+:Git

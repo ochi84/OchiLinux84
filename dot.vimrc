@@ -40,3 +40,7 @@ set showmatch
 
 " enable mouse interaction
 set mouse=a
+
+" PLUGINS
+let g:airline_theme='angr'
+let g:airline#extensions#whitespace#enabled = 0

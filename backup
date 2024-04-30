@@ -43,16 +43,16 @@ echo
 # Dateien von lokaler auf externe Festplatte kopieren
 echo "Kopiere Dateien von "$BACKUP_DIR" nach "$BACKUP_DIR_EXT"... "
 
-cp -u $BACKUP_DIR/* $BACKUP_DIR_EXT 
-cp -u $BACKUP_DIR/.bashrc $BACKUP_DIR_EXT 
-cp -u $BACKUP_DIR/.bashrc.bak $BACKUP_DIR_EXT 
-cp -u $BACKUP_DIR/.vimrc $BACKUP_DIR_EXT 
+cp -u $BACKUP_DIR/* $BACKUP_DIR_EXT
+cp -u $BACKUP_DIR/.bashrc $BACKUP_DIR_EXT
+cp -u $BACKUP_DIR/.bashrc.bak $BACKUP_DIR_EXT
+cp -u $BACKUP_DIR/.vimrc $BACKUP_DIR_EXT
 
 echo "Fertig"
 echo
 echo "Kopiere Dateien für GitHub..."
 
-# Dateien für GitHub kopieren  
+# Dateien für GitHub kopieren
 gitupd
 
 echo "Fertig"
