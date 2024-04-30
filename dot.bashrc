@@ -58,9 +58,21 @@ fi
 
 if [ "$color_prompt" = yes ]; then
 	#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # original bash prompt
-
 	#PS1=' \[\033[0;35m\]\w \[\033[0;34m\]\$ \[\033[0;32m\]> '
-	PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 " (%s)")';  PS1=' \[\033[0;35m\]\w \[\033[0;34m\]\$\[\e[91m\]${PS1_CMD1} \[\033[0;32m\]> '
+
+# Check for and source the git-prompt script to enable __git_ps1
+if [ -f "/usr/share/git/git-prompt.sh" ]; then
+    . "/usr/share/git/git-prompt.sh"
+elif [ -f "/etc/bash_completion.d/git-prompt" ]; then
+    . "/etc/bash_completion.d/git-prompt"
+fi
+
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM="auto"
+
+PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 " (%s)")';  PS1=' \[\033[0;35m\]\w \[\033[0;34m\]\$\[\e[91m\]${PS1_CMD1} \[\033[0;32m\]> '
 	
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '

@@ -32,12 +32,12 @@ apt autoremove -y
 apt autoclean
 
 # Remove old kernels (this tool is part of byobu package, you may need to install it)
-echo "Removing old kernels..."
-apt install byobu -y
-purge-old-kernels
+#echo "Removing old kernels..."
+#apt install byobu -y
+#purge-old-kernels
 
 # Clean up journal logs (keeping only the last two days)
-echo "Cleaning up journal logs..."
-journalctl --vacuum-time=2d
+#echo "Cleaning up journal logs..."
+#journalctl --vacuum-time=2d
 
 echo "Update and cleanup completed!"
