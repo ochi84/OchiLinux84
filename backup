@@ -1,59 +1,41 @@
 #!/bin/bash
 
-# file information
-# name:		backup (script)
-# location:	/usr/local/bin
-# function:	create HOME-backup (local & ext) and copy files for GITHUB_DIR
-
-echo "Starte Systembereinigung..."
-echo
+echo "Starting system cleanup..."
 sudo apt clean
 sudo apt autoremove -y
 
-echo
-echo "Starte Backup..."
-echo
-
-# Definieren Sie den Pfad für das Backup-Ziel
+echo "Starting backup..."
 BACKUP_DIR="$HOME/.backups"
 BACKUP_DIR_EXT="/media/jens/Elements/hpbackup/"
-# BACKUP_FILE="backup_$(date +%Y%m%d).tar.gz"
-BACKUP_FILE="hpbackup.tar.gz"
-github="$HOME/github"
+BACKUP_FILE="hpbackup_$(date +%Y%m%d).tar.gz"
 
-# Backup-Verzeichnis erstellen, falls es nicht existiert
+# Check if the external backup drive is available
+if [ ! -d "$BACKUP_DIR_EXT" ]; then
+    echo "External backup drive is not available."
+    exit 1
+fi
+
+# Create the backup directory if it does not exist
 mkdir -p "$BACKUP_DIR"
 
-# Erstellen des tar.gz-Archivs, inklusive versteckter Dateien und Verzeichnisse
-# --exclude wird verwendet, um das Backup-Verzeichnis selbst auszuschließen und so eine Endlosschleife zu verhindern
-# tar -czf "$BACKUP_DIR/$BACKUP_FILE" --exclude="$BACKUP_DIR" .
-tar -czf "$BACKUP_DIR/$BACKUP_FILE" "$HOME" --exclude="$BACKUP_DIR" .
+# Create the backup archive, specifically including ~/develop and ~/github
+tar -czf "$BACKUP_DIR/$BACKUP_FILE" --exclude="$BACKUP_DIR" "$HOME" "$HOME/develop" "$HOME/github"
 
-# Dateien separat in Ziel-Pfad kopieren
-cp -u $HOME/.bashrc "$BACKUP_DIR" 2>/dev/null
-cp -u $HOME/.bashrc "$HOME/.bashrc.bak" 2>/dev/null
-cp -u $HOME/.bashrc.bak "$BACKUP_DIR" 2>/dev/null
-cp -u $HOME/.vimrc "$BACKUP_DIR" 2>/dev/null
+# Backup configuration files
+cp -u $HOME/.bashrc $HOME/.bashrc.bak
+cp -u $HOME/.bashrc $BACKUP_DIR
+cp -u $HOME/.bashrc.bak $BACKUP_DIR
+cp -u $HOME/.vimrc $BACKUP_DIR
 cp -u $HOME/.local/share/backgrounds/* "$BACKUP_DIR" 2>/dev/null
 
-echo
-echo "Backup erstellt in: "$BACKUP_DIR""
-echo
+echo "Backup created in: $BACKUP_DIR"
 
-# Dateien von lokaler auf externe Festplatte kopieren
-echo "Kopiere Dateien von "$BACKUP_DIR" nach "$BACKUP_DIR_EXT"... "
-
+# Copy files from local backup to external hard drive
 cp -u $BACKUP_DIR/* $BACKUP_DIR_EXT
-cp -u $BACKUP_DIR/.bashrc $BACKUP_DIR_EXT
-cp -u $BACKUP_DIR/.bashrc.bak $BACKUP_DIR_EXT
-cp -u $BACKUP_DIR/.vimrc $BACKUP_DIR_EXT
 
-echo "Fertig"
-echo
-echo "Kopiere Dateien für GitHub..."
+echo "Backup copied to external drive."
 
-# Dateien für GitHub kopieren
+echo "Copying files for GitHub..."
 gitupd
 
-echo "Fertig"
-echo
+echo "Finished all operations."

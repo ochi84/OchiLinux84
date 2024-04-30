@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# file information
+# name:         startup (script)
+# location:     /usr/local/bin
+# function:     Install specified applications and run the 'dispatch' script
+
+echo "Installation der Anwendungen beginnt..."
+
+# Liste der zu installierenden Pakete
+# Fügen Sie neue Pakete zur Installation hinzu, indem Sie sie einfach in diese Liste aufnehmen.
+applications=(
+    "mc"             # Midnight Commander, ein textbasierter Dateimanager
+    "ranger"         # Ranger, ein Dateimanager mit VI-Keybindings
+    "fzf"            # Fuzzy Finder, ein leistungsfähiges Suchtool
+    "btop"           # btop++, eine Ressourcenüberwachungs-Tool
+    "vim"            # VIM, ein hochkonfigurierbarer Texteditor
+    "vim-airline"    # vim-airline, Status-/Tabline für VIM
+    "vim-fugitive"   # vim-fugitive, ein Git-Wrapper für VIM
+    "cmatrix"        # cmatrix, zeigt die Matrix-Falling-Characters-Animation
+)
+
+# Installation der Anwendungen mit apt-get
+for app in "${applications[@]}"; do
+    sudo apt-get install -y $app
+done
+
+echo "Alle gewünschten Anwendungen wurden installiert."
+
+echo "Führe das 'dispatch' Skript aus..."
+# Stellen Sie sicher, dass das 'dispatch' Skript ausführbar ist und im PATH verfügbar
+/usr/local/bin/dispatch
+
+echo "Startup-Prozess abgeschlossen."

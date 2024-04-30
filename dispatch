@@ -1,46 +1,42 @@
 #!/bin/bash
 
 # file information
-# name:		dispatch (script)
-# location:	/usr/local/bin
-# function:	copy all files from github-dir to local location-dirs
+# name:         dispatch (script)
+# location:     /usr/local/bin
+# function:     copy all files from github-dir to local location-dirs
 
-BASHRC_DIR="$HOME"
-BIN_DIR="/usr/local/bin"
-BPYTOP_DIR="$HOME/.config/bpytop"
+# Define directories
+declare -A DIRS=(
+    [dot.bashrc]="$HOME/.bashrc"
+    [dot.vimrc]="$HOME/.vimrc"
+    [nf_config.conf]="$HOME/.config/neofetch/config.conf"
+    [ranger_rc.conf]="$HOME/.config/ranger/rc.conf"
+    [backup]="/usr/local/bin/"
+    [gitupd]="/usr/local/bin/"
+    [snapcrash]="/usr/local/bin/"
+    [update]="/usr/local/bin/"
+    [dispatch]="/usr/local/bin/"
+)
+
 GITHUB_DIR="$HOME/github"
-HTOPRC_DIR="$HOME/.config/htop"
 INFO_DIR="$HOME/Dokumente/info"
-NEOFETCH_DIR="$HOME/.config/neofetch"
-RANGER_DIR="$HOME/.config/ranger"
-VIMRC_DIR="$HOME"
 
-# scripts
-sudo cp -u "$GITHUB_DIR/backup" "$BIN_DIR/"
-sudo cp -u "$GITHUB_DIR/gitupd" "$BIN_DIR/"
-sudo cp -u "$GITHUB_DIR/snapcrash" "$BIN_DIR/"
-sudo cp -u "$GITHUB_DIR/update" "$BIN_DIR/"
-sudo cp -u "$GITHUB_DIR/dispatch" "$BIN_DIR/"
+# Copy scripts and config files
+for file in "${!DIRS[@]}"; do
+    src="$GITHUB_DIR/$file"
+    dest="${DIRS[$file]}"
 
-sudo chmod +x "$BIN_DIR/backup"
-sudo chmod +x "$BIN_DIR/gitupd"
-sudo chmod +x "$BIN_DIR/snapcrash"
-sudo chmod +x "$BIN_DIR/update"
+    if [[ $dest == */bin/* ]]; then
+        sudo cp -u "$src" "$dest"
+        sudo chmod +x "$dest$file"
+    else
+        cp -u "$src" "$dest"
+    fi
+done
 
-# dotfiles
-cp -u "$GITHUB_DIR/dot.bashrc" "$BASHRC_DIR/.bashrc"
-cp -u "$GITHUB_DIR/dot.vimrc" "$VIMRC_DIR/.vimrc"
+# Copy info files
+for info in bashrc_info centwind_info chtermemul_info github_info promptvar_info rangercon_info rangerkey_info vim_info; do
+    cp -u "$GITHUB_DIR/$info" "$INFO_DIR/"
+done
 
-# config files
-cp -u "$GITHUB_DIR/nf_config.conf" "$NEOFETCH_DIR/config.conf"
-cp -u "$GITHUB_DIR/ranger_rc.conf" "$RANGER_DIR/rc.conf"
-
-# info files
-cp -u "$GITHUB_DIR/bashrc_info" "$INFO_DIR/"
-cp -u "$GITHUB_DIR/centwind_info" "$INFO_DIR/"
-cp -u "$GITHUB_DIR/chtermemul_info" "$INFO_DIR/"
-cp -u "$GITHUB_DIR/github_info" "$INFO_DIR/"
-cp -u "$GITHUB_DIR/promptvar_info" "$INFO_DIR/"
-cp -u "$GITHUB_DIR/rangercon_info" "$INFO_DIR/"
-cp -u "$GITHUB_DIR/rangerkey_info" "$INFO_DIR/"
-cp -u "$GITHUB_DIR/vim_info" "$INFO_DIR/"
+echo "All files have been copied successfully."

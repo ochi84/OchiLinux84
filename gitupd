@@ -1,23 +1,38 @@
 #!/bin/bash
 
 # file information
-# name:		gitupd (script)
-# location:	/usr/local/bin
-# function:	copy files for GITHUB_DIR
+# name:         gitupd (script)
+# location:     /usr/local/bin
+# function:     copy files for GITHUB_DIR
 
 GITHUB_DIR="$HOME/github"
 
+# Check if the GitHub directory exists
+if [ ! -d "$GITHUB_DIR" ]; then
+    echo "GitHub directory does not exist. Creating directory: $GITHUB_DIR"
+    mkdir -p "$GITHUB_DIR"
+fi
+
+echo "Updating dotfiles..."
 # dotfiles
 cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc"
 cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc"
 
-
+echo "Updating scripts..."
 # scripts
-cp -u /usr/local/bin/* "$GITHUB_DIR/"
+# Here, you should define a list of specific scripts to be copied.
+declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup")
+for script in "${scripts[@]}"; do
+    cp -u "/usr/local/bin/$script" "$GITHUB_DIR/"
+done
 
+echo "Updating info files..."
 # info files
 cp -u $HOME/Dokumente/info/* "$GITHUB_DIR/"
 
+echo "Updating configuration files..."
 # config files
 cp -u $HOME/.config/neofetch/config.conf "$GITHUB_DIR/nf_config.conf"
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/ranger_rc.conf"
+
+echo "Update process completed."

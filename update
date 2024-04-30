@@ -1,15 +1,44 @@
 #!/bin/bash
 
 # file information
-# name:		update (script)
-# location:	/usr/local/bin
-# function:	"update, upgrade and remove"
+# name:     update (script)
+# location: /usr/local/bin
+# function: "update, upgrade, and remove unused packages"
+
+LOGFILE="/var/log/update_script.log"
+
+# Log function to handle messages
+log_message() {
+    echo "$(date +"%Y-%m-%d %H:%M:%S") - $1" | tee -a $LOGFILE
+}
+
+log_message "Starting system update process."
 
 # Update package lists
-sudo apt update
+log_message "Updating package lists..."
+if sudo apt update; then
+    log_message "Package lists updated successfully."
+else
+    log_message "Failed to update package lists."
+    exit 1
+fi
 
 # Upgrade all installed packages to their latest versions
-sudo apt dist-upgrade -y
+log_message "Upgrading installed packages..."
+if sudo apt dist-upgrade -y; then
+    log_message "Packages upgraded successfully."
+else
+    log_message "Failed to upgrade packages."
+    exit 1
+fi
 
-# Remove packages that are no more needed.
-sudo apt autoremove -y
+# Remove packages that are no more needed
+log_message "Removing unnecessary packages..."
+if sudo apt autoremove -y; then
+    log_message "Unnecessary packages removed successfully."
+else
+    log_message "Failed to remove unnecessary packages."
+    exit 1
+fi
+
+log_message "System update process completed successfully."

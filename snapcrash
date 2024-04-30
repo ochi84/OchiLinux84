@@ -1,23 +1,41 @@
 #!/bin/bash
 
-# Wenn das Software-Center mal wieder nicht läuft:
+# Repair routine for issues with the Snap Store
 
 echo
-echo "lösche alle Snap-Store-Prozesse..."
+echo "Deleting all Snap Store processes..."
 killall snap-store
 
+if [ $? -eq 0 ]; then
+    echo "Snap Store processes successfully terminated."
+else
+    echo "Error terminating Snap Store processes. They may not have been active."
+fi
+
 echo
-echo "aktualisiere Snaps..." 
+echo "Updating Snaps..."
 sudo snap refresh
 
 echo
-echo "warten auf update & full-upgrade..."
-sudo apt update && sudo apt full-upgrade
+echo "Updating package lists and performing a full upgrade..."
+if sudo apt update && sudo apt full-upgrade -y; then
+    echo "System successfully updated."
+else
+    echo "Error updating the system."
+fi
 
 echo
-echo "lösche Snap-Store..."
-sudo snap remove snap-store
+echo "Removing Snap Store..."
+if sudo snap remove snap-store; then
+    echo "Snap Store successfully removed."
+else
+    echo "Error removing the Snap Store."
+fi
 
 echo
-echo "installiere Snap-Store..."
-sudo snap install snap-store
+echo "Installing Snap Store..."
+if sudo snap install snap-store; then
+    echo "Snap Store successfully installed."
+else
+    echo "Error installing the Snap Store."
+fi
