@@ -32,7 +32,6 @@ cp -u $HOME/Dokumente/info/* "$GITHUB_DIR/"
 
 echo "Updating configuration files..."
 # config files
-cp -u $HOME/.config/neofetch/config.conf "$GITHUB_DIR/nf_config.conf"
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/ranger_rc.conf"
 
 echo "Update process completed."

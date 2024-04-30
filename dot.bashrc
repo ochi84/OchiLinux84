@@ -121,7 +121,6 @@ alias btop='bpytop -lc'
 alias edit='micro'
 alias web='w3m'
 alias x='cmatrix -b -u8'
-alias nf='neofetch --backend'
 alias r='ranger'
 
 # commandaliases

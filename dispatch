@@ -9,7 +9,6 @@
 declare -A DIRS=(
     [dot.bashrc]="$HOME/.bashrc"
     [dot.vimrc]="$HOME/.vimrc"
-    [nf_config.conf]="$HOME/.config/neofetch/config.conf"
     [ranger_rc.conf]="$HOME/.config/ranger/rc.conf"
     [backup]="/usr/local/bin/"
     [gitupd]="/usr/local/bin/"
