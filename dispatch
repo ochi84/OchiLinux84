@@ -10,7 +10,7 @@
 declare -A DIRS=(
     [dot.bashrc]="$HOME/.bashrc"
     [dot.vimrc]="$HOME/.vimrc"
-    [ranger_rc.conf]="$HOME/.config/ranger/rc.conf"
+    [rc.conf]="$HOME/.config/ranger/rc.conf"
     [backup]="/usr/local/bin/"
     [gitupd]="/usr/local/bin/"
     [snapcrash]="/usr/local/bin/"
@@ -32,11 +32,6 @@ for file in "${!DIRS[@]}"; do
     else
         cp -u "$src" "$dest"
     fi
-done
-
-# Copy info files
-for info in bashrc_info centwind_info chtermemul_info github_info promptvar_info rangercon_info rangerkey_info vim_info; do
-    cp -u "$GITHUB_DIR/$info" "$INFO_DIR/"
 done
 
 echo "All files have been copied successfully."
