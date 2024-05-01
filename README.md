@@ -4,7 +4,7 @@ This repository contains personal configuration files and dot-files for backup a
 
 ## Contents
 
-Here are the key files included in this repository:
+Here are some of the key files included in this repository:
 
 - `.bashrc`: Bash configuration file for shell settings.
 - `.vimrc`: Configuration for the VIM text editor.
