@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Script: System Maintenance and Backup
+# Author: Jens Ochmann
+# Purpose: Perform system cleanup, local and external backup of files.
+# Requires root: Yes
+# Usage: Run as root to clean system caches, backup $HOME, and sync files to GitHub.
+
 # Check if the script is running as root
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root."
