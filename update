@@ -6,7 +6,7 @@
 # | |_| | |_) | (_| | (_| | ||  __/
 #  \__,_| .__/ \__,_|\__,_|\__\___|
 #       |_|                    
-
+#
 # Script: System Maintenance
 # Author: Jens Ochmann
 # Description: Performs updates and cleanup tasks on Ubuntu 22.04 systems.

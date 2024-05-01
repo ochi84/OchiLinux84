@@ -6,7 +6,7 @@
 # \__ \ | | | (_| | |_) | (__| | | (_| \__ \ | | |
 # |___/_| |_|\__,_| .__/ \___|_|  \__,_|___/_| |_|
 #                 |_|                             
-
+#
 # Script: Snap Store Repair
 # Author: Jens Ochmann
 # Description: Terminates, updates, removes, and reinstalls the Snap Store to resolve common issues.

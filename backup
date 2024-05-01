@@ -6,7 +6,7 @@
 # | |_) | (_| | (__|   <| |_| | |_) |
 # |_.__/ \__,_|\___|_|\_\\__,_| .__/ 
 #                             |_|    
-
+#
 # Script: System Maintenance and Backup
 # Author: Jens Ochmann
 # Purpose: Perform system cleanup, local and external backup of files.

@@ -6,7 +6,7 @@
 # | (_| | \__ \ |_) | (_| | || (__| | | |
 #  \__,_|_|___/ .__/ \__,_|\__\___|_| |_|
 #             |_|                        
-
+#
 # Script: File Dispatcher
 # Author: Jens Ochmann
 # Description: Synchronizes selected files from GitHub directory to local system directories.
