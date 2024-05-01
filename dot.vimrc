@@ -68,7 +68,3 @@ set smartindent
 " PLUGINS
 let g:airline_theme='angr'
 let g:airline#extensions#whitespace#enabled = 0
-
-" NERDTree installieren und konfigurieren
-Plugin 'preservim/nerdtree'
-map <C-n> :NERDTreeToggle<CR>
