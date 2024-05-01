@@ -14,7 +14,7 @@ Here are some of the key files included in this repository:
 To use these configurations, clone the repository and copy the desired files to your home directory:
 
 ```bash
-git clone https://github.com/yourUsername/dotfiles.git
+git clone https://github.com/ochi84/dotfiles.git
 cd dotfiles
 cp .bashrc ~/
 cp .vimrc ~/
