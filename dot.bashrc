@@ -133,11 +133,14 @@ alias cl='clear'
 
 # githubaliases
 alias gs='git status'
+alias gl='git log'
 alias ga='git add'
 alias gau='git add -u'
 alias gc='git commit -m'
+alias gd='git done'
 alias gps='git push'
 alias gpl='git pull'
+alias gco='git checkout'
 
 #alias rm='rm -i'
 #alias mv='mv -i'
