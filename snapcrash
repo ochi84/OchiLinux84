@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# Repair routine for issues with the Snap Store
+# Script: Snap Store Repair
+# Author: Jens Ochmann
+# Description: Terminates, updates, removes, and reinstalls the Snap Store to resolve common issues.
+# Location: /usr/local/bin/snap-repair
+# Usage: Execute to perform maintenance on the Snap Store when experiencing issues.
 
 echo
 echo "Deleting all Snap Store processes..."
