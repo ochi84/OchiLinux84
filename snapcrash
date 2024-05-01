@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#                                           _     
+#  ___ _ __   __ _ _ __   ___ _ __ __ _ ___| |__  
+# / __| '_ \ / _` | '_ \ / __| '__/ _` / __| '_ \ 
+# \__ \ | | | (_| | |_) | (__| | | (_| \__ \ | | |
+# |___/_| |_|\__,_| .__/ \___|_|  \__,_|___/_| |_|
+#                 |_|                             
+
 # Script: Snap Store Repair
 # Author: Jens Ochmann
 # Description: Terminates, updates, removes, and reinstalls the Snap Store to resolve common issues.

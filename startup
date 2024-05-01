@@ -1,10 +1,16 @@
 #!/bin/bash
 
-# Script: Application Installer and Dispatcher
-# Author: Jens Ochmann
-# Description: Installs specified applications and executes the 'dispatch' script for setup.
-# Location: /usr/local/bin/startup
-# Usage: Run to set up new systems or refresh installations with specific applications.
+#      _             _               
+#  ___| |_ __ _ _ __| |_ _   _ _ __  
+# / __| __/ _` | '__| __| | | | '_ \ 
+# \__ \ || (_| | |  | |_| |_| | |_) |
+# |___/\__\__,_|_|   \__|\__,_| .__/ 
+#                             |_|  
+
+# file information
+# name:         startup (script)
+# location:     /usr/local/bin
+# function:     Install specified applications and run the 'dispatch' script
 
 echo "Installation der Anwendungen beginnt..."
 
@@ -19,6 +25,7 @@ applications=(
     "vim-airline"    # vim-airline, Status-/Tabline für VIM
     "vim-fugitive"   # vim-fugitive, ein Git-Wrapper für VIM
     "cmatrix"        # cmatrix, zeigt die Matrix-Falling-Characters-Animation
+    "figlet"	     # converts user input into ASCII banners
 )
 
 # Installation der Anwendungen mit apt-get
