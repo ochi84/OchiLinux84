@@ -1,6 +1,0 @@
-# Zunächst öffnen Sie wie gewohnt das Terminal mit "Strg+Alt+T".
-# Anschließend geben Sie in der Befehlszeile das Kommando
-
-gsettings set org.gnome.mutter center-new-windows true
-
-# ein und aktivieren den neuen Wert mit der Enter-Taste.

@@ -33,6 +33,6 @@ cp -u $HOME/Dokumente/info/* "$GITHUB_DIR/"
 
 echo "Updating configuration files..."
 # config files
-cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/ranger_rc.conf"
+cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
 
 echo "Update process completed."
