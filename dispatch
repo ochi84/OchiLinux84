@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# file information
-# name:         dispatch (script)
-# location:     /usr/local/bin
-# function:     copy all files from github-dir to local location-dirs
+# Script: File Dispatcher
+# Author: Jens Ochmann
+# Description: Synchronizes selected files from GitHub directory to local system directories.
+# Location: /usr/local/bin/dispatch
+# Usage: Run to distribute configuration files and scripts from GitHub repository to appropriate locations.
 
 # Define directories
 declare -A DIRS=(
