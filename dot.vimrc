@@ -1,11 +1,3 @@
-call plug#begin('~/.vim/plugged')
-
-" Füge hier die Plugin-Installationen hinzu
-Plug 'preservim/nerdtree'
-
-" Alle deine anderen Plugins
-call plug#end()
-
 " turn on syntax highlighting
 syntax on
 
