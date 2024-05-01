@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# file information
-# name:         startup (script)
-# location:     /usr/local/bin
-# function:     Install specified applications and run the 'dispatch' script
+# Script: Application Installer and Dispatcher
+# Author: Jens Ochmann
+# Description: Installs specified applications and executes the 'dispatch' script for setup.
+# Location: /usr/local/bin/startup
+# Usage: Run to set up new systems or refresh installations with specific applications.
 
 echo "Installation der Anwendungen beginnt..."
 
