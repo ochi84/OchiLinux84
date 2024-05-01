@@ -20,10 +20,11 @@ applications=(
     "mc"             # Midnight Commander, ein textbasierter Dateimanager
     "ranger"         # Ranger, ein Dateimanager mit VI-Keybindings
     "fzf"            # Fuzzy Finder, ein leistungsfähiges Suchtool
-    "btop"           # btop++, eine Ressourcenüberwachungs-Tool
+    "bpytop"         # ein Ressourcenüberwachungs-Tool
     "vim"            # VIM, ein hochkonfigurierbarer Texteditor
     "vim-airline"    # vim-airline, Status-/Tabline für VIM
     "vim-fugitive"   # vim-fugitive, ein Git-Wrapper für VIM
+    "vim-gitgutter"  # vim plugin which shows a git diff in the 'gutter' (sign column)
     "cmatrix"        # cmatrix, zeigt die Matrix-Falling-Characters-Animation
     "figlet"	     # converts user input into ASCII banners
 )

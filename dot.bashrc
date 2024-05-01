@@ -149,10 +149,6 @@ alias gps='git push'
 alias gpl='git pull'
 alias gco='git checkout'
 
-#alias rm='rm -i'
-#alias mv='mv -i'
-#alias cp='cp -i'
-
 bind "set completion-ignore-case on" # ignore upper and lower case when TAB completion
 
 # set -o vi	# set vi mode in bash shell
