@@ -44,6 +44,10 @@ cp ~/.bashrc ~/.bashrc_backup
 cp ~/.vimrc ~/.vimrc_backup
 ```
 
+## Risk Advisory
+
+**Please note:** Running scripts can significantly alter the behavior of your system. It is highly advised to review each script to understand what changes will be made to your system. For safety, test the scripts in a controlled, virtual environment before applying them on your primary machine. This helps prevent unintended system behavior or data loss.
+
 ## Contribution
 
 This repository is primarily for personal backup. However, if you have suggestions for improvements, I welcome issues or pull requests.
