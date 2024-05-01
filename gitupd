@@ -26,8 +26,6 @@ echo "Updating dotfiles..."
 # dotfiles
 cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc"
 cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc"
-cp -u $HOME/.config/awesome/rc.lua "$DEVELOP_DIR/rc.lua"
-cp -u $HOME/.config/awesome/rc.lua.original "$DEVELOP_DIR/rc.lua.original"
 
 echo "Updating scripts..."
 # scripts
@@ -38,7 +36,10 @@ for script in "${scripts[@]}"; do
 done
 
 echo "Updating configuration files..."
-# config files
+# config files for open repo "github"
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
+# config file for private repo "develop"
+cp -u $HOME/.config/awesome/rc.lua "$DEVELOP_DIR/rc.lua"
+cp -u $HOME/.config/awesome/rc.lua.original "$DEVELOP_DIR/rc.lua.original"
 
 echo "Update process completed."
