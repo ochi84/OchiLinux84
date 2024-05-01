@@ -27,10 +27,6 @@ for script in "${scripts[@]}"; do
     cp -u "/usr/local/bin/$script" "$GITHUB_DIR/"
 done
 
-echo "Updating info files..."
-# info files
-cp -u $HOME/Dokumente/info/* "$GITHUB_DIR/"
-
 echo "Updating configuration files..."
 # config files
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
