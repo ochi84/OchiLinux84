@@ -13,20 +13,10 @@
 # Requires root: Yes
 # Usage: Run as root to clean system caches, backup $HOME, and sync files to GitHub.
 
-# Check if the script is running as root
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root."
-   exit 1
-fi
-
-echo "Starting system cleanup..."
-sudo apt clean
-sudo apt autoremove -y
-
 echo "Starting backup..."
 BACKUP_DIR="$HOME/.backups"
 BACKUP_DIR_EXT="/media/jens/Elements/hpbackup/"
-BACKUP_FILE="hpbackup_$(date +%Y%m%d).tar.gz"
+BACKUP_FILE="backup_$(date +%Y%m%d).tar.gz"
 
 # Check if the external backup drive is available
 if [ ! -d "$BACKUP_DIR_EXT" ]; then
@@ -39,27 +29,6 @@ mkdir -p "$BACKUP_DIR"
 
 # Create the backup archive
 tar -czf "$BACKUP_DIR/$BACKUP_FILE" --exclude="$BACKUP_DIR" "$HOME"
-
-echo "Starting backup of configuration files..."
-
-# Create an array of files to back up
-config_files=("$HOME/.bashrc" "$HOME/.vimrc" "$HOME/.local/share/backgrounds/*")
-
-# Create a backup of .bashrc before modifying
-if [ -f "$HOME/.bashrc" ]; then
-    cp -u "$HOME/.bashrc" "$HOME/.bashrc.bak"
-fi
-
-# Loop through the array and copy each file to the backup directory
-for file in "${config_files[@]}"; do
-    if [ -f "$file" ] || [ -d "$file" ]; then
-        cp -ur $file "$BACKUP_DIR"
-    else
-        echo "Warning: $file not found and will not be backed up."
-    fi
-done
-
-echo "Backup of configuration files created in: $BACKUP_DIR"
 
 # Copy files from local backup to external hard drive using rsync
 rsync -avh --progress $BACKUP_DIR/ $BACKUP_DIR_EXT
