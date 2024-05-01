@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Script: System Maintenance
+# Author: Jens Ochmann
+# Description: Performs updates and cleanup tasks on Ubuntu 22.04 systems.
+# Location: /usr/local/bin/system-maintenance
+# Usage: Run as root to update packages and clean up the system.
+
 # Combined update and cleanup script for Ubuntu 22.04 systems
 
 # Ensure the script is run as root
