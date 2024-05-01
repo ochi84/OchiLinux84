@@ -41,6 +41,34 @@ set showmatch
 " enable mouse interaction
 set mouse=a
 
+" Scrollen mit der Maus
+set mouse=a
+set scrolloff=8
+set sidescrolloff=8
+
+" Verbessertes Wrapping von Zeilen
+set linebreak
+
+" Bessere Bewegung zwischen Fenstern
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
+
+" Automatische Konvertierung von Tabs zu Leerzeichen
+set expandtab
+
+" Größe der Einrückung
+set shiftwidth=4
+set tabstop=4
+
+" Smarteres Einrücken
+set smartindent
+
 " PLUGINS
 let g:airline_theme='angr'
 let g:airline#extensions#whitespace#enabled = 0
+
+" NERDTree installieren und konfigurieren
+Plugin 'preservim/nerdtree'
+map <C-n> :NERDTreeToggle<CR>
