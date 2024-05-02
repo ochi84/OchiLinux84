@@ -27,6 +27,10 @@ applications=(
     "vim-gitgutter"  # vim plugin which shows a git diff in the 'gutter' (sign column)
     "cmatrix"        # cmatrix, zeigt die Matrix-Falling-Characters-Animation
     "figlet"	     # converts user input into ASCII banners
+    "awesome"        # Hochkonfigurierbarer Fenstermanage für X
+    "compton"        # compton implements window frame opacity control
+    "nitrogen"       # X-Hilfsprogramm zum Betrachten und Wechseln von Hintergrundbildern
+    "dmenue"         # a dynamix menu for X
 )
 
 # Installation der Anwendungen mit apt-get

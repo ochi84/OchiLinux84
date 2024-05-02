@@ -38,9 +38,10 @@ done
 echo "Updating configuration files..."
 # config files for open repo "github"
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
+cp -u $HOME/.config/awesome/rc.lua "$GITHUB_DIR/rc.lua"
+cp -u $HOME/.config/awesome/rc.lua.bak "$GITHUB_DIR/rc.lua.bak"
+cp -u $HOME/.config/awesome/rc.lua.original "$GITHUB_DIR/rc.lua.original"
 # config file for private repo "develop"
-cp -u $HOME/.config/awesome/rc.lua "$DEVELOP_DIR/rc.lua"
-cp -u $HOME/.config/awesome/rc.lua.bak "$DEVELOP_DIR/rc.lua.bak"
-cp -u $HOME/.config/awesome/rc.lua.original "$DEVELOP_DIR/rc.lua.original"
+# (none)
 
 echo "Update process completed."
