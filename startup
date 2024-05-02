@@ -31,6 +31,7 @@ applications=(
     "compton"        # compton implements window frame opacity control
     "nitrogen"       # X-Hilfsprogramm zum Betrachten und Wechseln von Hintergrundbildern
     "dmenue"         # a dynamix menu for X
+    "figlet"         # Erzeugt aus gewöhnlichem Text ASCII-Banner
 )
 
 # Installation der Anwendungen mit apt-get
