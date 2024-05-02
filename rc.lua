@@ -51,6 +51,11 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
+
+-- beautiful.init(gears.filesystem.get_configuration_dir() .. "/themes/default/theme.lua")
+local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "default")
+beautiful.init(theme_path)
+
 -- This is used later as the default terminal and editor to run.
 terminal = "tilix"
 editor = os.getenv("vim") or "editor"
@@ -119,7 +124,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+-- mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -340,7 +345,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey },            "b",     function () awful.util.spawn ("firefox") end,
               {description = "firefox", group = "launcher"}),
     
-
     -- awful.key({ modkey }, "x",
     --           function ()
     --               awful.prompt.run {
@@ -499,6 +503,7 @@ awful.rules.rules = {
           "Gnome-calculator",
           "Kruler",
           "MessageWin",  -- kalarm.
+          "Nitrogen",
           "Packagekit",
           "Sxiv",
           "Synaptic",
@@ -597,6 +602,13 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Gaps
 beautiful.useless_gap = 5
 
+-- Rounded client corners
+client.connect_signal("manage", function(c)
+    c.shape = function(cr, w, h)
+        gears.shape.rounded_rect (cr, w, h, 10)
+    end
+end)
+
 -- Autostart
 awful.spawn.with_shell("compton")
-awful.spawn.with_shell("nitrogen --restore")
+-- awful.spawn.with_shell("nitrogen --restore")
