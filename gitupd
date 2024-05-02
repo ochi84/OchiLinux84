@@ -40,6 +40,7 @@ echo "Updating configuration files..."
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
 # config file for private repo "develop"
 cp -u $HOME/.config/awesome/rc.lua "$DEVELOP_DIR/rc.lua"
+cp -u $HOME/.config/awesome/rc.lua.bak "$DEVELOP_DIR/rc.lua.bak"
 cp -u $HOME/.config/awesome/rc.lua.original "$DEVELOP_DIR/rc.lua.original"
 
 echo "Update process completed."
