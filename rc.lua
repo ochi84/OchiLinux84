@@ -289,6 +289,12 @@ globalkeys = gears.table.join(
         end,
         {description = "go back", group = "client"}),
 
+
+    -- volume media keys
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -D pulse sset Master 10%+", false) end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -D pulse sset Master 10%-", false) end),
+    awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sset Master toggle", false) end),
+
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
@@ -330,14 +336,11 @@ globalkeys = gears.table.join(
     -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
     --           {description = "run prompt", group = "launcher"}),
 
-    -- Dmenu
-    awful.key({ modkey },            "o",     function () awful.util.spawn ("dmenu_run") end,
-              {description = "launch dmenu", group = "launcher"}),
-              
     -- Firefox
     awful.key({ modkey },            "b",     function () awful.util.spawn ("firefox") end,
               {description = "firefox", group = "launcher"}),
     
+
     -- awful.key({ modkey }, "x",
     --           function ()
     --               awful.prompt.run {
@@ -349,10 +352,11 @@ globalkeys = gears.table.join(
     --           end,
     --           {description = "lua execute prompt", group = "awesome"}),
     
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
+    -- Menubar (Dmenu)
+    awful.key({ modkey }, "o", function() awful.util.spawn ("dmenu_run") end,
               {description = "show the menubar", group = "launcher"})
 )
+
 clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
@@ -492,9 +496,12 @@ awful.rules.rules = {
           "Arandr",
           "Blueman-manager",
           "Gpick",
+          "Gnome-calculator",
           "Kruler",
           "MessageWin",  -- kalarm.
+          "Packagekit",
           "Sxiv",
+          "Synaptic",
           "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
           "Wpa_gui",
           "veromix",
