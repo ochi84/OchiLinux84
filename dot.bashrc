@@ -4,7 +4,7 @@
 #   | '_ \ / _` / __| '_ \| '__/ __|
 #  _| |_) | (_| \__ \ | | | | | (__ 
 # (_)_.__/ \__,_|___/_| |_|_|  \___|
-#
+
 #/# ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -125,7 +125,7 @@ alias ....='cd ../../..'
 
 # programaliases
 alias btop='bpytop -lc'
-alias m='micro'
+alias edit='micro'
 alias web='w3m'
 alias x='cmatrix -b -u8'
 alias r='ranger'
@@ -148,6 +148,14 @@ alias gd='git done'
 alias gps='git push'
 alias gpl='git pull'
 alias gco='git checkout'
+
+
+# change awesome background wallpaper
+alias awbg='sudo cp background.png /usr/share/awesome/themes/default/ && cp background.png ~/.config/awesome/themes/default/'
+
+#alias rm='rm -i'
+#alias mv='mv -i'
+#alias cp='cp -i'
 
 bind "set completion-ignore-case on" # ignore upper and lower case when TAB completion
 
