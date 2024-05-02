@@ -185,7 +185,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -344,11 +344,11 @@ globalkeys = gears.table.join(
     --               }
     --           end,
     --           {description = "lua execute prompt", group = "awesome"}),
+    
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
 )
-
 clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
@@ -362,8 +362,8 @@ clientkeys = gears.table.join(
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
-    awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
-              {description = "move to screen", group = "client"}),
+    -- awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
+    --           {description = "move to screen", group = "client"}),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
     awful.key({ modkey,           }, "n",
@@ -576,7 +576,7 @@ end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
-    c:emit_signal("request::activate", "mouse_enter", {raise = false})
+    c:emit_signal("request::activate", "mouse_enter", {raise = true})
 end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
@@ -584,7 +584,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Gaps
-beautiful.useless_gap = 6
+beautiful.useless_gap = 5
 
 -- Autostart
 awful.spawn.with_shell("compton")
