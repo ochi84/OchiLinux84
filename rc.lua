@@ -255,6 +255,10 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
+              
+awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -D pulse sset Master 10%+", false) end),
+awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -D pulse sset Master 10%-", false) end),
+awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sset Master toggle", false) end),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -352,7 +356,7 @@ globalkeys = gears.table.join(
                  {description = "launch dmenu", group = "launcher"}),
 
        -- launch browser
-       awful.key({ modkey }, "b", function() awful.util.spawn ("firefox") end,
+       awful.key({ modkey }, "b", function() awful.util.spawn ("qutebrowser") end,
                  {description = "launch browser", group = "launcher"})
 )
 
