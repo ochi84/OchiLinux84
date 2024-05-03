@@ -79,7 +79,7 @@ GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
 
-PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 " (%s)")';  PS1=' \[\033[0;35m\]\w \[\033[0;34m\]\$\[\e[91m\]${PS1_CMD1} \[\033[0;37m\]> '
+PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 " (%s)")';  PS1=' \[\033[0;35m\]\w \[\033[0;32m\]\$\[\e[91m\]${PS1_CMD1} \[\033[0;37m\]> '
 	
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -113,10 +113,13 @@ fi
 ### ALIASES ###
 
 # lsaliases
-alias ll='exa -l --color=always --group-directories-first'	# my preferred listing
-alias la='exa -al --color=always --group-directories-first'	# all files and dirs
-alias lt='exa -T --color=always --group-directories-first'	# tree listing
-alias l.='exa -a | grep "^\."'					# list all hidden files in dir
+alias ll='ls -gh'
+alias la='ls -gAh'
+alias l.='ls -A | grep "^\."'
+# alias ll='exa -l --color=always --group-directories-first' 
+# alias la='exa -al --color=always --group-directories-first'
+# alias lt='exa -T --color=always --group-directories-first'
+# alias l.='exa -a | grep "^\."'
 
 # cdaliases
 alias ..='cd ..'
