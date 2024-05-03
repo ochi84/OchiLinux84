@@ -26,7 +26,6 @@ declare -A DIRS=(
 )
 
 GITHUB_DIR="$HOME/github"
-INFO_DIR="$HOME/Dokumente/info"
 
 # Copy scripts and config files
 for file in "${!DIRS[@]}"; do

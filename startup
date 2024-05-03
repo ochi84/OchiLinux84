@@ -25,6 +25,7 @@ applications=(
     "vim-airline"    # vim-airline, Status-/Tabline für VIM
     "vim-fugitive"   # vim-fugitive, ein Git-Wrapper für VIM
     "vim-gitgutter"  # vim plugin which shows a git diff in the 'gutter' (sign column)
+    "micro"          # Texteditor
     "cmatrix"        # cmatrix, zeigt die Matrix-Falling-Characters-Animation
     "exa"            # modern replacement for ls
     "figlet"	     # converts user input into ASCII banners

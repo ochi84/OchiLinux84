@@ -16,10 +16,15 @@
 GITHUB_DIR="$HOME/github"
 DEVELOP_DIR="$HOME/develop"
 
-# Check if the GitHub directory exists
+# Check if the GitHub directorys exists
 if [ ! -d "$GITHUB_DIR" ]; then
-    echo "GitHub directory does not exist. Creating directory: $GITHUB_DIR"
+    echo "github directory does not exist. Creating directory: $GITHUB_DIR"
     mkdir -p "$GITHUB_DIR"
+fi
+
+if [ ! -d "$DEVELOP_DIR" ]; then
+    echo "develop directory does not exist. Creating directory: $DEVELOP_DIR"
+    mkdir -p "$DEVELOP_DIR"
 fi
 
 echo "Updating dotfiles..."
