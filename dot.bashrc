@@ -128,7 +128,7 @@ alias ....='cd ../../..'
 
 # programaliases
 alias btop='bpytop -lc'
-alias edit='micro'
+alias m='micro'
 alias web='w3m'
 alias x='cmatrix -b -u8'
 alias r='ranger'
