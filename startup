@@ -28,6 +28,8 @@ applications=(
     "micro"          # Texteditor
     "cmatrix"        # cmatrix, zeigt die Matrix-Falling-Characters-Animation
     "exa"            # modern replacement for ls
+    "awesome"
+    "picom"
     "figlet"	     # converts user input into ASCII banners
 )
 

@@ -23,6 +23,8 @@ declare -A DIRS=(
     [snapcrash]="/usr/local/bin/"
     [update]="/usr/local/bin/"
     [dispatch]="/usr/local/bin/"
+    [picom.conf]="$HOME/.config/picom/picom.conf"
+    [rc.lua]="$HOME/.config/awesome/rc.lua"
 )
 
 GITHUB_DIR="$HOME/github"
