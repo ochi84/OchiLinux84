@@ -29,6 +29,7 @@ applications=(
     "cmatrix"        # cmatrix, zeigt die Matrix-Falling-Characters-Animation
     "exa"            # modern replacement for ls
     "awesome"
+    "qutebrowser"
     "picom"
     "figlet"	     # converts user input into ASCII banners
 )
