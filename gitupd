@@ -32,6 +32,7 @@ echo "Updating rc- & configfiles..."
 cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc"
 cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc"
 cp -u $HOME/.config/awesome/rc.lua "$GITHUB_DIR/rc.lua"
+cp -u $HOME/.config/awesome/rc.lua.original "$GITHUB_DIR/rc.lua.original"
 
 # config files for open repo "github"
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
