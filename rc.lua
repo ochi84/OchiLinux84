@@ -121,51 +121,51 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+-- mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
--- Create a wibox for each screen and add it
-local taglist_buttons = gears.table.join(
-                    awful.button({ }, 1, function(t) t:view_only() end),
-                    awful.button({ modkey }, 1, function(t)
-                                              if client.focus then
-                                                  client.focus:move_to_tag(t)
-                                              end
-                                          end),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, function(t)
-                                              if client.focus then
-                                                  client.focus:toggle_tag(t)
-                                              end
-                                          end),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
-                )
-
-local tasklist_buttons = gears.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  c:emit_signal(
-                                                      "request::activate",
-                                                      "tasklist",
-                                                      {raise = true}
-                                                  )
-                                              end
-                                          end),
-                     awful.button({ }, 3, function()
-                                              awful.menu.client_list({ theme = { width = 250 } })
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                          end))
+-- -- Create a wibox for each screen and add it
+-- local taglist_buttons = gears.table.join(
+--                     awful.button({ }, 1, function(t) t:view_only() end),
+--                     awful.button({ modkey }, 1, function(t)
+--                                               if client.focus then
+--                                                   client.focus:move_to_tag(t)
+--                                               end
+--                                           end),
+--                     awful.button({ }, 3, awful.tag.viewtoggle),
+--                     awful.button({ modkey }, 3, function(t)
+--                                               if client.focus then
+--                                                   client.focus:toggle_tag(t)
+--                                               end
+--                                           end),
+--                     awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
+--                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+--                 )
+-- 
+-- local tasklist_buttons = gears.table.join(
+--                      awful.button({ }, 1, function (c)
+--                                               if c == client.focus then
+--                                                   c.minimized = true
+--                                               else
+--                                                   c:emit_signal(
+--                                                       "request::activate",
+--                                                       "tasklist",
+--                                                       {raise = true}
+--                                                   )
+--                                               end
+--                                           end),
+--                      awful.button({ }, 3, function()
+--                                               awful.menu.client_list({ theme = { width = 250 } })
+--                                           end),
+--                      awful.button({ }, 4, function ()
+--                                               awful.client.focus.byidx(1)
+--                                           end),
+--                      awful.button({ }, 5, function ()
+--                                               awful.client.focus.byidx(-1)
+--                                           end))
 
 local function set_wallpaper(s)
     -- Wallpaper
@@ -207,11 +207,11 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
-    }
+    -- s.mytasklist = awful.widget.tasklist {
+    --     screen  = s,
+    --     filter  = awful.widget.tasklist.filter.currenttags,
+    --     buttons = tasklist_buttons
+    -- }
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -348,7 +348,11 @@ globalkeys = gears.table.join(
 
     -- Dmenu
     awful.key({ modkey }, "p", function() awful.util.spawn ("dmenu_run") end,
-              {description = "launch dmenu", group = "launcher"})
+              {description = "launch dmenu", group = "launcher"}),
+
+    -- Launch Browser
+    awful.key({ modkey }, "b", function() awful.util.spawn ("firefox") end,
+              {description = "Launch Browser", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -510,14 +514,14 @@ awful.rules.rules = {
         }
       }, properties = { floating = true }},
 
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
-    },
+--     -- Add titlebars to normal clients and dialogs
+--     { rule_any = {type = { "normal", "dialog" }
+--       }, properties = { titlebars_enabled = true }
+--     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+    { rule = { class = "firefox" },
+      properties = { screen = 1, tag = "2" } },
 }
 -- }}}
 
@@ -536,53 +540,56 @@ client.connect_signal("manage", function (c)
     end
 end)
 
--- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-    -- buttons for the titlebar
-    local buttons = gears.table.join(
-        awful.button({ }, 1, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 3, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.resize(c)
-        end)
-    )
-
-    awful.titlebar(c) : setup {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
-end)
+-- -- Add a titlebar if titlebars_enabled is set to true in the rules.
+-- client.connect_signal("request::titlebars", function(c)
+--     -- buttons for the titlebar
+--     local buttons = gears.table.join(
+--         awful.button({ }, 1, function()
+--             c:emit_signal("request::activate", "titlebar", {raise = true})
+--             awful.mouse.client.move(c)
+--         end),
+--         awful.button({ }, 3, function()
+--             c:emit_signal("request::activate", "titlebar", {raise = true})
+--             awful.mouse.client.resize(c)
+--         end)
+--     )
+-- 
+--     awful.titlebar(c) : setup {
+--         { -- Left
+--             awful.titlebar.widget.iconwidget(c),
+--             buttons = buttons,
+--             layout  = wibox.layout.fixed.horizontal
+--         },
+--         { -- Middle
+--             { -- Title
+--                 align  = "center",
+--                 widget = awful.titlebar.widget.titlewidget(c)
+--             },
+--             buttons = buttons,
+--             layout  = wibox.layout.flex.horizontal
+--         },
+--         { -- Right
+--             awful.titlebar.widget.floatingbutton (c),
+--             awful.titlebar.widget.maximizedbutton(c),
+--             awful.titlebar.widget.stickybutton   (c),
+--             awful.titlebar.widget.ontopbutton    (c),
+--             awful.titlebar.widget.closebutton    (c),
+--             layout = wibox.layout.fixed.horizontal()
+--         },
+--         layout = wibox.layout.align.horizontal
+--     }
+-- end)
 
 -- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal("mouse::enter", function(c)
-    c:emit_signal("request::activate", "mouse_enter", {raise = false})
-end)
+-- client.connect_signal("mouse::enter", function(c)
+--     c:emit_signal("request::activate", "mouse_enter", {raise = false})
+-- end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- Gaps
+beautiful.useless_gap = 5
 
 awful.spawn.with_shell("picom --experimental-backends")
