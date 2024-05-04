@@ -10,51 +10,51 @@
 # file information
 # name:         startup (script)
 # location:     /usr/local/bin
-# function:     Install specified applications and execute the 'dispatch' script
+# function:     Install specified applications and run the 'dispatch' script
 
-RED='\033[0;31m'  # Red for error messages
-NC='\033[0m'      # No color
+# Define colors
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
-# Function to print errors in red
-print_error() {
-    echo -e "${RED}$1${NC}"
-}
-
-echo "Starting installation of applications..."
+echo -e "${YELLOW}Starting the installation of applications...${NC}"
 
 # List of applications to install
-# Add new packages to install by including them in this list.
 applications=(
-    "mc"             # Midnight Commander, a text-based file manager
-    "ranger"         # Ranger, a file manager with VI keybindings
-    "fzf"            # Fuzzy Finder, a powerful search tool
-    "bpytop"         # a resource monitoring tool
-    "vim"            # VIM, a highly configurable text editor
-    "vim-airline"    # vim-airline, a status/tabline for VIM
-    "vim-fugitive"   # vim-fugitive, a Git wrapper for VIM
-    "vim-gitgutter"  # vim plugin which shows a git diff in the 'gutter' (sign column)
-    "micro"          # Text editor
-    "cmatrix"        # cmatrix, displays the Matrix falling characters animation
-    "exa"            # modern replacement for ls
+    "mc"            # Midnight Commander, a text-based file manager
+    "ranger"        # Ranger, a file manager with VI keybindings
+    "fzf"           # Fuzzy Finder, a powerful searching tool
+    "bpytop"        # a resource monitoring tool
+    "vim"           # VIM, a highly configurable text editor
+    "vim-airline"   # vim-airline, a status/tab line for VIM
+    "vim-fugitive"  # vim-fugitive, a Git wrapper for VIM
+    "vim-gitgutter" # vim plugin which shows a git diff in the 'gutter' (sign column)
+    "micro"         # Text editor
+    "cmatrix"       # cmatrix, displays the Matrix falling characters animation
+    "exa"           # modern replacement for ls
     "awesome"
     "qutebrowser"
     "picom"
-    "figlet"         # converts user input into ASCII banners
+    "figlet"        # converts user input into ASCII banners
 )
 
-# Installing applications with apt-get
+# Installing applications using apt-get
 for app in "${applications[@]}"; do
-    if ! sudo apt-get install -y $app; then
-        print_error "Failed to install: $app"
+    if sudo apt-get install -y $app; then
+        echo -e "${YELLOW}Installed $app successfully.${NC}"
+    else
+        echo -e "${RED}Failed to install $app.${NC}"
     fi
 done
 
-echo "All desired applications have been installed."
+echo -e "${YELLOW}All desired applications have been installed.${NC}"
 
-echo "Executing the 'dispatch' script..."
+echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
 # Ensure that the 'dispatch' script is executable and available in PATH
-if ! /usr/local/bin/dispatch; then
-    print_error "Error executing 'dispatch'."
+if /usr/local/bin/dispatch; then
+    echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
+else
+    echo -e "${RED}Failed to execute the dispatch script.${NC}"
 fi
 
-echo "Startup process completed."
+echo -e "${YELLOW}Startup process completed.${NC}"

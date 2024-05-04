@@ -7,46 +7,37 @@
 #  \__,_|_|___/ .__/ \__,_|\__\___|_| |_|
 #             |_|                        
 #
-# Script: File Dispatcher
+# Script: dispatch
 # Author: Jens Ochmann
-# Description: Synchronizes selected files from GitHub directory to local system directories.
+# Description: Controls and monitors the execution of various system tasks.
 # Location: /usr/local/bin/dispatch
-# Usage: Run to distribute configuration files and scripts from GitHub repository to appropriate locations.
+# Usage: Used internally by startup scripts.
 
-# Define directories
-declare -A DIRS=(
-    [dot.bashrc]="$HOME/.bashrc"
-    [dot.vimrc]="$HOME/.vimrc"
-    [rc.conf]="$HOME/.config/ranger/rc.conf"
-    [backup]="/usr/local/bin/"
-    [gitupd]="/usr/local/bin/"
-    [snapcrash]="/usr/local/bin/"
-    [update]="/usr/local/bin/"
-    [dispatch]="/usr/local/bin/"
-    [picom.conf]="$HOME/.config/picom/picom.conf"
-    [rc.lua]="$HOME/.config/awesome/rc.lua"
-)
-
-GITHUB_DIR="$HOME/github"
+# Define colors
 RED='\033[0;31m'
+YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Copy scripts and config files
-for file in "${!DIRS[@]}"; do
-    src="$GITHUB_DIR/$file"
-    dest="${DIRS[$file]}"
+echo -e "${YELLOW}Starting dispatch operations...${NC}"
 
-    if [ -f "$src" ]; then
-        if [[ $dest == */bin/* ]]; then
-            sudo cp -u "$src" "$dest"
-            sudo chmod +x "$dest$file"
-        else
-            cp -u "$src" "$dest"
-        fi
-        echo "Copied $src to $dest"
-    else
-        printf "${RED}Error: $src does not exist.${NC}\n"
-    fi
-done
+# Add your task conditions and operations here
+# For example, a simple file backup could look like this:
+backup_folder="$HOME/backup"
+source_folder="$HOME/documents"
 
-echo "All files have been copied successfully."
+# Ensure backup folder exists
+if [ ! -d "$backup_folder" ]; then
+    echo -e "${YELLOW}Creating backup folder...${NC}"
+    mkdir -p "$backup_folder"
+fi
+
+# Perform backup
+echo -e "${YELLOW}Backing up files...${NC}"
+cp -r $source_folder/* $backup_folder/
+if [ $? -eq 0 ]; then
+    echo -e "${YELLOW}Files backed up successfully.${NC}"
+else
+    echo -e "${RED}Failed to backup files.${NC}"
+fi
+
+echo -e "${YELLOW}Dispatch operations completed.${NC}"
