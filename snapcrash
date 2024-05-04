@@ -11,7 +11,7 @@
 # Author: Jens Ochmann
 # Description: Terminates, updates, removes, and reinstalls the Snap Store to resolve common issues.
 # Location: /usr/local/bin/snap-repair
-# Usage: Execute to perform maintenance on the Snap Store when experiencing issues.
+# Usage: Execute with './snapcrash' to perform maintenance on the Snap Store when experiencing issues.
 
 # Define colors
 RED='\033[0;31m'

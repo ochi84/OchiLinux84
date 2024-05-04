@@ -9,9 +9,9 @@
 #
 # Script: System Maintenance and Backup
 # Author: Jens Ochmann
-# Purpose: Perform system cleanup, local and external backup of files.
+# Purpose: Perform local and external backup of files.
 # Requires root: Yes
-# Usage: Run as root to clean system caches, backup $HOME, and sync files to GitHub.
+# Usage: Execute with './backup' to backup $HOME, and sync files to GitHub.
 
 # Color definitions
 RED='\033[0;31m'

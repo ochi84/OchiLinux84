@@ -11,7 +11,7 @@
 # Author: Jens Ochmann
 # Description: Controls and monitors the execution of various system tasks.
 # Location: /usr/local/bin/dispatch
-# Usage: Used internally by startup scripts.
+# Usage: Execute with './dispatch' to update files from $HOME/github.
 
 # Define colors
 RED='\033[0;31m'
