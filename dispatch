@@ -28,17 +28,24 @@ declare -A DIRS=(
 )
 
 GITHUB_DIR="$HOME/github"
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
 # Copy scripts and config files
 for file in "${!DIRS[@]}"; do
     src="$GITHUB_DIR/$file"
     dest="${DIRS[$file]}"
 
-    if [[ $dest == */bin/* ]]; then
-        sudo cp -u "$src" "$dest"
-        sudo chmod +x "$dest$file"
+    if [ -f "$src" ]; then
+        if [[ $dest == */bin/* ]]; then
+            sudo cp -u "$src" "$dest"
+            sudo chmod +x "$dest$file"
+        else
+            cp -u "$src" "$dest"
+        fi
+        echo "Copied $src to $dest"
     else
-        cp -u "$src" "$dest"
+        printf "${RED}Error: $src does not exist.${NC}\n"
     fi
 done
 

@@ -13,6 +13,14 @@
 # Location: /usr/local/bin/snap-repair
 # Usage: Execute to perform maintenance on the Snap Store when experiencing issues.
 
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# Function to print errors in red
+function print_error {
+    echo -e "${RED}$1${NC}"
+}
+
 echo
 echo "Deleting all Snap Store processes..."
 killall snap-store
@@ -20,19 +28,19 @@ killall snap-store
 if [ $? -eq 0 ]; then
     echo "Snap Store processes successfully terminated."
 else
-    echo "Error terminating Snap Store processes. They may not have been active."
+    print_error "Error terminating Snap Store processes. They may not have been active."
 fi
 
 echo
 echo "Updating Snaps..."
-sudo snap refresh
+if ! sudo snap refresh; then
+    print_error "Error updating Snaps."
+fi
 
 echo
 echo "Updating package lists and performing a full upgrade..."
-if sudo apt update && sudo apt full-upgrade -y; then
-    echo "System successfully updated."
-else
-    echo "Error updating the system."
+if ! sudo apt update || ! sudo apt full-upgrade -y; then
+    print_error "Error updating the system."
 fi
 
 echo
@@ -40,7 +48,7 @@ echo "Removing Snap Store..."
 if sudo snap remove snap-store; then
     echo "Snap Store successfully removed."
 else
-    echo "Error removing the Snap Store."
+    print_error "Error removing the Snap Store."
 fi
 
 echo
@@ -48,5 +56,5 @@ echo "Installing Snap Store..."
 if sudo snap install snap-store; then
     echo "Snap Store successfully installed."
 else
-    echo "Error installing the Snap Store."
+    print_error "Error installing the Snap Store."
 fi

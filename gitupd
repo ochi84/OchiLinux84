@@ -15,38 +15,55 @@
 
 GITHUB_DIR="$HOME/github"
 DEVELOP_DIR="$HOME/develop"
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
-# Check if the GitHub directorys exists
+# Function to print errors in red
+function print_error {
+    echo -e "${RED}$1${NC}"
+}
+
+# Check if the GitHub directory exists
 if [ ! -d "$GITHUB_DIR" ]; then
-    echo "github directory does not exist. Creating directory: $GITHUB_DIR"
-    mkdir -p "$GITHUB_DIR"
+    echo "GitHub directory does not exist. Creating directory: $GITHUB_DIR"
+    mkdir -p "$GITHUB_DIR" || print_error "Failed to create $GITHUB_DIR"
 fi
 
 if [ ! -d "$DEVELOP_DIR" ]; then
-    echo "develop directory does not exist. Creating directory: $DEVELOP_DIR"
-    mkdir -p "$DEVELOP_DIR"
+    echo "Develop directory does not exist. Creating directory: $DEVELOP_DIR"
+    mkdir -p "$DEVELOP_DIR" || print_error "Failed to create $DEVELOP_DIR"
 fi
 
-echo "Updating rc- & configfiles..."
+echo "Updating rc- & config files..."
 # dotfiles
-cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc"
-cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc"
-cp -u $HOME/.config/awesome/rc.lua "$GITHUB_DIR/rc.lua"
-cp -u $HOME/.config/awesome/rc.lua.original "$GITHUB_DIR/rc.lua.original"
+if ! cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc"; then
+    print_error "Failed to update $HOME/.bashrc"
+fi
+if ! cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc"; then
+    print_error "Failed to update $HOME/.vimrc"
+fi
+if ! cp -u $HOME/.config/awesome/rc.lua "$GITHUB_DIR/rc.lua"; then
+    print_error "Failed to update rc.lua"
+fi
+if ! cp -u $HOME/.config/awesome/rc.lua.original "$GITHUB_DIR/rc.lua.original"; then
+    print_error "Failed to update rc.lua.original"
+fi
 
 # config files for open repo "github"
-cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"
-cp -u $HOME/.config/picom/picom.conf "$GITHUB_DIR/picom.conf"
-
-# config file for private repo "develop"
-# (none)
+if ! cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf"; then
+    print_error "Failed to update rc.conf"
+fi
+if ! cp -u $HOME/.config/picom/picom.conf "$GITHUB_DIR/picom.conf"; then
+    print_error "Failed to update picom.conf"
+fi
 
 echo "Updating scripts..."
 # scripts
-# Here, you should define a list of specific scripts to be copied.
 declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup")
 for script in "${scripts[@]}"; do
-    cp -u "/usr/local/bin/$script" "$GITHUB_DIR/"
+    if ! cp -u "/usr/local/bin/$script" "$GITHUB_DIR/"; then
+        print_error "Failed to update $script"
+    fi
 done
 
 echo "Update process completed."

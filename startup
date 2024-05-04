@@ -10,39 +10,51 @@
 # file information
 # name:         startup (script)
 # location:     /usr/local/bin
-# function:     Install specified applications and run the 'dispatch' script
+# function:     Install specified applications and execute the 'dispatch' script
 
-echo "Installation der Anwendungen beginnt..."
+RED='\033[0;31m'  # Red for error messages
+NC='\033[0m'      # No color
 
-# Liste der zu installierenden Pakete
-# Fügen Sie neue Pakete zur Installation hinzu, indem Sie sie einfach in diese Liste aufnehmen.
+# Function to print errors in red
+print_error() {
+    echo -e "${RED}$1${NC}"
+}
+
+echo "Starting installation of applications..."
+
+# List of applications to install
+# Add new packages to install by including them in this list.
 applications=(
-    "mc"             # Midnight Commander, ein textbasierter Dateimanager
-    "ranger"         # Ranger, ein Dateimanager mit VI-Keybindings
-    "fzf"            # Fuzzy Finder, ein leistungsfähiges Suchtool
-    "bpytop"         # ein Ressourcenüberwachungs-Tool
-    "vim"            # VIM, ein hochkonfigurierbarer Texteditor
-    "vim-airline"    # vim-airline, Status-/Tabline für VIM
-    "vim-fugitive"   # vim-fugitive, ein Git-Wrapper für VIM
+    "mc"             # Midnight Commander, a text-based file manager
+    "ranger"         # Ranger, a file manager with VI keybindings
+    "fzf"            # Fuzzy Finder, a powerful search tool
+    "bpytop"         # a resource monitoring tool
+    "vim"            # VIM, a highly configurable text editor
+    "vim-airline"    # vim-airline, a status/tabline for VIM
+    "vim-fugitive"   # vim-fugitive, a Git wrapper for VIM
     "vim-gitgutter"  # vim plugin which shows a git diff in the 'gutter' (sign column)
-    "micro"          # Texteditor
-    "cmatrix"        # cmatrix, zeigt die Matrix-Falling-Characters-Animation
+    "micro"          # Text editor
+    "cmatrix"        # cmatrix, displays the Matrix falling characters animation
     "exa"            # modern replacement for ls
     "awesome"
     "qutebrowser"
     "picom"
-    "figlet"	     # converts user input into ASCII banners
+    "figlet"         # converts user input into ASCII banners
 )
 
-# Installation der Anwendungen mit apt-get
+# Installing applications with apt-get
 for app in "${applications[@]}"; do
-    sudo apt-get install -y $app
+    if ! sudo apt-get install -y $app; then
+        print_error "Failed to install: $app"
+    fi
 done
 
-echo "Alle gewünschten Anwendungen wurden installiert."
+echo "All desired applications have been installed."
 
-echo "Führe das 'dispatch' Skript aus..."
-# Stellen Sie sicher, dass das 'dispatch' Skript ausführbar ist und im PATH verfügbar
-/usr/local/bin/dispatch
+echo "Executing the 'dispatch' script..."
+# Ensure that the 'dispatch' script is executable and available in PATH
+if ! /usr/local/bin/dispatch; then
+    print_error "Error executing 'dispatch'."
+fi
 
-echo "Startup-Prozess abgeschlossen."
+echo "Startup process completed."

@@ -13,44 +13,58 @@
 # Location: /usr/local/bin/system-maintenance
 # Usage: Run as root to update packages and clean up the system.
 
-# Combined update and cleanup script for Ubuntu 22.04 systems
-
 # Ensure the script is run as root
 if [ "$(id -u)" != "0" ]; then
-   echo "This script must be run as root" 1>&2
+   echo -e "\033[0;31mThis script must be run as root.\033[0m" 1>&2
    exit 1
 fi
+
+RED='\033[0;31m'  # Red for error messages
+NC='\033[0m'      # No color
+
+# Function to print errors in red
+print_error() {
+    echo -e "${RED}$1${NC}"
+}
 
 echo "Starting system update..."
 
 # Update system packages
 echo "Updating all installed packages..."
-apt update
-apt full-upgrade -y
+if ! apt update || ! apt full-upgrade -y; then
+    print_error "Failed to update installed packages."
+fi
 
 echo "Starting system cleanup..."
 
 # Delete temporary files
 echo "Deleting temporary files..."
-rm -rf /tmp/*
-rm -rf /var/tmp/*
+if ! rm -rf /tmp/* /var/tmp/*; then
+    print_error "Failed to delete temporary files."
+fi
 
 # Empty the trash
 echo "Emptying the trash..."
-rm -rf ~/.local/share/Trash/*
+if ! rm -rf ~/.local/share/Trash/*; then
+    print_error "Failed to empty the trash."
+fi
 
 # Clean up the apt cache
 echo "Cleaning APT cache..."
-apt autoremove -y
-apt autoclean
+if ! apt autoremove -y || ! apt autoclean; then
+    print_error "Failed to clean APT cache."
+fi
 
-# Remove old kernels (this tool is part of byobu package, you may need to install it)
-#echo "Removing old kernels..."
-#apt install byobu -y
-#purge-old-kernels
+# Uncomment to enable old kernels removal
+# echo "Removing old kernels..."
+# if ! apt install byobu -y || ! purge-old-kernels; then
+#     print_error "Failed to remove old kernels."
+# fi
 
-# Clean up journal logs (keeping only the last two days)
-#echo "Cleaning up journal logs..."
-#journalctl --vacuum-time=2d
+# Uncomment to enable journal logs cleanup
+# echo "Cleaning up journal logs..."
+# if ! journalctl --vacuum-time=2d; then
+#     print_error "Failed to clean up journal logs."
+# fi
 
 echo "Update and cleanup completed!"
