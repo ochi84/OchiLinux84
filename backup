@@ -1,5 +1,12 @@
 #!/bin/bash
-
+ 
+#  _                _
+# | |__   __ _  ___| | ___   _ _ __
+# | '_ \ / _` |/ __| |/ / | | | '_ \
+# | |_) | (_| | (__|   <| |_| | |_) |
+# |_.__/ \__,_|\___|_|\_\\__,_| .__/
+#                             |_|    
+#
 # Script: System Maintenance and Backup
 # Author: Jens Ochmann
 # Purpose: Perform system cleanup, local and external backup of files.
@@ -17,7 +24,6 @@ BACKUP_FILE="backup_$(date +%Y%m%d).tar.gz"
 
 # Check if the external backup drive is available
 if [ ! -d "$BACKUP_DIR_EXT" ]; then
-    mkdir -p "$BACKUP_DIR_EXT"; else
     printf "${RED}Error: External backup drive is not available.${NC}\n"
     exit 1
 fi
