@@ -230,11 +230,11 @@ awful.screen.connect_for_each_screen(function(s)
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
-            volume_widget(), -- streetturtle
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
+            volume_widget(), -- streetturtle
             -- s.mylayoutbox,
         },
     }
