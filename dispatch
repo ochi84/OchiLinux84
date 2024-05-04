@@ -13,7 +13,7 @@
 # Location: /usr/local/bin/dispatch
 # Usage: Used internally by startup scripts.
 
-# Define colors
+# Colors
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
@@ -56,5 +56,4 @@ for file in "${!DIRS[@]}"; do
         fi
     fi
 done
-
 echo -e "${YELLOW}All files have been copied successfully.${NC}"

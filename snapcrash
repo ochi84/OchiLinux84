@@ -13,7 +13,7 @@
 # Location: /usr/local/bin/snap-repair
 # Usage: Execute with './snapcrash' to perform maintenance on the Snap Store when experiencing issues.
 
-# Define colors
+# Colors
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color

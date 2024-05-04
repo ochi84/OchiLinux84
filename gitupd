@@ -16,7 +16,7 @@
 GITHUB_DIR="$HOME/github"
 DEVELOP_DIR="$HOME/develop"
 
-# Color definitions
+# Colors
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
