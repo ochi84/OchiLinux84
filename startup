@@ -24,17 +24,17 @@ applications=(
     "mc"            # Midnight Commander, a text-based file manager
     "ranger"        # Ranger, a file manager with VI keybindings
     "fzf"           # Fuzzy Finder, a powerful searching tool
-    "bpytop"        # a resource monitoring tool
+    "bpytop"        # A resource monitoring tool
     "vim"           # VIM, a highly configurable text editor
-    "vim-airline"   # vim-airline, a status/tab line for VIM
-    "vim-fugitive"  # vim-fugitive, a Git wrapper for VIM
-    "vim-gitgutter" # vim plugin which shows a git diff in the 'gutter' (sign column)
+    "vim-airline"   # Vim-airline, a status/tab line for VIM
+    "vim-fugitive"  # Vim-fugitive, a Git wrapper for VIM
+    "vim-gitgutter" # Vim plugin which shows a git diff in the 'gutter' (sign column)
     "micro"         # Text editor
-    "cmatrix"       # cmatrix, displays the Matrix falling characters animation
-    "exa"           # modern replacement for ls
-    "awesome"
-    "qutebrowser"
-    "picom"
+    "cmatrix"       # Cmatrix, displays the Matrix falling characters animation
+    "exa"           # Modern replacement for ls
+    "awesome"       # Highly configurable window manager for X
+    "qutebrowser"   # Keyboard-driven, vim-like brwoser
+    "picom"         # Lightweight compsitor for X11
     "figlet"        # converts user input into ASCII banners
 )
 

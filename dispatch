@@ -23,7 +23,7 @@ echo -e "${YELLOW}Starting dispatch operations...${NC}"
 # Add your task conditions and operations here
 # For example, a simple file backup could look like this:
 backup_folder="$HOME/backup"
-source_folder="$HOME/documents"
+source_folder="$HOME/Dokumente"
 
 # Ensure backup folder exists
 if [ ! -d "$backup_folder" ]; then
