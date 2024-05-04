@@ -11,7 +11,7 @@
 # Author: Jens Ochmann
 # Description: Controls and monitors the execution of various system tasks.
 # Location: /usr/local/bin/dispatch
-# Usage: Execute with './dispatch' to update files from $HOME/github.
+# Usage: Used internally by startup scripts.
 
 # Define colors
 RED='\033[0;31m'
@@ -20,24 +20,41 @@ NC='\033[0m' # No Color
 
 echo -e "${YELLOW}Starting dispatch operations...${NC}"
 
-# Add your task conditions and operations here
-# For example, a simple file backup could look like this:
-backup_folder="$HOME/backup"
-source_folder="$HOME/Dokumente"
+# Define directories
+declare -A DIRS=(
+    [dot.bashrc]="$HOME/.bashrc"
+    [dot.vimrc]="$HOME/.vimrc"
+    [rc.conf]="$HOME/.config/ranger/rc.conf"
+    [rc.lua]="$HOME/.config/awesome/rc.lua"
+    [backup]="/usr/local/bin/"
+    [gitupd]="/usr/local/bin/"
+    [snapcrash]="/usr/local/bin/"
+    [update]="/usr/local/bin/"
+    [dispatch]="/usr/local/bin/"
+    [startup]="/usr/local/bin/"
+)
 
-# Ensure backup folder exists
-if [ ! -d "$backup_folder" ]; then
-    echo -e "${YELLOW}Creating backup folder...${NC}"
-    mkdir -p "$backup_folder"
-fi
+GITHUB_DIR="$HOME/github"
+INFO_DIR="$HOME/Dokumente/info"
 
-# Perform backup
-echo -e "${YELLOW}Backing up files...${NC}"
-cp -r $source_folder/* $backup_folder/
-if [ $? -eq 0 ]; then
-    echo -e "${YELLOW}Files backed up successfully.${NC}"
-else
-    echo -e "${RED}Failed to backup files.${NC}"
-fi
+# Copy scripts and config files
+for file in "${!DIRS[@]}"; do
+    src="$GITHUB_DIR/$file"
+    dest="${DIRS[$file]}"
 
-echo -e "${YELLOW}Dispatch operations completed.${NC}"
+    if [[ $dest == */bin/* ]]; then
+        if sudo cp -u "$src" "$dest" && sudo chmod +x "$dest$file"; then
+            echo -e "${YELLOW}Copied and set executable: $file${NC}"
+        else
+            echo -e "${RED}Failed to copy or set executable: $file${NC}"
+        fi
+    else
+        if cp -u "$src" "$dest"; then
+            echo -e "${YELLOW}Copied: $file${NC}"
+        else
+            echo -e "${RED}Failed to copy: $file${NC}"
+        fi
+    fi
+done
+
+echo -e "${YELLOW}All files have been copied successfully.${NC}"
