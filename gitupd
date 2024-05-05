@@ -38,6 +38,7 @@ if [ ! -d "$DEVELOP_DIR" ]; then
 fi
 
 echo_yellow "Updating rc- & configfiles..."
+
 # dotfiles
 cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc" || echo -e "${RED}Failed to update .bashrc${NC}"
 cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc" || echo -e "${RED}Failed to update .vimrc${NC}"
@@ -49,6 +50,7 @@ cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf" || echo -e "${RED}Faile
 cp -u $HOME/.config/picom/picom.conf "$GITHUB_DIR/picom.conf" || echo -e "${RED}Failed to update picom.conf${NC}"
 
 echo_yellow "Updating scripts..."
+
 # scripts
 # Here, you should define a list of specific scripts to be copied.
 declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup")

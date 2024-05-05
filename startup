@@ -53,6 +53,7 @@ done
 echo -e "${YELLOW}All desired applications have been installed.${NC}"
 
 echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
+
 # Ensure that the 'dispatch' script is executable and available in PATH
 if /usr/local/bin/dispatch; then
     echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
