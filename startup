@@ -29,6 +29,8 @@ applications=(
     "vim-airline"   # Vim-airline, a status/tab line for VIM
     "vim-fugitive"  # Vim-fugitive, a Git wrapper for VIM
     "vim-gitgutter" # Vim plugin which shows a git diff in the 'gutter' (sign column)
+    "vim-syntastic" # Syntastic is a syntax checking plugin
+    "vim-tabular"   # Vim script for text filterung and alignment
     "micro"         # Text editor
     "cmatrix"       # Cmatrix, displays the Matrix falling characters animation
     "exa"           # Modern replacement for ls
