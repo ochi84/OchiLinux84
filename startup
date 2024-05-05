@@ -33,6 +33,7 @@ applications=(
     "vim-tabular"   # Vim script for text filterung and alignment
     "micro"         # Text editor
     "cmatrix"       # Cmatrix, displays the Matrix falling characters animation
+    "trash-cli"     # Command interface for the recycle bin
     "exa"           # Modern replacement for ls
     "awesome"       # Highly configurable window manager for X
     "qutebrowser"   # Keyboard-driven, vim-like brwoser

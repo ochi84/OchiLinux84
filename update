@@ -41,8 +41,8 @@ cleanup_system() {
         return 1
     fi
 
-    echo -e "${YELLOW}Emptying the trash...${NC}"
-    rm -rf ~/.local/share/Trash/*
+    echo -e "${YELLOW}Emptying the trash using trash-cli...${NC}"
+    trash-empty
     if [ $? -ne 0 ]; then
         echo -e "${RED}Failed to empty the trash.${NC}" >&2
         return 1
