@@ -24,6 +24,10 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 -- Load Widgets
 local volume_widget = require('awesome-wm-widgets.volume-widget.volume') -- streetturtle
+-- Define separator
+local separator1 = wibox.widget.textbox(" | ")
+local separator2 = wibox.widget.textbox(" ")
+local separator3 = wibox.widget.textbox("   ")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -224,17 +228,21 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
+            -- mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
             wibox.widget.systray(),
+			separator1,
             mytextclock,
+			separator1,
+            separator2,
             volume_widget(), -- streetturtle
+            separator3,
+            -- mykeyboardlayout,
             -- s.mylayoutbox,
         },
     }
