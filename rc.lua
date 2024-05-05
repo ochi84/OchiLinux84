@@ -611,6 +611,9 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 beautiful.useless_gap = 5
 
 awful.spawn.with_shell("picom")
+awful.spawn.with_shell("caffeine")
+awful.spawn.with_shell("xset s off")
+awful.spawn.with_shell("xset -dpms")
 
 client.connect_signal("manage", function(c)
     c.shape = function(cr, w, h)
