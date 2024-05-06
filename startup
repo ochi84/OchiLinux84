@@ -10,7 +10,7 @@
 # file information
 # name:         startup (script)
 # location:     /usr/local/bin
-# function:     Install specified applications and run the 'dispatch' script
+# function:     Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 #
 # !! file information könnte ausführlicher sein!
 #
@@ -55,17 +55,19 @@ done
 
 echo -e "${YELLOW}All desired applications have been installed.${NC}"
 
-# !! zuerst "git -clone
+# !! cd $HOME
+# !! Git -clone https://github.com/ochi84/github.git
+# !! sudo cp $HOME/github/dispatch /usr/local/bin/
+# !! sudo chmod +x /usr/local/bin/dispatch
 
 echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
 
 # Ensure that the 'dispatch' script is executable and available in PATH
 if /usr/local/bin/dispatch; then
+    # !! dispatch, (geht das so?)
     echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
 else
     echo -e "${RED}Failed to execute the dispatch script.${NC}"
 fi
-
-# !! Befehl zum ausführen von dispatch fehlt!
 
 echo -e "${YELLOW}Startup process completed.${NC}"
