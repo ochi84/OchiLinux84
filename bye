@@ -1,0 +1,3 @@
+#!/bin/bash
+shutdown -P now
+# "I`ll be back."
