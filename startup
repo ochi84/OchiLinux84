@@ -11,7 +11,9 @@
 # name:         startup (script)
 # location:     /usr/local/bin
 # function:     Install specified applications and run the 'dispatch' script
-
+#
+# !! file information könnte ausführlicher sein!
+#
 # Colors
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
@@ -39,6 +41,7 @@ applications=(
     "qutebrowser"   # Keyboard-driven, vim-like brwoser
     "picom"         # Lightweight compsitor for X11
     "figlet"        # converts user input into ASCII banners
+    "git".          # !! Beschreibung
 )
 
 # Installing applications using apt-get
@@ -52,6 +55,8 @@ done
 
 echo -e "${YELLOW}All desired applications have been installed.${NC}"
 
+# !! zuerst "git -clone
+
 echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
 
 # Ensure that the 'dispatch' script is executable and available in PATH
@@ -60,5 +65,7 @@ if /usr/local/bin/dispatch; then
 else
     echo -e "${RED}Failed to execute the dispatch script.${NC}"
 fi
+
+# !! Befehl zum ausführen von dispatch fehlt!
 
 echo -e "${YELLOW}Startup process completed.${NC}"
