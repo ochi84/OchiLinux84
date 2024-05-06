@@ -53,7 +53,7 @@ echo_yellow "Updating scripts..."
 
 # scripts
 # Here, you should define a list of specific scripts to be copied.
-declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup")
+declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup" "bye")
 for script in "${scripts[@]}"; do
     cp -u "/usr/local/bin/$script" "$GITHUB_DIR/$script" || echo -e "${RED}Failed to update $script${NC}"
 done
