@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #      _ _                 _       _     
 #   __| (_)___ _ __   __ _| |_ ___| |__  
 #  / _` | / __| '_ \ / _` | __/ __| '_ \ 
@@ -7,11 +6,12 @@
 #  \__,_|_|___/ .__/ \__,_|\__\___|_| |_|
 #             |_|                        
 #
-# Script: dispatch
-# Author: Jens Ochmann
-# Description: Controls and monitors the execution of various system tasks.
-# Location: /usr/local/bin/dispatch
-# Usage: Used internally by startup scripts.
+# Script        : dispatch
+# Author        : Jens Ochmann
+# Description   : Controls and monitors the execution of various system tasks.
+# Location      : /usr/local/bin/
+# Requires root : Yes
+# Usage         : Used internally by startup scripts.
 
 # Colors
 RED='\033[0;31m'
@@ -35,7 +35,6 @@ declare -A DIRS=(
 )
 
 GITHUB_DIR="$HOME/github"
-INFO_DIR="$HOME/Dokumente/info"
 
 # Copy scripts and config files
 for file in "${!DIRS[@]}"; do
@@ -44,15 +43,15 @@ for file in "${!DIRS[@]}"; do
 
     if [[ $dest == */bin/* ]]; then
         if sudo cp -u "$src" "$dest" && sudo chmod +x "$dest$file"; then
-            echo -e "${YELLOW}Copied and set executable: $file${NC}"
+            echo -e "${YELLOW}Copied scripts and set executable: $file${NC}"
         else
-            echo -e "${RED}Failed to copy or set executable: $file${NC}"
+            echo -e "${RED}Failed to copy scripts or set executable: $file${NC}"
         fi
     else
         if cp -u "$src" "$dest"; then
-            echo -e "${YELLOW}Copied: $file${NC}"
+            echo -e "${YELLOW}Copied config files: $file${NC}"
         else
-            echo -e "${RED}Failed to copy: $file${NC}"
+            echo -e "${RED}Failed to copy config files: $file${NC}"
         fi
     fi
 done

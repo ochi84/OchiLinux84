@@ -7,11 +7,12 @@
 #  \__,_| .__/ \__,_|\__,_|\__\___|
 #       |_|                    
 #
-# Script: System Maintenance
-# Author: Jens Ochmann
-# Description: Performs updates and cleanup tasks on Ubuntu systems.
-# Location: /usr/local/bin/update
-# Usage: Run as root to update packages and clean up the system.
+# Script        : update
+# Author        : Jens Ochmann
+# Description   : Performs updates and cleanup tasks on Ubuntu systems.
+# Location      : /usr/local/bin
+# Requires root : Yes
+# Usage         : Run as root to update packages and clean up the system.
 
 # Colors
 RED='\033[0;31m'

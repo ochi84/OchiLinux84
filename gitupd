@@ -7,11 +7,12 @@
 #  \__, |_|\__|\__,_| .__/ \__,_|
 #  |___/            |_|  
 #
-# Script: gitupd
-# Author: Jens Ochmann
-# Purpose: Backup and sync local files to GitHub directory.
-# Location: /usr/local/bin
-# Usage: Execute with './gitupd' to update files to $HOME/github.
+# Script        : gitupd
+# Author        : Jens Ochmann
+# Description   : Backup and sync local files to GitHub directory.
+# Location      : /usr/local/bin
+# Requires root : No
+# Usage         : Execute with './gitupd' to update files to $HOME/github.
 
 GITHUB_DIR="$HOME/github"
 DEVELOP_DIR="$HOME/develop"
@@ -37,15 +38,14 @@ if [ ! -d "$DEVELOP_DIR" ]; then
     mkdir -p "$DEVELOP_DIR"
 fi
 
-echo_yellow "Updating rc- & configfiles..."
+echo_yellow "Updating configfiles..."
 
-# dotfiles
+# config files
 cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc" || echo -e "${RED}Failed to update .bashrc${NC}"
 cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc" || echo -e "${RED}Failed to update .vimrc${NC}"
 cp -u $HOME/.config/awesome/rc.lua "$GITHUB_DIR/rc.lua" || echo -e "${RED}Failed to update rc.lua${NC}"
 cp -u $HOME/.config/awesome/rc.lua.original "$GITHUB_DIR/rc.lua.original" || echo -e "${RED}Failed to update rc.lua.original${NC}"
 
-# config files for open repo "github"
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf" || echo -e "${RED}Failed to update rc.conf${NC}"
 cp -u $HOME/.config/picom/picom.conf "$GITHUB_DIR/picom.conf" || echo -e "${RED}Failed to update picom.conf${NC}"
 

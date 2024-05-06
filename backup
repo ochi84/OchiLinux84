@@ -7,11 +7,12 @@
 # |_.__/ \__,_|\___|_|\_\\__,_| .__/
 #                             |_|    
 #
-# Script: System Maintenance and Backup
-# Author: Jens Ochmann
-# Purpose: Perform local and external backup of files.
-# Requires root: Yes
-# Usage: Execute with './backup' to backup $HOME, and sync files to GitHub.
+# Script        : backup
+# Author        : Jens Ochmann
+# Description   : Perform local and external backup of files.
+# Location      : /usr/local/bin
+# Requires root : No
+# Usage         : Execute with './backup' to backup $HOME, and sync files to GitHub.
 
 # Colors
 RED='\033[0;31m'
@@ -19,6 +20,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 printf "${YELLOW}Starting backup...${NC}\n"
+
 BACKUP_DIR="$HOME/.backups"
 BACKUP_DIR_EXT="/media/jens/Elements/hpbackup"
 BACKUP_FILE="backup_$(date +%Y%m%d).tar.gz"
