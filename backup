@@ -37,9 +37,9 @@ tar -czf "$BACKUP_DIR/$BACKUP_FILE" --exclude="$BACKUP_DIR" "$HOME" || printf "$
 
 # Copy files from local backup to external hard drive using rsync
 rsync -avh --progress $BACKUP_DIR/ $BACKUP_DIR_EXT/ || printf "${RED}Error: rsync failed to copy files.${NC}\n"
-
 printf "${YELLOW}Backup copied to external drive.${NC}\n"
 
+# Copy files from local to GitHub folder using gitupd
 printf "${YELLOW}Copying files for GitHub...${NC}\n"
 gitupd || printf "${RED}Error updating GitHub.${NC}\n"
 
