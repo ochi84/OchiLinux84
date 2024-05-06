@@ -150,7 +150,11 @@ alias gc='git commit -m'
 alias gd='git done'
 alias gps='git push'
 alias gpl='git pull'
-alias gco='git checkout'
+alias gco='git checkout'        # git checkout <vorhandener branch>
+alias gcob='git chceckout -b'   # git checkout -b <neuer branch>
+alias gm='git merge'            # 1. git checkout main 2. git merge <neuer branch> 3. git push origin main
+alias gpo='git push origin'
+alias gpom='git push origin main'
 
 
 # change awesome background wallpaper
