@@ -27,7 +27,7 @@ local volume_widget = require('awesome-wm-widgets.volume-widget.volume') -- stre
 -- Define separator
 local separator1 = wibox.widget.textbox(" | ")
 local separator2 = wibox.widget.textbox(" ")
-local separator3 = wibox.widget.textbox("   ")
+local separator3 = wibox.widget.textbox("     ")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -238,8 +238,8 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-			separator1,
+            -- wibox.widget.systray(),
+			-- separator1,
             mytextclock,
 			separator1,
             separator2,
