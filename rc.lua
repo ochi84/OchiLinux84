@@ -213,12 +213,12 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = taglist_buttons
     }
 
---     -- Create a tasklist widget
---     s.mytasklist = awful.widget.tasklist {
---         screen  = s,
---         filter  = awful.widget.tasklist.filter.currenttags,
---         buttons = tasklist_buttons
---     }
+-- -- Create a tasklist widget
+-- s.mytasklist = awful.widget.tasklist {
+--     screen  = s,
+--     filter  = awful.widget.tasklist.filter.currenttags,
+--     buttons = tasklist_buttons
+-- }
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -284,8 +284,8 @@ awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sse
         end,
         {description = "focus previous by index", group = "client"}
     ),
---     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
---               {description = "show main menu", group = "awesome"}),
+--   awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+--      {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
@@ -359,9 +359,9 @@ awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sse
               end,
               {description = "lua execute prompt", group = "awesome"}),
 
---     -- Menubar
---     awful.key({ modkey }, "p", function() menubar.show() end,
---               {description = "show the menubar", group = "launcher"})
+    -- Menubar
+    -- awful.key({ modkey }, "p", function() menubar.show() end,
+    --           {description = "show the menubar", group = "launcher"})
 
        -- dmenu
        awful.key({ modkey }, "p", function() awful.util.spawn ("dmenu_run") end,
