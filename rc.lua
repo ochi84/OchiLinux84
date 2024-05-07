@@ -59,8 +59,11 @@ end
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
-editor = os.getenv("EDITOR") or "editor"
+-- terminal = "x-terminal-emulator"
+-- editor = os.getenv("EDITOR") or "editor"
+-- editor_cmd = terminal .. " -e " .. editor
+terminal = "tilix"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -194,7 +197,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3" }, s, awful.layout.layouts[1])
+    awful.tag({ "term", "web", "file", "div" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -537,9 +540,13 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
-    -- Set Firefox to always map on the tag named "2" on screen 1.
+    -- Set Firefox to always map on the tag named "web" on screen 1.
      { rule = { class = "firefox" },
-       properties = { screen = 1, tag = "2" } },
+       properties = { screen = 1, tag = "web" } },
+
+    -- Set Thunar to always map on the tag named "file" on screen 1.
+     { rule = { class = "Thunar" },
+     properties = { screen = 1, tag = "file" } },
 }
 -- }}}
 
