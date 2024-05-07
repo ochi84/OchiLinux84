@@ -5,5 +5,11 @@
 #  | ||/| | | | '_ \ / _ \ | '_ \ / _` |/ __| |/ /  
 #  | |  | | | | |_) |  __/ | |_) | (_| | (__|   < _ 
 # |___| |_|_| |_.__/ \___| |_.__/ \__,_|\___|_|\_(_)
+#
+# Script        : bye
+# Location      : /usr/local/bin
+# Author        : Jens Ochmann
+# Description   : Shutdown system
+# Requires root : No
 
 shutdown -P now
