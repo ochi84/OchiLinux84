@@ -8,11 +8,10 @@
 #  |___/            |_|  
 #
 # Script        : gitupd
+# Location      : /usr/local/bin
 # Author        : Jens Ochmann
 # Description   : Backup and sync local files to GitHub directory.
-# Location      : /usr/local/bin
 # Requires root : No
-# Usage         : Execute with './gitupd' to update files to $HOME/github.
 
 GITHUB_DIR="$HOME/github"
 DEVELOP_DIR="$HOME/develop"
