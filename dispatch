@@ -8,11 +8,10 @@
 #             |_|                        
 #
 # Script        : dispatch
-# Author        : Jens Ochmann
-# Description   : Controls and monitors the execution of various system tasks.
 # Location      : /usr/local/bin/
+# Author        : Jens Ochmann
+# Description   : Distributes data from the locally cloned GitHub repository to the local system
 # Requires root : Yes
-# Usage         : Used internally by startup scripts.
 
 # Colors
 RED='\033[0;31m'
