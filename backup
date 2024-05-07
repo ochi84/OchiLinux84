@@ -8,11 +8,10 @@
 #                             |_|    
 #
 # Script        : backup
+# Location      : /usr/local/bin
 # Author        : Jens Ochmann
 # Description   : Perform local and external backup of files.
-# Location      : /usr/local/bin
 # Requires root : No
-# Usage         : Execute with './backup' to backup $HOME, and sync files to GitHub.
 
 # Colors
 RED='\033[0;31m'
