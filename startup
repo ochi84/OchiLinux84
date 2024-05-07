@@ -8,10 +8,9 @@
 #                             |_|  
 # Script        : startup
 # Author        : Jens Ochmann
-# Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 # Location      : /usr/local/bin
+# Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 # Requires root : Yes
-# Usage         : Execute with './startup' to install specified applications and dispatch the GitHub repository
 
 # Colors
 RED='\033[0;31m'
