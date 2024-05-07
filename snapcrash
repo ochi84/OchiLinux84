@@ -9,10 +9,9 @@
 #
 # Script        : snapcrash
 # Author        : Jens Ochmann
-# Description   : Terminates, updates, removes, and reinstalls the Snap Store to resolve common issues.
 # Location      : /usr/local/bin/
+# Description   : Terminates, updates, removes, and reinstalls the Snap Store to resolve common issues.
 # Requires root : Yes
-# Usage         : Execute with './snapcrash' to perform maintenance on the Snap Store when experiencing issues.
 
 # Colors
 RED='\033[0;31m'
