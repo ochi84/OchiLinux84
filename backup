@@ -13,16 +13,10 @@
 # Description   : Perform local and external backup.
 # Requires root : No
 
-# Colors
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+# Load config file
+source $HOME/.config/sc.conf
 
 printf "${YELLOW}Starting backup...${NC}\n"
-
-BACKUP_DIR="$HOME/.backups"
-BACKUP_DIR_EXT="/media/jens/Elements/hpbackup"
-BACKUP_FILE="backup_$(date +%Y%m%d).tar.gz"
 
 # Check if the external backup drive is available
 if [ ! -d "$BACKUP_DIR_EXT" ]; then

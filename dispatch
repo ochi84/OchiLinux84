@@ -13,29 +13,10 @@
 # Description   : Distributes data from the locally cloned GitHub repository to the local system
 # Requires root : Yes
 
-# Colors
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+# Load config file
+source $HOME/.config/sc.conf
 
 echo -e "${YELLOW}Starting dispatch operations...${NC}"
-
-# Define directories
-declare -A DIRS=(
-    [dot.bashrc]="$HOME/.bashrc"
-    [dot.vimrc]="$HOME/.vimrc"
-    [rc.conf]="$HOME/.config/ranger/rc.conf"
-    [rc.lua]="$HOME/.config/awesome/rc.lua"
-    [backup]="/usr/local/bin/"
-    [gitupd]="/usr/local/bin/"
-    [snapcrash]="/usr/local/bin/"
-    [update]="/usr/local/bin/"
-    [dispatch]="/usr/local/bin/"
-    [startup]="/usr/local/bin/"
-    [bye]="/usr/local/bin/"
-)
-
-GITHUB_DIR="$HOME/github"
 
 # Copy scripts and config files
 for file in "${!DIRS[@]}"; do

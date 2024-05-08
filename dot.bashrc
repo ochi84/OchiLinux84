@@ -155,7 +155,7 @@ alias gcob='git chceckout -b'   # git checkout -b <neuer branch>
 alias gm='git merge'            # 1. git checkout main 2. git merge <neuer branch> 3. git push origin main
 alias gpo='git push origin'
 alias gpom='git push origin main'
-
+alias gr='git restore'
 
 # change awesome background wallpaper
 alias awbg='sudo cp background.png /usr/share/awesome/themes/default/ && cp background.png ~/.config/awesome/themes/default/'

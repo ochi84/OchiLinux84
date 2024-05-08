@@ -13,16 +13,10 @@
 # Description   : Performs updates and cleanup tasks on linux systems.
 # Requires root : Yes
 
-# Colors
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+root
 
-# Ensure the script is run as root
-if [ "$(id -u)" != "0" ]; then
-   echo -e "${RED}This script must be run as root${NC}" >&2
-   exit 1
-fi
+# Load config file
+source /home/jens/.config/sc.conf
 
 update_packages() {
     echo -e "${YELLOW}Updating all installed packages...${NC}"
