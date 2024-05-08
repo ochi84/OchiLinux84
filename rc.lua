@@ -59,12 +59,12 @@ end
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
--- terminal = "x-terminal-emulator"
--- editor = os.getenv("EDITOR") or "editor"
--- editor_cmd = terminal .. " -e " .. editor
-terminal = "tilix"
-editor = os.getenv("EDITOR") or "vim"
+terminal = "x-terminal-emulator"
+editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
+-- terminal = "tilix"
+-- editor = os.getenv("EDITOR") or "vim"
+-- editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -76,11 +76,11 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     -- awful.layout.suit.floating,
+    awful.layout.suit.fair,
     awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
-    -- awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
@@ -197,7 +197,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "term", "web", "file", "div" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -246,7 +246,7 @@ awful.screen.connect_for_each_screen(function(s)
             volume_widget(), -- streetturtle
             separator3,
             -- mykeyboardlayout,
-            -- s.mylayoutbox,
+            s.mylayoutbox,
         },
     }
 end)
@@ -542,11 +542,11 @@ awful.rules.rules = {
 
     -- Set Firefox to always map on the tag named "web" on screen 1.
      { rule = { class = "firefox" },
-       properties = { screen = 1, tag = "web" } },
+       properties = { screen = 1, tag = "2" } },
 
     -- Set Thunar to always map on the tag named "file" on screen 1.
-     { rule = { class = "Thunar" },
-     properties = { screen = 1, tag = "file" } },
+    --  { rule = { class = "Thunar" },
+    --  properties = { screen = 1, tag = "file" } },
 }
 -- }}}
 

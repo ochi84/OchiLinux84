@@ -88,4 +88,4 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 1
 
 " Start vim with nerdtree
-autocmd VimEnter * NERDTree
+"autocmd VimEnter * NERDTree
