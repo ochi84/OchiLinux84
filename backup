@@ -10,7 +10,7 @@
 # Script        : backup
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Description   : Perform local and external backup of files.
+# Description   : Perform local and external backup.
 # Requires root : No
 
 # Colors
@@ -30,7 +30,7 @@ if [ ! -d "$BACKUP_DIR_EXT" ]; then
     exit 1
 fi
 
-# Create the backup directory if it does not exist
+# Create the local backup directory if it does not exist
 mkdir -p "$BACKUP_DIR"
 
 # Create the backup archive
