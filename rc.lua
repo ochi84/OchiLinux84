@@ -22,10 +22,11 @@ require("awful.hotkeys_popup.keys")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
--- Load Widgets
-local volume_widget = require('awesome-wm-widgets.volume-widget.volume') -- streetturtle
-local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget") --streetturtle
-local github_contributions_widget = require("awesome-wm-widgets.github-contributions-widget.github-contributions-widget") --streetturtle
+-- Load "streetturtle" Widgets
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
 
 -- Define separator
 local separator1 = wibox.widget.textbox(" | ")
@@ -200,7 +201,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -248,20 +249,25 @@ awful.screen.connect_for_each_screen(function(s)
             --     days = 10,
             --     theme = default,
             -- }),
+            net_speed_widget(),
+            separator1,
             cpu_widget({
                 width = 70,
                 step_width = 2,
                 step_spacing = 0,
-                color = '#434c5e',
-            }),
-			separator3,
+                color = beautiful.fg_normal,
+                -- color = '#434c5e',
+                }),
             separator1,
             mytextclock,
-			separator1,
+            separator1,
             separator2,
-            volume_widget(),
-
-            separator3,
+            volume_widget({
+                widget_type = 'arc'
+                }),
+            separator2,    
+            separator1,
+            separator2,
             s.mylayoutbox,
         },
     }
