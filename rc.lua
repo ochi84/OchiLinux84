@@ -81,7 +81,7 @@ modkey = "Mod4"
 awful.layout.layouts = {
     -- awful.layout.suit.floating,
     awful.layout.suit.fair,
-    awful.layout.suit.tile,
+    -- awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
@@ -249,16 +249,16 @@ awful.screen.connect_for_each_screen(function(s)
             --     days = 10,
             --     theme = default,
             -- }),
-            net_speed_widget(),
-            separator1,
-            cpu_widget({
-                width = 70,
-                step_width = 2,
-                step_spacing = 0,
-                color = beautiful.fg_normal,
-                -- color = '#434c5e',
-                }),
-            separator1,
+            -- net_speed_widget(),
+            -- separator1,
+            -- cpu_widget({
+            --     width = 70,
+            --     step_width = 2,
+            --     step_spacing = 0,
+            --     color = beautiful.fg_normal,
+            --     -- color = '#434c5e',
+            --     }),
+            -- separator1,
             mytextclock,
             separator1,
             separator2,
@@ -266,9 +266,8 @@ awful.screen.connect_for_each_screen(function(s)
                 widget_type = 'arc'
                 }),
             separator2,    
-            separator1,
-            separator2,
-            s.mylayoutbox,
+            separator3,
+            -- s.mylayoutbox,
         },
     }
 end)
