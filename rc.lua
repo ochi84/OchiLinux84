@@ -24,6 +24,9 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 -- Load Widgets
 local volume_widget = require('awesome-wm-widgets.volume-widget.volume') -- streetturtle
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget") --streetturtle
+local github_contributions_widget = require("awesome-wm-widgets.github-contributions-widget.github-contributions-widget") --streetturtle
+
 -- Define separator
 local separator1 = wibox.widget.textbox(" | ")
 local separator2 = wibox.widget.textbox(" ")
@@ -239,13 +242,26 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             -- wibox.widget.systray(),
-			-- separator1,
+            -- mykeyboardlayout,
+            -- github_contributions_widget({
+            --     username = '<ochi84>',
+            --     days = 10,
+            --     theme = default,
+            -- }),
+            cpu_widget({
+                width = 70,
+                step_width = 2,
+                step_spacing = 0,
+                color = '#434c5e',
+            }),
+			separator3,
+            separator1,
             mytextclock,
 			separator1,
             separator2,
-            volume_widget(), -- streetturtle
+            volume_widget(),
+
             separator3,
-            -- mykeyboardlayout,
             s.mylayoutbox,
         },
     }
@@ -615,7 +631,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- gaps
-beautiful.useless_gap = 5
+beautiful.useless_gap = 8
 
 awful.spawn.with_shell("picom")
 awful.spawn.with_shell("caffeine")
