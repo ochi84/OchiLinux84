@@ -32,6 +32,7 @@ echo_yellow "Updating configfiles..."
 # config files
 cp -u $HOME/.bashrc "$GITHUB_DIR/dot.bashrc" || echo -e "${RED}Failed to update .bashrc${NC}"
 cp -u $HOME/.vimrc "$GITHUB_DIR/dot.vimrc" || echo -e "${RED}Failed to update .vimrc${NC}"
+cp -u $HOME/.config/sc.conf "$GITHUB_DIR/sc.conf" || echo -e "${RED}Failed to update sc.conf${NC}"
 cp -u $HOME/.config/awesome/rc.lua "$GITHUB_DIR/rc.lua" || echo -e "${RED}Failed to update rc.lua${NC}"
 cp -u $HOME/.config/awesome/rc.lua.original "$GITHUB_DIR/rc.lua.original" || echo -e "${RED}Failed to update rc.lua.original${NC}"
 
