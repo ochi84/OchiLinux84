@@ -307,6 +307,8 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
+    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("gnome-screenshot") end,
+              {description = "Screenshot des gesamten Bildschirms", group = "Benutzerdefiniert"}),
               
 awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -D pulse sset Master 10%+", false) end),
 awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -D pulse sset Master 10%-", false) end),
