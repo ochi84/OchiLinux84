@@ -31,18 +31,23 @@ echo -e "${YELLOW}All desired applications have been installed.${NC}"
 
 # Get the GitHub repository
 echo -e "${YELLOW}Cloning the GitHub repository 'github'.${NC}"
-cd $HOME
-if git clone https://github.com/ochi84/github.git; then
-    if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-        echo -e "${YELLOW}Dispatch script successfully installed and made executable.${NC}"
-    else
-        echo -e "${RED}Failed to install and set execute permission on dispatch script.${NC}"
-    fi
-else
-    echo -e "${RED}Failed to clone GitHub repository. Check if the URL is correct or if there are network issues.${NC}"
-    exit 1
-fi
 
+cd $HOME
+
+if [ -d $GITHUB_DIR ]; then
+    echo -e "${YELLOW}GitHub repository already exist.${NC}"
+else
+    if git clone https://github.com/ochi84/github.git; then
+        if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
+            echo -e "${YELLOW}Dispatch script successfully installed and made executable.${NC}"
+        else
+            echo -e "${RED}Failed to install and set execute permission on dispatch script.${NC}"
+        fi
+    else
+        echo -e "${RED}Failed to clone GitHub repository. Check if the URL is correct or if there are network issues.${NC}"
+        exit 1
+    fi
+fi
 echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
 
 # Ensure that the 'dispatch' script is executable and available in PATH
