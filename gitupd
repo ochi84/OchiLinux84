@@ -40,7 +40,7 @@ cp -u "$RCCONF_DIR/rc.conf" "$GITHUB_DIR/rc.conf" || echo -e "${RED}Failed to up
 cp -u "$PICOM_DIR/picom.conf" "$GITHUB_DIR/picom.conf" || echo -e "${RED}Failed to update picom.conf${NC}"
 
 # Awesome-WM background
-cp -u "$BACKGROUND_DIR/background.png" "$GITHUB_DIR/awm.background.png" || echo -e "${RED}Failed to update background.png${NC}"
+cp -u "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png" || echo -e "${RED}Failed to update background.png${NC}"
 
 
 echo_yellow "Updating scripts..."
