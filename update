@@ -13,10 +13,11 @@
 # Description   : Performs updates and cleanup tasks on linux systems.
 # Requires root : Yes
 
-root
 
 # Load config file
 source /home/jens/.config/sc.conf
+
+root
 
 update_packages() {
     echo -e "${YELLOW}Updating all installed packages...${NC}"
