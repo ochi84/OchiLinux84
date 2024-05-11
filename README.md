@@ -8,6 +8,7 @@ Here are some of the key files included in this repository:
 
 - `.bashrc`: Bash configuration file for shell settings.
 - `.vimrc`: Configuration for the VIM text editor.
+- `rc.lua`: My Awesome WM config file.
 
 ## Scripts
 
@@ -24,6 +25,8 @@ Included in this repository are several utility scripts to aid in managing and d
 - `startup`: Initializes a system with essential software installations and configures it by deploying dot-files and other configurations using the `dispatch` script. Ideal for setting up new machines or restoring settings on existing ones.
   
 - `update`: Combines system update and cleanup tasks into a single script, which updates installed packages, removes obsolete files, and cleans up system logs to ensure optimal performance.
+
+- `sc.conf`: Configuration file for my scripts to set colors, directories, files, necessary programs etc.
 
 ## Usage
 
@@ -55,3 +58,9 @@ This repository is primarily for personal backup. However, if you have suggestio
 ## License
 
 This repository is released under the MIT License.
+
+## A screenshot of my Awesome-WM configuration
+
+I like it minimalistic
+![Bildschirmfoto vom 2024-05-11 10-48-44](https://github.com/ochi84/github/assets/168211337/67025829-6154-4ac9-94d8-b9801aca98fc)
+
