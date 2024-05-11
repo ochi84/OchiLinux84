@@ -35,13 +35,12 @@ cp -u "$VIMRC_DIR/.vimrc" "$GITHUB_DIR/dot.vimrc" || echo -e "${RED}Failed to up
 cp -u "$SCCONF_DIR/sc.conf" "$GITHUB_DIR/sc.conf" || echo -e "${RED}Failed to update sc.conf${NC}"
 cp -u "$RCLUA_DIR/rc.lua" "$GITHUB_DIR/rc.lua" || echo -e "${RED}Failed to update rc.lua${NC}"
 cp -u "$RCLUA_DIR/rc.lua.original" "$GITHUB_DIR/rc.lua.original" || echo -e "${RED}Failed to update rc.lua.original${NC}"
-
 cp -u "$RCCONF_DIR/rc.conf" "$GITHUB_DIR/rc.conf" || echo -e "${RED}Failed to update rc.conf${NC}"
 cp -u "$PICOM_DIR/picom.conf" "$GITHUB_DIR/picom.conf" || echo -e "${RED}Failed to update picom.conf${NC}"
+dconf dump '/com/gexperts/Tilix/' > "$GITHUB_DIR/tilix.conf" || echo -e "${RED}Failed to dump tilix.conf{$NC}"
 
 # Awesome-WM background
 cp -u "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png" || echo -e "${RED}Failed to update background.png${NC}"
-
 
 echo_yellow "Updating scripts..."
 
