@@ -62,4 +62,3 @@ This repository is released under the MIT License.
 ## A screenshot of my Awesome-WM configuration
 
 I like it minimalistic
-![Bildschirmfoto vom 2024-05-11 10-48-44](https://github.com/ochi84/github/assets/168211337/7c0afe0d-9567-4285-8aad-a35e055c817c)
