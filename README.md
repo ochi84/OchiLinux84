@@ -26,6 +26,8 @@ Included in this repository are several utility scripts to aid in managing and d
   
 - `update`: Combines system update and cleanup tasks into a single script, which updates installed packages, removes obsolete files, and cleans up system logs to ensure optimal performance.
 
+- `sc.conf`: Configuration file for my scripts to set colors, directories, files, necessary programs etc.
+
 ## Usage
 
 To use these configurations, clone the repository and copy the desired files to your home directory:
@@ -57,7 +59,7 @@ This repository is primarily for personal backup. However, if you have suggestio
 
 This repository is released under the MIT License.
 
-## A screenshot of my awesome-wm configuration
+## A screenshot of my Awesome-WM configuration
 
 I like it minimalistic
 ![Bildschirmfoto vom 2024-05-11 10-48-44](https://github.com/ochi84/github/assets/168211337/7c0afe0d-9567-4285-8aad-a35e055c817c)
