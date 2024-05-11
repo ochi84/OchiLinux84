@@ -13,7 +13,6 @@
 # Description   : Performs updates and cleanup tasks on linux systems.
 # Requires root : Yes
 
-
 # Load config file
 source /home/jens/.config/sc.conf
 
