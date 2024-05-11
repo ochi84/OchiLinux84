@@ -8,6 +8,7 @@ Here are some of the key files included in this repository:
 
 - `.bashrc`: Bash configuration file for shell settings.
 - `.vimrc`: Configuration for the VIM text editor.
+- `rc.lua`: My Awesome WM config file.
 
 ## Scripts
 
@@ -55,3 +56,8 @@ This repository is primarily for personal backup. However, if you have suggestio
 ## License
 
 This repository is released under the MIT License.
+
+## A screenshot of my awesome-wm configuration
+
+I like it minimalistic
+![Bildschirmfoto vom 2024-05-11 10-48-44](https://github.com/ochi84/github/assets/168211337/7c0afe0d-9567-4285-8aad-a35e055c817c)
