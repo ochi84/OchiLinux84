@@ -39,6 +39,10 @@ cp -u $HOME/.config/awesome/rc.lua.original "$GITHUB_DIR/rc.lua.original" || ech
 cp -u $HOME/.config/ranger/rc.conf "$GITHUB_DIR/rc.conf" || echo -e "${RED}Failed to update rc.conf${NC}"
 cp -u $HOME/.config/picom/picom.conf "$GITHUB_DIR/picom.conf" || echo -e "${RED}Failed to update picom.conf${NC}"
 
+# Awesome-WM background
+cp -u /usr/share/awesome/themes/default/background.png "$GITHUB_DIR/awesome.background.png" || echo -e "${RED}Failed to update background.png${NC}"
+
+
 echo_yellow "Updating scripts..."
 
 # scripts
