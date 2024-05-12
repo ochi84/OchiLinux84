@@ -16,6 +16,15 @@
 # Load config file
 source $HOME/.config/sc.conf
 
+# Warn the user about potential overwrites
+echo -e "${RED}Warning: This may overwrite key config files. Ensure backups are available.${NC}"
+read -p "Do you want to continue? (y/n) " -n 1 -r
+echo    # move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
+
 echo -e "${YELLOW}Starting dispatch operations...${NC}"
 
 # Copy scripts and config files
