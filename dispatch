@@ -17,7 +17,7 @@
 source $HOME/.config/sc.conf
 
 # Warn the user about potential overwrites
-echo -e "${RED}Warning: This script may overwrite your existing configuration files such as .bashrc. Please ensure you have backups of any important files.${NC}"
+echo -e "${RED}Warning: This may overwrite key config files. Ensure backups are available.${NC}"
 read -p "Do you want to continue? (y/n) " -n 1 -r
 echo    # move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
