@@ -125,6 +125,7 @@ alias l.='ls -A | grep "^\."'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias cdl='cd && clear'
 
 # programaliases
 alias btop='bpytop -lc'
