@@ -59,10 +59,11 @@ This repository is primarily for personal backup. However, if you have suggestio
 
 This repository is released under the MIT License.
 
-## A screenshot of my Awesome-WM configuration
+## Screenshots of my Awesome-WM configuration
 
-I like it minimalistic
 ![image](https://github.com/ochi84/github/assets/168211337/18199c3a-3833-4363-8f97-92efea49b6ce)
+
+![neofetch](https://github.com/ochi84/github/assets/168211337/a08bb1ab-34ef-4ef5-a57b-9b1d7aecae57)
 
 ![Bildschirmfoto vom 2024-05-11 10-48-44](https://github.com/ochi84/github/assets/168211337/67025829-6154-4ac9-94d8-b9801aca98fc)
 
