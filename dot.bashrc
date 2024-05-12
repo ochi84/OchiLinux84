@@ -131,7 +131,8 @@ alias btop='bpytop -lc'
 alias m='micro'
 alias web='w3m'
 alias x='cmatrix -b -u8'
-alias r='ranger'
+alias rg='ranger'
+alias nf='neofetch'
 
 # commandaliases
 alias yep='sudo apt install $1'
@@ -164,9 +165,9 @@ alias awbg='sudo cp background.png /usr/share/awesome/themes/default/ && cp back
 #alias mv='mv -i'
 #alias cp='cp -i'
 
-bind "set completion-ignore-case on" # ignore upper and lower case when TAB completion
-
 # set -o vi	# set vi mode in bash shell
+
+bind "set completion-ignore-case on" # ignore upper and lower case when TAB completion
 
 ### ARCHIVE EXTRACTION
 # usage: ex <file>
