@@ -18,43 +18,93 @@ source $HOME/.config/sc.conf
 
 echo -e "${YELLOW}Starting the installation of applications...${NC}"
 
-# Installing applications using apt-get
-for app in "${applications[@]}"; do
-    if sudo apt-get install -y $app; then
-        echo -e "${YELLOW}Installed $app successfully.${NC}"
-    else
-        echo -e "${RED}Failed to install $app. Check if the package exists or if there are network issues.${NC}"
-    fi
-done
+# Function to install packages
+install_packages() {
+    local packages=("${@}")
+    local installed=()
+    for app in "${packages[@]}"; do
+        if sudo apt install -y "$app"; then
+            echo -e "${YELLOW}Installed $app successfully.${NC}"
+            installed+=("$app")  # Add app to the list of successfully installed packages
+        else
+            echo -e "${RED}Failed to install $app. Check if the package exists or if there are network issues.${NC}"
+        fi
+    done
+    echo -e "${YELLOW}Successfully installed the following packages:${NC}"
+    printf '%s\n' "${installed[@]}"  # List successfully installed packages
+}
+
+# Display installation options
+echo "Select the installation type:"
+echo "1 - Minimal Install"
+echo "2 - Minimal Plus Install"
+echo "3 - Expand Install"
+echo "4 - Full Install"
+read -p "Enter your choice (1-4): " choice
+
+# Prepare installation array based on user choice
+all_packages=()
+case $choice in
+    1)
+        all_packages+=("${minimal[@]}")
+        ;;
+    2)
+        all_packages+=("${minimal[@]}")
+        all_packages+=("${minimal_plus[@]}")
+        ;;
+    3)
+        all_packages+=("${minimal[@]}")
+        all_packages+=("${minimal_plus[@]}")
+        all_packages+=("${expand[@]}")
+        ;;
+    4)
+        all_packages+=("${minimal[@]}")
+        all_packages+=("${minimal_plus[@]}")
+        all_packages+=("${expand[@]}")
+        all_packages+=("${full[@]}")
+        ;;
+    *)
+        echo "Invalid choice. Exiting."
+        exit 1
+        ;;
+esac
+
+# Install selected packages
+install_packages "${all_packages[@]}"
 
 echo -e "${YELLOW}All desired applications have been installed.${NC}"
 
 # Get the GitHub repository
-echo -e "${YELLOW}Cloning the GitHub repository 'github'.${NC}"
+if command -v git >/dev/null 2>&1; then
+    echo -e "${YELLOW}Cloning the GitHub repository 'https://github.com/ochi84/github.git in $HOME'.${NC}"
 
-cd $HOME
+    cd $HOME
 
-if [ -d $GITHUB_DIR ]; then
-    echo -e "${YELLOW}GitHub repository already exist.${NC}"
-else
-    if git clone https://github.com/ochi84/github.git; then
-        if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-            echo -e "${YELLOW}Dispatch script successfully installed and made executable.${NC}"
-        else
-            echo -e "${RED}Failed to install and set execute permission on dispatch script.${NC}"
-        fi
+    if [ -d $GITHUB_DIR ]; then
+        echo -e "${YELLOW}GitHub repository already exist.${NC}"
     else
-        echo -e "${RED}Failed to clone GitHub repository. Check if the URL is correct or if there are network issues.${NC}"
-        exit 1
+        if git clone https://github.com/ochi84/github.git; then
+            if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
+                echo -e "${YELLOW}Dispatch script successfully installed and made executable.${NC}"
+            else
+                echo -e "${RED}Failed to install and set execute permission on dispatch script.${NC}"
+            fi
+        else
+            echo -e "${RED}Failed to clone GitHub repository. Check if there are network issues.${NC}"
+            exit 1
+        fi
     fi
-fi
-echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
+    
+    echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
+    
+    # Ensure that the 'dispatch' script is executable and available
+    if /usr/local/bin/dispatch; then
+        echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
+    else
+        echo -e "${RED}Failed to execute the dispatch script.${NC}"
+    fi
 
-# Ensure that the 'dispatch' script is executable and available in PATH
-if /usr/local/bin/dispatch; then
-    echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
+    echo -e "${YELLOW}Startup process completed.${NC}"
 else
-    echo -e "${RED}Failed to execute the dispatch script.${NC}"
+    echo -e "${YELLOW}Startup process completed.${NC}"
 fi
-
-echo -e "${YELLOW}Startup process completed.${NC}"
