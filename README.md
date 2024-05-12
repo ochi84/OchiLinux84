@@ -26,7 +26,7 @@ Included in this repository are several utility scripts to aid in managing and d
   
 - `update`: Combines system update and cleanup tasks into a single script, which updates installed packages, removes obsolete files, and cleans up system logs to ensure optimal performance.
 
-- `sc.conf`: Configuration file for my scripts to set colors, directories, files, necessary programs etc.
+- `sc.conf`: Configuration file for scripts to set colors, directories, files, necessary programs etc.
 
 ## Usage
 
