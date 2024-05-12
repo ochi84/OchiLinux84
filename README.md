@@ -1,6 +1,6 @@
 # Dot-Files and Configuration Files
 
-This repository contains personal configuration files and dot-files for backup and easy synchronization across different machines.
+This repository contains personal configuration files and dot-files for backup, restoration and easy synchronization across different machines.
 
 ## Contents
 
