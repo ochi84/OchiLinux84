@@ -18,8 +18,8 @@ CONFIG_FILE="$HOME/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 else
-    echo -e "${RED}Error: Configuration file not found.${NC}"
-    echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
+    echo -e "Error: Configuration file not found."
+    echo -e "Please ensure the configuration file 'sc.conf' exists at $HOME/.config/"
     exit 1
 fi
 
