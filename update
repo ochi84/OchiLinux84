@@ -14,7 +14,7 @@
 # Requires root : Yes
 
 # Load config file
-CONFIG_FILE="$HOME/.config/sc.conf"
+CONFIG_FILE="/home/jens/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 else
