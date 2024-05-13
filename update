@@ -13,8 +13,11 @@
 # Description   : Performs updates and cleanup tasks on linux systems.
 # Requires root : Yes
 
+# Define User-Dir (HOME)
+USER_DIR="/home/jens"
+
 # Load config file
-CONFIG_FILE="/home/jens/.config/sc.conf"
+CONFIG_FILE="$USER_DIR/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 else
@@ -23,7 +26,7 @@ else
     exit 1
 fi
 
-root
+root # Ensure root (see sc.conf)
 
 update_packages() {
     echo -e "${YELLOW}Updating all installed packages...${NC}"
