@@ -1,3 +1,5 @@
+#
+#
 #    _               _              
 #   | |__   __ _ ___| |__  _ __ ___ 
 #   | '_ \ / _` / __| '_ \| '__/ __|
@@ -138,8 +140,10 @@ alias nf='neofetch'
 alias yep='sudo apt install $1'
 alias nop='sudo apt remove $1'
 alias bye='shutdown -P now'
-alias fz='fzf'
-alias fz.='find . | fzf'
+alias fz='fzf --preview="cat {}"'
+alias vfz='vim $(fzf --preview="cat {}")'
+alias fz.='find . | fzf --preview="cat {}"'
+alias vfz.='vim $(find . | fzf --preview="cat {}")'
 alias cl='clear'
 
 # gitaliases
