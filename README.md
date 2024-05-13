@@ -16,7 +16,7 @@ Included in this repository are several utility scripts to aid in managing and d
 
 - `backup`: Performs backups of essential configuration files, storing them in a predefined backup directory. Useful for keeping a snapshot of current settings.
   
-- `dispatch`: Manages the distribution of dot-files and configuration scripts from a central repository to their designated locations on your system. This ensures your configurations are consistently updated according to the latest changes in the repository.
+- `dispatch`: Manages the distribution of dot-, config-files and scripts from a central repository to their designated locations on your system. This ensures your configurations are consistently updated according to the latest changes in the repository.
   
 - `gitupd`: A utility script designed to automate the process of updating local git repositories and pushing changes back to remote repositories, simplifying version control operations.
   
