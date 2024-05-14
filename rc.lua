@@ -23,10 +23,10 @@ local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 -- Load "streetturtle" Widgets
-local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
-local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local volume_widget     = require('awesome-wm-widgets.volume-widget.volume')
+local cpu_widget        = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
-local net_speed_widget = require("awesome-wm-widgets.net-speed-widget.net-speed")
+local net_speed_widget  = require("awesome-wm-widgets.net-speed-widget.net-speed")
 
 -- Define separator
 local separator1 = wibox.widget.textbox(" | ")
@@ -108,17 +108,17 @@ awful.layout.layouts = {
 --    { "quit", function() awesome.quit() end },
 -- }
 -- 
--- local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
+-- local menu_awesome  = { "awesome", myawesomemenu, beautiful.awesome_icon }
 -- local menu_terminal = { "open terminal", terminal }
 -- 
 -- if has_fdo then
 --     mymainmenu = freedesktop.menu.build({
 --         before = { menu_awesome },
---         after =  { menu_terminal }
+--         after  = { menu_terminal }
 --     })
 -- else
 --     mymainmenu = awful.menu({
---         items = {
+--         items  = {
 --                   menu_awesome,
 --                   { "Debian", debian.menu.Debian_menu.Debian },
 --                   menu_terminal,
@@ -227,8 +227,8 @@ awful.screen.connect_for_each_screen(function(s)
                     id     = 'text_role',
                     widget = wibox.widget.textbox,
                 },
-                left  = 5,
-                right = 5,
+                left   = 5,
+                right  = 5,
                 widget = wibox.container.margin
             },
             id     = 'background_role',
@@ -238,9 +238,9 @@ awful.screen.connect_for_each_screen(function(s)
 
 -- -- Create a tasklist widget
 -- s.mytasklist = awful.widget.tasklist {
---     screen  = s,
---     filter  = awful.widget.tasklist.filter.currenttags,
---     buttons = tasklist_buttons
+--     screen   = s,
+--     filter   = awful.widget.tasklist.filter.currenttags,
+--     buttons  = tasklist_buttons
 -- }
 
     -- Create the wibox
@@ -262,17 +262,17 @@ awful.screen.connect_for_each_screen(function(s)
             -- mykeyboardlayout,
             -- github_contributions_widget({
             --     username = '<ochi84>',
-            --     days = 10,
-            --     theme = default,
+            --     days     = 10,
+            --     theme    = default,
             -- }),
             -- net_speed_widget(),
             -- separator1,
             -- cpu_widget({
-            --     width = 70,
-            --     step_width = 2,
+            --     width        = 70,
+            --     step_width   = 2,
             --     step_spacing = 0,
-            --     color = beautiful.fg_normal,
-            --     -- color = '#434c5e',
+            --     color        = beautiful.fg_normal,
+            --     -- color     = '#434c5e',
             --     }),
             -- separator1,
             mytextclock,
@@ -533,11 +533,11 @@ awful.rules.rules = {
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = true,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     screen = awful.screen.preferred,
+                     focus     = awful.client.focus.filter,
+                     raise     = true,
+                     keys      = clientkeys,
+                     buttons   = clientbuttons,
+                     screen    = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
      }
     },
@@ -545,8 +545,8 @@ awful.rules.rules = {
     -- Floating clients.
     { rule_any = {
         instance = {
-          "DTA",  -- Firefox addon DownThemAll.
-          "copyq",  -- Includes session name in class.
+          "DTA",   -- Firefox addon DownThemAll.
+          "copyq", -- Includes session name in class.
           "pinentry",
         },
         class = {
@@ -568,9 +568,9 @@ awful.rules.rules = {
           "Event Tester",  -- xev.
         },
         role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
-          "ConfigManager",  -- Thunderbird's about:config.
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+          "AlarmWindow",   -- Thunderbird's calendar.
+          "ConfigManager", -- Thunderbird's about:config.
+          "pop-up",        -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
 
