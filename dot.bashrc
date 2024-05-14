@@ -108,19 +108,23 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep -in --color=auto'
 fi
 
+# EXA_COLORS
+# uu=user:gu=group:da=files_date:sn=file_size:sb=file_size_unit
+export EXA_COLORS="uu=34:gu=34:da=34:sn=34:sb=34"
+
 # colored GCC warnings and errors
 # export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 ### ALIASES ###
 
 # lsaliases
-alias ll='ls -gh'
-alias la='ls -gAh'
-alias l.='ls -A | grep "^\."'
-# alias ll='exa -l --color=always --group-directories-first' 
-# alias la='exa -al --color=always --group-directories-first'
-# alias lt='exa -T --color=always --group-directories-first'
-# alias l.='exa -a | grep "^\."'
+# alias ll='ls -gh'
+# alias la='ls -gAh'
+# alias l.='ls -A | grep "^\."'
+alias ll='exa -l --color=always --group-directories-first' 
+alias la='exa -al --color=always --group-directories-first'
+alias lt='exa -T --color=always --group-directories-first'
+alias l.='exa -a | grep "^\."'
 
 # cdaliases
 alias ..='cd ..'
