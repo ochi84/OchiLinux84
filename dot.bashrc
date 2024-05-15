@@ -111,6 +111,9 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+# EXA_COLORS
+export EXA_COLORS="uu=34:gu=34:da=34:sn=34:sb=34"
+
 ### ALIASES
 ## lsaliases
 # alias ll='ls -gh'
@@ -168,8 +171,8 @@ alias awbg='sudo cp background.png /usr/share/awesome/themes/default/ && cp back
 #alias mv='mv -i'
 #alias cp='cp -i'
 
-### VI-MODE
-# set -o vi	# set vi mode in bash shell
+# VI-MODE
+set -o vi	# set vi mode in bash shell
 
 bind "set completion-ignore-case on" # ignore upper and lower case when TAB completion
 
@@ -220,9 +223,6 @@ up () {
     echo "Couldn't go up $limit dirs.";
   fi
 }
-
-### EXA_COLORS
-export EXA_COLORS="uu=34:gu=34:da=34:sn=34:sb=34"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
