@@ -211,8 +211,10 @@ alias nop='sudo apt remove $1'
 alias bye='shutdown -P now'
 alias fz='fzf --preview="cat {}"'
 alias vfz='vim $(fzf --preview="cat {}")'
+alias mfz='micro $(fzf --preview="cat {}")'
 alias fz.='find . | fzf --preview="cat {}"'
 alias vfz.='vim $(find . | fzf --preview="cat {}")'
+alias mfz.='micro $(find . | fzf --preview="cat {}")'
 alias cl='clear'
 
 ## gitaliases
