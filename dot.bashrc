@@ -80,7 +80,7 @@ GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
 
-PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 " (%s)")';  PS1=' \[\033[0;35m\]\w \[\033[0;32m\]\$\[\e[91m\]${PS1_CMD1} \[\033[0;37m\]> '
+PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 " (%s)")';  PS1=' \[\033[0;34m\]\w \[\033[0;32m\]\$\[\e[91m\]${PS1_CMD1} \[\033[0;36m\]> '
 	
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -111,8 +111,75 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+# EXA_COLORS LIST OF CODES
+# 1     for bold
+# 4     for underline
+# 31    for red text
+# 32    for green text
+# 33    for yellow text
+# 34    for blue text
+# 35    for purple text
+# 36    for cyan text
+# 37    for white text
+# LS_COLORS can use these ten codes:
+EXA_COLORS_DI="di=34;1"  # directories
+EXA_COLORS_EX="ex=37"    # executable files
+EXA_COLORS_FI="fi=37"    # regular files
+EXA_COLORS_PI="pi=37"    # named pipes
+EXA_COLORS_SO="so=37"    # sockets
+EXA_COLORS_BD="bd=37"    # block devices
+EXA_COLORS_CD="cd=37"    # character devices
+EXA_COLORS_LN="ln=37"    # symlinks
+## EXA_COLORS can use many more:
+EXA_COLORS_UR="ur=37"    # the user-read permission bit
+EXA_COLORS_UW="uw=37"    # the user-write permission bit
+EXA_COLORS_UX="ux=37"    # the user-execute permission bit for regular files
+EXA_COLORS_UE="ue=37"    # the user-execute for other file kinds
+EXA_COLORS_GR="gr=37"    # the group-read permission bit
+EXA_COLORS_GW="gw=37"    # the group-write permission bit
+EXA_COLORS_GX="gx=37"    # the group-execute permission bit
+EXA_COLORS_TR="tr=32"    # the others-read permission bit
+EXA_COLORS_TW="tw=31"    # the others-write permission bit
+EXA_COLORS_TX="tx=33"    # the others-execute permission bit
+EXA_COLORS_SU="su=37"    # setuid, setgid, and sticky permission bits for files
+EXA_COLORS_SF="sf=37"    # setuid, setgid, and sticky for other file kinds
+EXA_COLORS_XA="xa=37"    # the extended attribute indicator
+EXA_COLORS_SN="sn=37"    # the numbers of a file’s size (sets nb, nk, nm, ng and nh)
+EXA_COLORS_NB="nb=37"    # the numbers of a file’s size if it is lower than 1 KB/Kib
+EXA_COLORS_NK="nk=32"    # the numbers of a file’s size if it is between 1 KB/KiB and 1 MB/MiB
+EXA_COLORS_NM="nm=33"    # the numbers of a file’s size if it is between 1 MB/MiB and 1 GB/GiB
+EXA_COLORS_NG="ng=31"    # the numbers of a file’s size if it is between 1 GB/GiB and 1 TB/TiB
+EXA_COLORS_NT="nt=31;1"  # the numbers of a file’s size if it is 1 TB/TiB or higher
+EXA_COLORS_SB="sb=37"    # the units of a file’s size (sets ub, uk, um, ug and uh)
+EXA_COLORS_UB="ub=37"    # the units of a file’s size if it is lower than 1 KB/Kib
+EXA_COLORS_UK="uk=32"    # the units of a file’s size if it is between 1 KB/KiB and 1 MB/MiB
+EXA_COLORS_UM="um=33"    # the units of a file’s size if it is between 1 MB/MiB and 1 GB/GiB
+EXA_COLORS_UG="ug=31"    # the units of a file’s size if it is between 1 GB/GiB and 1 TB/TiB
+EXA_COLORS_UT="ut=31;1"  # the units of a file’s size if it is 1 TB/TiB or higher
+EXA_COLORS_DF="df=37"    # a device’s major ID
+EXA_COLORS_DS="ds=37"    # a device’s minor ID
+EXA_COLORS_UU="uu=32"    # a user that’s you
+EXA_COLORS_UN="un=31"    # a user that’s someone else
+EXA_COLORS_GU="gu=32"    # a group that you belong to
+EXA_COLORS_GN="gn=31"    # a group you aren’t a member of
+EXA_COLORS_LC="lc=37"    # a number of hard links
+EXA_COLORS_LM="lm=37"    # a number of hard links for a regular file with at least two
+EXA_COLORS_GA="ga=37"    # a new flag in Git
+EXA_COLORS_GM="gm=37"    # a modified flag in Git
+EXA_COLORS_GD="gd=37"    # a deleted flag in Git
+EXA_COLORS_GV="gv=37"    # a renamed flag in Git
+EXA_COLORS_GT="gt=37"    # a modified metadata flag in Git
+EXA_COLORS_XX="xx=37"    # “punctuation”, including many background UI elements
+EXA_COLORS_DA="da=35"    # a file’s date
+EXA_COLORS_IN="in=37"    # a file’s inode number
+EXA_COLORS_BL="bl=37"    # a file’s number of blocks
+EXA_COLORS_HD="hd=37"    # the header row of a table
+EXA_COLORS_LP="lp=37"    # the path of a symlink
+EXA_COLORS_CC="cc=37"    # an escaped character in a filename
+EXA_COLORS_BO="bo=37"    # the overlay style for broken symlink paths
+
 # EXA_COLORS
-export EXA_COLORS="uu=34:gu=34:da=34:sn=34:sb=34"
+export EXA_COLORS="${EXA_COLORS_DI}:${EXA_COLORS_EX}:${EXA_COLORS_FI}:${EXA_COLORS_PI}:${EXA_COLORS_SO}:${EXA_COLORS_BD}:${EXA_COLORS_CD}:${EXA_COLORS_LN}:${EXA_COLORS_UR}:${EXA_COLORS_UW}:${EXA_COLORS_UX}:${EXA_COLORS_UE}:${EXA_COLORS_GR}:${EXA_COLORS_GW}:${EXA_COLORS_GX}:${EXA_COLORS_TR}:${EXA_COLORS_TW}:${EXA_COLORS_TX}:${EXA_COLORS_SU}:${EXA_COLORS_SF}:${EXA_COLORS_XA}:${EXA_COLORS_SN}:${EXA_COLORS_NB}:${EXA_COLORS_NK}:${EXA_COLORS_NM}:${EXA_COLORS_NG}:${EXA_COLORS_NT}:${EXA_COLORS_SB}:${EXA_COLORS_UB}:${EXA_COLORS_UK}:${EXA_COLORS_UM}:${EXA_COLORS_UG}:${EXA_COLORS_UT}:${EXA_COLORS_DF}:${EXA_COLORS_DS}:${EXA_COLORS_UU}:${EXA_COLORS_UN}:${EXA_COLORS_GU}:${EXA_COLORS_GN}:${EXA_COLORS_LC}:${EXA_COLORS_LM}:${EXA_COLORS_GA}:${EXA_COLORS_GM}:${EXA_COLORS_GD}:${EXA_COLORS_GV}:${EXA_COLORS_GT}:${EXA_COLORS_XX}:${EXA_COLORS_DA}:${EXA_COLORS_IN}:${EXA_COLORS_BL}:${EXA_COLORS_HD}:${EXA_COLORS_LP}:${EXA_COLORS_CC}:${EXA_COLORS_BO}"
 
 ### ALIASES
 ## lsaliases
