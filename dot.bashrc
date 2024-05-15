@@ -113,7 +113,7 @@ fi
 export EXA_COLORS="uu=34:gu=34:da=34:sn=34:sb=34"
 
 # colored GCC warnings and errors
-# export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 ### ALIASES ###
 
