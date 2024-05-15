@@ -164,11 +164,11 @@ EXA_COLORS_GU="gu=32"    # a group that you belong to
 EXA_COLORS_GN="gn=31"    # a group you aren’t a member of
 EXA_COLORS_LC="lc=37"    # a number of hard links
 EXA_COLORS_LM="lm=37"    # a number of hard links for a regular file with at least two
-EXA_COLORS_GA="ga=37"    # a new flag in Git
-EXA_COLORS_GM="gm=37"    # a modified flag in Git
-EXA_COLORS_GD="gd=37"    # a deleted flag in Git
-EXA_COLORS_GV="gv=37"    # a renamed flag in Git
-EXA_COLORS_GT="gt=37"    # a modified metadata flag in Git
+EXA_COLORS_GA="ga=32"    # a new flag in Git
+EXA_COLORS_GM="gm=33"    # a modified flag in Git
+EXA_COLORS_GD="gd=31"    # a deleted flag in Git
+EXA_COLORS_GV="gv=33"    # a renamed flag in Git
+EXA_COLORS_GT="gt=31"    # a modified metadata flag in Git
 EXA_COLORS_XX="xx=37"    # “punctuation”, including many background UI elements
 EXA_COLORS_DA="da=35"    # a file’s date
 EXA_COLORS_IN="in=37"    # a file’s inode number
@@ -186,10 +186,10 @@ export EXA_COLORS="${EXA_COLORS_DI}:${EXA_COLORS_EX}:${EXA_COLORS_FI}:${EXA_COLO
 # alias ll='ls -gh'
 # alias la='ls -gAh'
 # alias l.='ls -A | grep "^\."'
-alias ll='exa -l --color=always --group-directories-first' 
-alias la='exa -al --color=always --group-directories-first'
-alias lt='exa -T --color=always --group-directories-first'
-alias l.='exa -a | grep "^\."'
+alias ll='exa -lG --icons --color=always --group-directories-first' 
+alias la='exa -alG --icons --color=always --group-directories-first'
+alias lt='exa -T --icons --color=always --group-directories-first'
+alias l.='exa -aG | grep "^\."'
 
 ## cdaliases
 alias ..='cd ..'
