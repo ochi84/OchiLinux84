@@ -31,7 +31,7 @@ echo_yellow() {
 # Check if the GitHub directory exists
 if [ ! -d "$GITHUB_DIR" ]; then
     echo_yellow "GitHub directory does not exist. Creating directory: $GITHUB_DIR"
-    mkdir -p "$GITHUB_DIR"
+    mkdir -p "$GITHUB_DIR" # TODO git clone!
 fi
 
 echo_yellow "Updating configfiles..."
