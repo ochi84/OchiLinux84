@@ -84,4 +84,3 @@ echo -e "${YELLOW}All desired applications have been installed.${NC}"
 
 se
     echo -e "${YELLOW}Startup process completed.${NC}"
-fi
