@@ -105,10 +105,10 @@ install_packages() {
 
 # Display installation options with descriptions
 echo -e "Select the installation type:"
-echo -e "1 - Minimal Install: ${BLUE}Basic utilities like 'mc', 'vim', 'micro', 'ranger'.${NC}"
-echo -e "2 - Minimal Plus Install: ${BLUE}Adds more advanced VIM plugins and tools on top of the Minimal Install.${NC}"
-echo -e "3 - Expand Install: ${BLUE}Includes all packages from Minimal Plus and additional tools like 'git', 'fzf', 'exa'.${NC}"
-echo -e "4 - Full Install: ${BLUE}The most comprehensive installation, including window managers and advanced applications.${NC}"
+echo -e "1 - Minimal Install      : ${BLUE}Basic utilities like 'mc', 'vim', 'micro', 'ranger'.${NC}"
+echo -e "2 - Minimal Plus Install : ${BLUE}Adds more advanced VIM plugins and tools on top of the Minimal Install.${NC}"
+echo -e "3 - Expand Install       : ${BLUE}Includes all packages from Minimal Plus and additional tools like 'git', 'fzf', 'exa'.${NC}"
+echo -e "4 - Full Install         : ${BLUE}The most comprehensive installation, including window managers and advanced applications.${NC}"
 read -p "Enter your choice (1-4): " choice
 
 # Prepare installation array based on user choice
