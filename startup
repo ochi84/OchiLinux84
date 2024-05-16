@@ -61,7 +61,7 @@ else
     echo -e "${RED}Failed to execute the dispatch script.${NC}"
 fi
 
-echo -e "${YELLOW}Loading the configuration file 'sc.conf'...${NC}"
+echo -e "${YELLOW}Loading the configuration file sc.conf...${NC}"
 
 # Load config file
 CONFIG_FILE="$HOME/.config/sc.conf"
