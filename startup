@@ -13,6 +13,7 @@
 # Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 # Requires root : Yes
 
+NC='\033[0m' # No Color
 YELLOW='\033[0;33m'
 
 # Get the GitHub repository
