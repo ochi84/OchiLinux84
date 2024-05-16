@@ -13,7 +13,10 @@
 # Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 # Requires root : Yes
 
+YELLOW='\033[0;33m'
+
 # Get the GitHub repository
+
 if command -v git >/dev/null 2>&1; then
     echo -e "${YELLOW}Git is already installed.${NC}"
 else
