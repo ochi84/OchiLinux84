@@ -10,7 +10,7 @@
 # Script        : startup
 # Author        : Jens Ochmann
 # Location      : /usr/local/bin
-# Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
+# Description   : Install specified applications and run the dispatch script to dispatch files from GitHub repository
 # Requires root : Yes
 
 # Colors
@@ -59,19 +59,19 @@ fi
 
 # Install Dispatch
 if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-    echo -e "${GREEN}'Dispatch' successfully installed and made executable.${NC}"
+    echo -e "${GREEN}Dispatch successfully installed and made executable.${NC}"
 else
-    echo -e "${RED}Failed to install and set execute permission on 'dispatch'.${NC}"
+    echo -e "${RED}Failed to install and set execute permission on dispatch.${NC}"
     exit 1
 fi
 
-echo -e "${YELLOW}Running 'dispatch'...${NC}"
+echo -e "${YELLOW}Running dispatch...${NC}"
     
-# Ensure 'dispatch' is executable and available
+# Ensure dispatch is executable and available
 if /usr/local/bin/dispatch; then
-    echo -e "${GREEN}'Dispatch' executed successfully.${NC}"
+    echo -e "${GREEN}Dispatch executed successfully.${NC}"
 else
-    echo -e "${RED}Failed to execute 'dispatch'.${NC}"
+    echo -e "${RED}Failed to execute dispatch.${NC}"
     exit 1
 fi
 
