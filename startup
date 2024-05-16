@@ -35,7 +35,7 @@ fi
 root
 
 # Prompt the user to enter their username
-read -p "${YELLOW}Please enter your username:${NC} " USERNAME
+read -p "Please enter your username: " USERNAME
 
 # Define HOME directory based on the entered username
 HOME="/home/$USERNAME"

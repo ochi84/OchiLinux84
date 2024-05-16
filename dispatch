@@ -56,13 +56,13 @@ done
 
 # Check if dbus-x11 is installed
 if ! dpkg -s dbus-x11 &> /dev/null; then
-    echo "Installing dbus-x11..."
+    echo -e "${YELLOW}Installing dbus-x11...${NC}"
     sudo apt-get install dbus-x11
 fi
 
 # Load the configuration file for Tilix
 if dconf load '/com/gexperts/Tilix/' < "$GITHUB_DIR/tilix.conf"; then
-    echo "Tilix configuration loaded successfully."
+    echo -e "${YELLOW}Tilix configuration loaded successfully.${NC}"
 else
     echo -e "${RED}Failed to load tilix.conf.${NC}"
 fi
