@@ -25,16 +25,18 @@ fi
 
 # Check if the GitHub directory exists
 if [ ! -d "$GITHUB_DIR" ]; then
-    echo -e "${YELLOW}GitHub directory does not exist. Cloning repository from Github...${NC}"
+    echo -e "${BLUE}$GITHUB_DIR ${YELLOW}does not exist.${NC}"
+    echo -e "${YELLOW}Cloning repository from Github...${NC}"
 	cd $HOME
 	git clone https://github.com/ochi84/github.git
+    echo -e "${YELLOW}Done.${NC}"
 else
 	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
 fi
 
 echo -e "${YELLOW}Updating configfiles...${NC}"
 
-# config files
+# define config files
 cp -u "$BASHRC_DIR/.bashrc" "$GITHUB_DIR/dot.bashrc"             || echo -e "${RED}Failed to update .bashrc${NC}"
 cp -u "$VIMRC_DIR/.vimrc" "$GITHUB_DIR/dot.vimrc"                || echo -e "${RED}Failed to update .vimrc${NC}"
 cp -u "$SCCONF_DIR/sc.conf" "$GITHUB_DIR/sc.conf"                || echo -e "${RED}Failed to update sc.conf${NC}"
@@ -50,7 +52,6 @@ cp -u "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png" || echo -e "${RED}Fail
 
 echo -e "${YELLOW}Updating scripts...${NC}"
 
-# scripts
 # Here, you should define a list of specific scripts to be copied.
 declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup" "bye")
 for script in "${scripts[@]}"; do
