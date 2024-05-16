@@ -53,14 +53,14 @@ if [ ! -d "$GITHUB_DIR" ]; then
     echo -e "${YELLOW}Cloning repository from Github...${NC}"
 	cd $HOME
 	git clone https://github.com/ochi84/github.git
-    echo -e "${YELLOW}Done.${NC}"
+    echo -e "${GREEN}Done.${NC}"
 else
 	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
 fi
 
 # Install Dispatch
 if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-    echo -e "${YELLOW}'Dispatch' successfully installed and made executable.${NC}"
+    echo -e "${GREEN}'Dispatch' successfully installed and made executable.${NC}"
 else
     echo -e "${RED}Failed to install and set execute permission on 'dispatch'.${NC}"
     exit 1
@@ -70,7 +70,7 @@ echo -e "${YELLOW}Running 'dispatch'...${NC}"
     
 # Ensure 'dispatch' is executable and available
 if /usr/local/bin/dispatch; then
-    echo -e "${YELLOW}'Dispatch' executed successfully.${NC}"
+    echo -e "${GREEN}'Dispatch' executed successfully.${NC}"
 else
     echo -e "${RED}Failed to execute 'dispatch'.${NC}"
     exit 1
@@ -94,7 +94,7 @@ install_packages() {
     local installed=()
     for app in "${packages[@]}"; do
         if sudo apt install -y "$app"; then
-            echo -e "${YELLOW}Installed $app successfully.${NC}"
+            echo -e "${GREEN}Installed $app successfully.${NC}"
             installed+=("$app")  # Add app to the list of successfully installed packages
         else
             echo -e "${RED}Failed to install $app. Check if the package exists or if there are network issues.${NC}"
@@ -142,4 +142,4 @@ esac
 # Install selected packages
 install_packages "${all_packages[@]}"
 
-echo -e "${YELLOW}All desired applications have been installed.${NC}"
+echo -e "${GREEN}All desired applications have been installed.${NC}"
