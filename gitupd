@@ -29,7 +29,7 @@ if [ ! -d "$GITHUB_DIR" ]; then
     echo -e "${YELLOW}Cloning repository from Github...${NC}"
 	cd $HOME
 	git clone https://github.com/ochi84/github.git
-    echo -e "${YELLOW}Done.${NC}"
+    echo -e "${GREEN}Done.${NC}"
 else
 	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
 fi
@@ -58,4 +58,4 @@ for script in "${scripts[@]}"; do
     cp "/usr/local/bin/$script" "$GITHUB_DIR/$script" || echo -e "${RED}Failed to update $script${NC}"
 done
 
-echo -e "${YELLOW}Update process completed.${NC}"
+echo -e "${GREEN}Update process completed.${NC}"
