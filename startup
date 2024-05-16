@@ -13,12 +13,11 @@
 # Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 # Requires root : Yes
 
-# TODO Der Ablauf passt noch nicht, wenn ich ein frisches System aufgesetzt habe!
-
 # Load config file
 CONFIG_FILE="$HOME/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
+    echo -e "${YELLOW}Configuration file loaded successfully from $CONFIG_FILE.${NC}"
 else
     echo -e "${RED}Error: Configuration file not found.${NC}"
     echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
@@ -83,37 +82,6 @@ install_packages "${all_packages[@]}"
 
 echo -e "${YELLOW}All desired applications have been installed.${NC}"
 
-# Get the GitHub repository
-if command -v git >/dev/null 2>&1; then
-    echo -e "${YELLOW}Cloning the GitHub repository 'https://github.com/ochi84/github.git in $HOME'.${NC}"
-
-    cd $HOME
-
-    if [ -d $GITHUB_DIR ]; then
-        echo -e "${YELLOW}GitHub repository already exist.${NC}"
-    else
-        if git clone https://github.com/ochi84/github.git; then
-            if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-                echo -e "${YELLOW}Dispatch script successfully installed and made executable.${NC}"
-            else
-                echo -e "${RED}Failed to install and set execute permission on dispatch script.${NC}"
-            fi
-        else
-            echo -e "${RED}Failed to clone GitHub repository. Check if there are network issues.${NC}"
-            exit 1
-        fi
-    fi
-    
-    echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
-    
-    # Ensure that the 'dispatch' script is executable and available
-    if /usr/local/bin/dispatch; then
-        echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
-    else
-        echo -e "${RED}Failed to execute the dispatch script.${NC}"
-    fi
-
-    echo -e "${YELLOW}Startup process completed.${NC}"
-else
+se
     echo -e "${YELLOW}Startup process completed.${NC}"
 fi
