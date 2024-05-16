@@ -13,57 +13,6 @@
 # Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 # Requires root : Yes
 
-# set colors
-NC='\033[0m' # No Color
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-
-# Get the GitHub repository
-
-if command -v git >/dev/null 2>&1; then
-    echo -e "${YELLOW}Git is already installed.${NC}"
-else
-    echo -e "${YELLOW}Installing Git.${NC}"
-    # Install Git
-    sudo apt update
-    if sudo apt install git -y; then
-        echo -e "${YELLOW}Git successfully installed.${NC}"
-    else
-        echo -e "${RED}Failed to install Git.${NC}"
-        exit 1
-    fi
-fi
-
-echo -e "${YELLOW}Cloning the GitHub repository 'https://github.com/ochi84/github.git in $HOME to install the dispatch script'.${NC}"
-
-cd $HOME
-
-GITHUB_DIR="$HOME/github"
-if [ -d $GITHUB_DIR ]; then
-    echo -e "${YELLOW}GitHub repository already exists on your local system.${NC}"
-else
-    if git clone https://github.com/ochi84/github.git; then
-        if sudo cp $GITHUB_DIR/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-            echo -e "${YELLOW}Dispatch script successfully installed and made executable.${NC}"
-        else
-            echo -e "${RED}Failed to install and set execute permission on dispatch script.${NC}"
-        fi
-    else
-        echo -e "${RED}Failed to clone GitHub repository. Check if there are network issues.${NC}"
-        exit 1
-    fi
-fi
-
-echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
-
-# Ensure that the 'dispatch' script is executable and available
-if /usr/local/bin/dispatch; then
-    echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
-    echo -e "${YELLOW}Loading the configuration file 'sc.conf'...${NC}"
-else
-    echo -e "${RED}Failed to execute the dispatch script.${NC}"
-fi
-
 # Load config file
 CONFIG_FILE="$HOME/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
