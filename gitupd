@@ -23,20 +23,25 @@ else
     exit 1
 fi
 
-# Function to print messages in yellow
-echo_yellow() {
-    echo -e "${YELLOW}$1${NC}"
-}
-
 # Check if the GitHub directory exists
 if [ ! -d "$GITHUB_DIR" ]; then
+<<<<<<< HEAD
     echo_yellow "GitHub directory does not exist. Creating directory: $GITHUB_DIR"
     mkdir -p "$GITHUB_DIR" # TODO git clone!
+=======
+    echo -e "${BLUE}$GITHUB_DIR ${YELLOW}does not exist.${NC}"
+    echo -e "${YELLOW}Cloning repository from Github...${NC}"
+	cd $HOME
+	git clone https://github.com/ochi84/github.git
+    echo -e "${YELLOW}Done.${NC}"
+else
+	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
+>>>>>>> main
 fi
 
-echo_yellow "Updating configfiles..."
+echo -e "${YELLOW}Updating configfiles...${NC}"
 
-# config files
+# define config files
 cp -u "$BASHRC_DIR/.bashrc" "$GITHUB_DIR/dot.bashrc"             || echo -e "${RED}Failed to update .bashrc${NC}"
 cp -u "$VIMRC_DIR/.vimrc" "$GITHUB_DIR/dot.vimrc"                || echo -e "${RED}Failed to update .vimrc${NC}"
 cp -u "$SCCONF_DIR/sc.conf" "$GITHUB_DIR/sc.conf"                || echo -e "${RED}Failed to update sc.conf${NC}"
@@ -50,13 +55,12 @@ dconf dump '/com/gexperts/Tilix/' > "$GITHUB_DIR/tilix.conf"     || echo -e "${R
 # Awesome-WM background
 cp -u "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png" || echo -e "${RED}Failed to update background.png${NC}"
 
-echo_yellow "Updating scripts..."
+echo -e "${YELLOW}Updating scripts...${NC}"
 
-# scripts
 # Here, you should define a list of specific scripts to be copied.
 declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup" "bye")
 for script in "${scripts[@]}"; do
-    cp -u "/usr/local/bin/$script" "$GITHUB_DIR/$script" || echo -e "${RED}Failed to update $script${NC}"
+    cp "/usr/local/bin/$script" "$GITHUB_DIR/$script" || echo -e "${RED}Failed to update $script${NC}"
 done
 
-echo_yellow "Update process completed."
+echo -e "${YELLOW}Update process completed.${NC}"
