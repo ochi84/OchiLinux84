@@ -186,10 +186,10 @@ export EXA_COLORS="${EXA_COLORS_DI}:${EXA_COLORS_EX}:${EXA_COLORS_FI}:${EXA_COLO
 # alias ll='ls -gh'
 # alias la='ls -gAh'
 # alias l.='ls -A | grep "^\."'
-alias ll='exa -lG --icons --color=always --group-directories-first' 
-alias la='exa -alG --icons --color=always --group-directories-first'
-alias lt='exa -T --icons --color=always --group-directories-first'
-alias l.='exa -aG | grep "^\."'
+alias ll='exa -l --color=always --group-directories-first' 
+alias la='exa -al --color=always --group-directories-first'
+alias lt='exa -T --color=always --group-directories-first'
+alias l.='exa -a | grep "^\."'
 
 ## cdaliases
 alias ..='cd ..'
