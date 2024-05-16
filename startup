@@ -13,7 +13,9 @@
 # Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 # Requires root : Yes
 
+# set colors
 NC='\033[0m' # No Color
+RED='\033[0;31m'
 YELLOW='\033[0;33m'
 
 # Get the GitHub repository
@@ -57,11 +59,10 @@ echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
 # Ensure that the 'dispatch' script is executable and available
 if /usr/local/bin/dispatch; then
     echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
+    echo -e "${YELLOW}Loading the configuration file 'sc.conf'...${NC}"
 else
     echo -e "${RED}Failed to execute the dispatch script.${NC}"
 fi
-
-#echo -e "${YELLOW}Loading the configuration file 'sc.conf'...${NC}"
 
 # Load config file
 CONFIG_FILE="$HOME/.config/sc.conf"
