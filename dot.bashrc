@@ -123,7 +123,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # 37    for white text
 # LS_COLORS can use these ten codes:
 EXA_COLORS_DI="di=34;1"  # directories
-EXA_COLORS_EX="ex=37"    # executable files
+EXA_COLORS_EX="ex=33"    # executable files
 EXA_COLORS_FI="fi=37"    # regular files
 EXA_COLORS_PI="pi=37"    # named pipes
 EXA_COLORS_SO="so=37"    # sockets

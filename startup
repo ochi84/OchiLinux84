@@ -13,6 +13,69 @@
 # Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 # Requires root : Yes
 
+# Colors
+export NC='\033[0m' # No Color
+export BLACK='\033[0;30m'
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export BLUE='\033[0;34m'
+export MAGENTA='\033[0;35m'
+export CYAN='\033[0;36m'
+export WHITE='\033[0;37m'
+
+# Ensure root
+root() {
+if [ "$(id -u)" != "0" ]; then
+   echo -e "${RED}This script must be run as root${NC}" >&2
+   exit 1
+fi
+}
+
+root
+
+# Prompt the user to enter their username
+read -p "${YELLOW}Please enter your username:${NC} " USERNAME
+
+# Define HOME directory based on the entered username
+HOME="/home/$USERNAME"
+
+# Check if the entered username exists
+if [ ! -d "$HOME" ]; then
+    echo -e "${RED}Error: User '$USERNAME' does not exist or home directory not found.${NC}"
+    exit 1
+fi
+
+# Check if the GitHub directory exists
+GITHUB_DIR="$HOME/github"
+if [ ! -d "$GITHUB_DIR" ]; then
+    echo -e "${BLUE}$GITHUB_DIR ${YELLOW}does not exist.${NC}"
+    echo -e "${YELLOW}Cloning repository from Github...${NC}"
+	cd $HOME
+	git clone https://github.com/ochi84/github.git
+    echo -e "${YELLOW}Done.${NC}"
+else
+	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
+fi
+
+# Install Dispatch
+if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
+    echo -e "${YELLOW}'Dispatch' successfully installed and made executable.${NC}"
+else
+    echo -e "${RED}Failed to install and set execute permission on 'dispatch'.${NC}"
+    exit 1
+fi
+
+echo -e "${YELLOW}Running 'dispatch'...${NC}"
+    
+# Ensure 'dispatch' is executable and available
+if /usr/local/bin/dispatch; then
+    echo -e "${YELLOW}'Dispatch' executed successfully.${NC}"
+else
+    echo -e "${RED}Failed to execute 'dispatch'.${NC}"
+    exit 1
+fi
+
 # Load config file
 CONFIG_FILE="$HOME/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
@@ -80,38 +143,3 @@ esac
 install_packages "${all_packages[@]}"
 
 echo -e "${YELLOW}All desired applications have been installed.${NC}"
-
-# Get the GitHub repository
-if command -v git >/dev/null 2>&1; then
-    echo -e "${YELLOW}Cloning the GitHub repository 'https://github.com/ochi84/github.git in $HOME'.${NC}"
-
-    cd $HOME
-
-    if [ -d $GITHUB_DIR ]; then
-        echo -e "${YELLOW}GitHub repository already exist.${NC}"
-    else
-        if git clone https://github.com/ochi84/github.git; then
-            if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-                echo -e "${YELLOW}Dispatch script successfully installed and made executable.${NC}"
-            else
-                echo -e "${RED}Failed to install and set execute permission on dispatch script.${NC}"
-            fi
-        else
-            echo -e "${RED}Failed to clone GitHub repository. Check if there are network issues.${NC}"
-            exit 1
-        fi
-    fi
-    
-    echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
-    
-    # Ensure that the 'dispatch' script is executable and available
-    if /usr/local/bin/dispatch; then
-        echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
-    else
-        echo -e "${RED}Failed to execute the dispatch script.${NC}"
-    fi
-
-    echo -e "${YELLOW}Startup process completed.${NC}"
-else
-    echo -e "${YELLOW}Startup process completed.${NC}"
-fi
