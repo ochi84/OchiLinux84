@@ -13,6 +13,8 @@
 # Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
 # Requires root : Yes
 
+# TODO Der Ablauf passt noch nicht, wenn ich ein frisches System aufgesetzt habe!
+
 # Load config file
 CONFIG_FILE="$HOME/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
