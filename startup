@@ -153,6 +153,51 @@ esac
 # Install selected packages
 install_packages "${all_packages[@]}"
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+echo -e "${YELLOW}All desired applications have been installed.${NC}"
+<<<<<<< HEAD
+
+# Get the GitHub repository
+if command -v git >/dev/null 2>&1; then
+    echo -e "${YELLOW}Cloning the GitHub repository 'https://github.com/ochi84/github.git in $HOME'.${NC}"
+
+    cd $HOME
+
+    if [ -d $GITHUB_DIR ]; then
+        echo -e "${YELLOW}GitHub repository already exist.${NC}"
+    else
+        if git clone https://github.com/ochi84/github.git; then
+            if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
+                echo -e "${YELLOW}Dispatch script successfully installed and made executable.${NC}"
+            else
+                echo -e "${RED}Failed to install and set execute permission on dispatch script.${NC}"
+            fi
+        else
+            echo -e "${RED}Failed to clone GitHub repository. Check if there are network issues.${NC}"
+            exit 1
+        fi
+    fi
+    
+    echo -e "${YELLOW}Running the 'dispatch' script...${NC}"
+    
+    # Ensure that the 'dispatch' script is executable and available
+    if /usr/local/bin/dispatch; then
+        echo -e "${YELLOW}Dispatch script executed successfully.${NC}"
+    else
+        echo -e "${RED}Failed to execute the dispatch script.${NC}"
+    fi
+
+    echo -e "${YELLOW}Startup process completed.${NC}"
+else
+    echo -e "${YELLOW}Startup process completed.${NC}"
+=======
+>>>>>>> main
+=======
+echo -e "${GREEN}All desired applications have been installed.${NC}"
+>>>>>>> main
+=======
 echo
 echo -e "${GREEN}All desired applications have been installed.${NC}"
 echo
+>>>>>>> main
