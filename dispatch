@@ -53,7 +53,7 @@ for file in "${!DIRS[@]}"; do
         fi
     fi
 	if $dest == */themes/* ]]; then
-	    if rsync -avh --progress "$scr" "$dest";then
+	    if rsync -avh --progress "$scr" "$dest"; then
 	        echo -e "${YELLOW}Copied awesome background: $file${NC}"
 	    else
 		echo -e "${RED}Failes to copy awesome background $file${NC}"
