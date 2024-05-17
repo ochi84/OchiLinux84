@@ -52,6 +52,13 @@ for file in "${!DIRS[@]}"; do
             echo -e "${RED}Failed to copy config files: $file${NC}"
         fi
     fi
+	if $dest == */themes/* ]]; then
+	    if rsync -avh --progress "$scr" "$dest";then
+	        echo -e "${YELLOW}Copied awesome background: $file${NC}"
+	    else
+		echo -e "${RED}Failes to copy awesome background $file${NC}"
+	    fi
+	fi 
 done
 
 # Check if dbus-x11 is installed
