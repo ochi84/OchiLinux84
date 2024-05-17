@@ -56,7 +56,8 @@ echo
 echo -e "${YELLOW}Updating scripts...${NC}"
 
 # Here, you should define a list of specific scripts to be copied.
-declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup" "bye")
+#declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup" "bye" "mountmanager")
+declare -a scripts=(*)
 for script in "${scripts[@]}"; do
     rsync -avh --progress "/usr/local/bin/$script" "$GITHUB_DIR/$script" || echo -e "${RED}Failed to update $script${NC}"
 done
