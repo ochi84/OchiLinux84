@@ -45,21 +45,21 @@ for file in "${!DIRS[@]}"; do
         else
             echo -e "${RED}Failed to copy scripts or set executable: $file${NC}"
         fi
-    else
+    elif [[ $dest == $HOME/* ]]; then
         if rsync -avh --progress "$src" "$dest"; then
             echo -e "${YELLOW}Copied config files: $file${NC}"
         else
             echo -e "${RED}Failed to copy config files: $file${NC}"
         fi
+    elif [[ $dest == */awesome/* ]]; then
+        if sudo rsync -avh --progress "$src" "$dest"; then
+            echo -e "${YELLOW}Copied awesome background: $file${NC}"
+        else
+            echo -e "${RED}Failed to copy awesome background: $file${NC}"
+        fi
     fi
-	if $dest == */themes/* ]]; then
-	    if rsync -avh --progress "$scr" "$dest";then
-	        echo -e "${YELLOW}Copied awesome background: $file${NC}"
-	    else
-		echo -e "${RED}Failes to copy awesome background $file${NC}"
-	    fi
-	fi 
 done
+
 
 # Check if dbus-x11 is installed
 if ! dpkg -s dbus-x11 &> /dev/null; then
