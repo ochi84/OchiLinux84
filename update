@@ -70,7 +70,7 @@ cleanup_result=$?
 
 # if both update and cleanup were successful
 if [ $update_result -eq 0 ] && [ $cleanup_result -eq 0 ]; then
-    echo -e "${YELLOW}System maintenance completed successfully!${NC}"
+    echo -e "${GREEN}System maintenance completed successfully!${NC}"
 else
     echo -e "${RED}System maintenance encountered errors.${NC}" >&2
 fi
