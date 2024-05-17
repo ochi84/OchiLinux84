@@ -74,4 +74,11 @@ else
     echo -e "${RED}Failed to load tilix.conf.${NC}"
 fi
 
+# Change the owner of /home/jens/.dbus back to jens
+if [ -d "$HOME/.dbus" ]; then
+    sudo chown -R jens:jens /home/jens/.dbus
+    echo -e "${YELLOW}Changed ownership of /home/jens/.dbus to jens.${NC}"
+fi
+
+
 echo -e "${YELLOW}All files have been copied successfully.${NC}"
