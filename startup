@@ -10,7 +10,7 @@
 # Script        : startup
 # Author        : Jens Ochmann
 # Location      : /usr/local/bin
-# Description   : Install specified applications and run the 'dispatch' script to dispatch files from GitHub repository
+# Description   : Install specified applications and run the dispatch script to dispatch files from GitHub repository
 # Requires root : Yes
 
 # Colors
@@ -35,7 +35,7 @@ fi
 root
 
 # Prompt the user to enter their username
-read -p "${YELLOW}Please enter your username:${NC} " USERNAME
+read -p "Please enter your username: " USERNAME
 
 # Define HOME directory based on the entered username
 HOME="/home/$USERNAME"
@@ -52,27 +52,26 @@ if [ ! -d "$GITHUB_DIR" ]; then
     echo -e "${BLUE}$GITHUB_DIR ${YELLOW}does not exist.${NC}"
     echo -e "${YELLOW}Cloning repository from Github...${NC}"
 	cd $HOME
-	git clone https://github.com/ochi84/github.git
-    echo -e "${YELLOW}Done.${NC}"
+	sudo -u $USERNAME git clone https://github.com/ochi84/github.git
 else
 	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
 fi
 
 # Install Dispatch
 if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-    echo -e "${YELLOW}'Dispatch' successfully installed and made executable.${NC}"
+    echo -e "${GREEN}Dispatch successfully installed and made executable.${NC}"
 else
-    echo -e "${RED}Failed to install and set execute permission on 'dispatch'.${NC}"
+    echo -e "${RED}Failed to install and set execute permission on dispatch.${NC}"
     exit 1
 fi
 
-echo -e "${YELLOW}Running 'dispatch'...${NC}"
+echo -e "${YELLOW}Running dispatch...${NC}"
     
-# Ensure 'dispatch' is executable and available
+# Ensure dispatch is executable and available
 if /usr/local/bin/dispatch; then
-    echo -e "${YELLOW}'Dispatch' executed successfully.${NC}"
+    echo -e "${GREEN}Dispatch executed successfully.${NC}"
 else
-    echo -e "${RED}Failed to execute 'dispatch'.${NC}"
+    echo -e "${RED}Failed to execute dispatch.${NC}"
     exit 1
 fi
 
@@ -94,7 +93,7 @@ install_packages() {
     local installed=()
     for app in "${packages[@]}"; do
         if sudo apt install -y "$app"; then
-            echo -e "${YELLOW}Installed $app successfully.${NC}"
+            echo -e "${GREEN}Installed $app successfully.${NC}"
             installed+=("$app")  # Add app to the list of successfully installed packages
         else
             echo -e "${RED}Failed to install $app. Check if the package exists or if there are network issues.${NC}"
@@ -106,10 +105,10 @@ install_packages() {
 
 # Display installation options with descriptions
 echo -e "Select the installation type:"
-echo -e "1 - Minimal Install: ${BLUE}Basic utilities like 'mc', 'vim', 'micro', 'ranger'.${NC}"
-echo -e "2 - Minimal Plus Install: ${BLUE}Adds more advanced VIM plugins and tools on top of the Minimal Install.${NC}"
-echo -e "3 - Expand Install: ${BLUE}Includes all packages from Minimal Plus and additional tools like 'git', 'fzf', 'exa'.${NC}"
-echo -e "4 - Full Install: ${BLUE}The most comprehensive installation, including window managers and advanced applications.${NC}"
+echo -e "1 - Minimal Install      : ${BLUE}Basic utilities like 'mc', 'vim', 'micro', 'ranger'.${NC}"
+echo -e "2 - Minimal Plus Install : ${BLUE}Adds more advanced VIM plugins and tools on top of the Minimal Install.${NC}"
+echo -e "3 - Expand Install       : ${BLUE}Includes all packages from Minimal Plus and additional tools like 'git', 'fzf', 'exa'.${NC}"
+echo -e "4 - Full Install         : ${BLUE}The most comprehensive installation, including window managers and advanced applications.${NC}"
 read -p "Enter your choice (1-4): " choice
 
 # Prepare installation array based on user choice
@@ -142,6 +141,7 @@ esac
 # Install selected packages
 install_packages "${all_packages[@]}"
 
+<<<<<<< HEAD
 echo -e "${YELLOW}All desired applications have been installed.${NC}"
 <<<<<<< HEAD
 
@@ -179,4 +179,7 @@ if command -v git >/dev/null 2>&1; then
 else
     echo -e "${YELLOW}Startup process completed.${NC}"
 =======
+>>>>>>> main
+=======
+echo -e "${GREEN}All desired applications have been installed.${NC}"
 >>>>>>> main
