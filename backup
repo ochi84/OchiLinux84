@@ -10,6 +10,7 @@
 # Script        : backup
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
+# Date          : 2024-05-17
 # Description   : Perform local and external backup.
 # Requires root : No
 
@@ -23,20 +24,22 @@ else
     exit 1
 fi
 
-# UUID of the drive
+# UUID of the drive (search for it with 'sudo blkid')
 UUID="B4D48115D480DB4E"
 
 # Mount point
-MOUNT_POINT="/media/jens/Elements"
+MOUNT_POINT="/media/$USERNAME/Elements"
 
 # Check if the drive is already mounted
 if ! grep -qs "$MOUNT_POINT" /proc/mounts; then
   # Create the mount point if it doesn't exist
   sudo mkdir -p "$MOUNT_POINT"
   
+  echo
   echo -e "${YELLOW}Mounting the external drive...${NC}"
   sudo mount -U "$UUID" "$MOUNT_POINT"
   if [ $? -ne 0 ]; then
+    echo
     echo -e "${RED}Failed to mount the external drive. Exiting.${NC}"
     exit 1
   fi
@@ -44,6 +47,7 @@ else
   echo -e "${YELLOW}External drive is already mounted.${NC}"
 fi
 
+echo
 printf "${YELLOW}Starting backup...${NC}\n"
 
 # Check if the external backup drive is available
@@ -60,14 +64,18 @@ tar -czf "$BACKUP_DIR/$BACKUP_FILE" --exclude="$BACKUP_DIR" "$HOME" || printf "$
 
 # Copy files from local backup to external hard drive using rsync
 rsync -avh --progress $BACKUP_DIR/ $BACKUP_DIR_EXT/ || printf "${RED}Error: rsync failed to copy files.${NC}\n"
-printf "${YELLOW}Backup copied to external drive.${NC}\n"
+printf "${GREEN}Backup copied to external drive.${NC}\n"
 
 # Copy files from local to GitHub folder using gitupd
+echo
 printf "${YELLOW}Copying files for GitHub...${NC}\n"
 gitupd || printf "${RED}Error updating GitHub.${NC}\n"
 
 # Optional: Unmount the drive after the backup
+echo
 echo -e "${YELLOW}Unmounting the external drive...${NC}"
 sudo umount "$MOUNT_POINT"
 
+echo
 printf "${GREEN}Finished all operations.${NC}\n"
+echo

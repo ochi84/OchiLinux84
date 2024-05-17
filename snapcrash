@@ -8,8 +8,9 @@
 #                 |_|                             
 #
 # Script        : snapcrash
-# Author        : Jens Ochmann
 # Location      : /usr/local/bin/
+# Author        : Jens Ochmann
+# Date          : 2024-05-17
 # Description   : Terminates, updates, removes, and reinstalls the Snap Store to resolve common issues.
 # Requires root : Yes
 
@@ -28,7 +29,7 @@ echo -e "${YELLOW}Deleting all Snap Store processes...${NC}"
 killall snap-store
 
 if [ $? -eq 0 ]; then
-    echo -e "${YELLOW}Snap Store processes successfully terminated.${NC}"
+    echo -e "${GREEN}Snap Store processes successfully terminated.${NC}"
 else
     echo -e "${RED}Error terminating Snap Store processes. They may not have been active.${NC}"
 fi
@@ -40,7 +41,7 @@ sudo snap refresh
 echo
 echo -e "${YELLOW}Updating package lists and performing a full upgrade...${NC}"
 if sudo apt update && sudo apt full-upgrade -y; then
-    echo -e "${YELLOW}System successfully updated.${NC}"
+    echo -e "${GREEN}System successfully updated.${NC}"
 else
     echo -e "${RED}Error updating the system.${NC}"
 fi
@@ -48,7 +49,7 @@ fi
 echo
 echo -e "${YELLOW}Removing Snap Store...${NC}"
 if sudo snap remove snap-store; then
-    echo -e "${YELLOW}Snap Store successfully removed.${NC}"
+    echo -e "${GREEN}Snap Store successfully removed.${NC}"
 else
     echo -e "${RED}Error removing the Snap Store.${NC}"
 fi
@@ -56,7 +57,9 @@ fi
 echo
 echo -e "${YELLOW}Installing Snap Store...${NC}"
 if sudo snap install snap-store; then
-    echo -e "${YELLOW}Snap Store successfully installed.${NC}"
+    echo -e "${GREEN}Snap Store successfully installed.${NC}"
+    echo
 else
     echo -e "${RED}Error installing the Snap Store.${NC}"
+    echo
 fi

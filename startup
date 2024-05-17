@@ -8,8 +8,9 @@
 #                             |_|  
 #
 # Script        : startup
-# Author        : Jens Ochmann
 # Location      : /usr/local/bin
+# Author        : Jens Ochmann
+# Date          : 2024-05-17
 # Description   : Install specified applications and run the dispatch script to dispatch files from GitHub repository
 # Requires root : Yes
 
@@ -35,6 +36,7 @@ fi
 root
 
 # Prompt the user to enter their username
+echo
 read -p "Please enter your username: " USERNAME
 
 # Define HOME directory based on the entered username
@@ -54,23 +56,30 @@ if [ ! -d "$GITHUB_DIR" ]; then
 	cd $HOME
 	sudo -u $USERNAME git clone https://github.com/ochi84/github.git
 else
+    echo
 	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
 fi
 
 # Install Dispatch
 if sudo cp $HOME/github/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
+    echo
     echo -e "${GREEN}Dispatch successfully installed and made executable.${NC}"
 else
+    echo
     echo -e "${RED}Failed to install and set execute permission on dispatch.${NC}"
     exit 1
 fi
 
+echo
 echo -e "${YELLOW}Running dispatch...${NC}"
+echo
     
 # Ensure dispatch is executable and available
 if /usr/local/bin/dispatch; then
+    echo
     echo -e "${GREEN}Dispatch executed successfully.${NC}"
 else
+    echo
     echo -e "${RED}Failed to execute dispatch.${NC}"
     exit 1
 fi
@@ -85,6 +94,7 @@ else
     exit 1
 fi
 
+echo
 echo -e "${YELLOW}Starting the installation of applications...${NC}"
 
 # Function to install packages
@@ -94,9 +104,11 @@ install_packages() {
     for app in "${packages[@]}"; do
         if sudo apt install -y "$app"; then
             echo -e "${GREEN}Installed $app successfully.${NC}"
+            echo
             installed+=("$app")  # Add app to the list of successfully installed packages
         else
             echo -e "${RED}Failed to install $app. Check if the package exists or if there are network issues.${NC}"
+            echo
         fi
     done
     echo -e "${YELLOW}Successfully installed the following packages:${NC}"
@@ -133,7 +145,7 @@ case $choice in
         all_packages+=("${full[@]}")
         ;;
     *)
-        echo "Invalid choice. Exiting."
+        echo "${RED}Invalid choice. Exiting.${NC}"
         exit 1
         ;;
 esac
@@ -141,4 +153,6 @@ esac
 # Install selected packages
 install_packages "${all_packages[@]}"
 
+echo
 echo -e "${GREEN}All desired applications have been installed.${NC}"
+echo
