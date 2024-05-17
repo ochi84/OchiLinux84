@@ -8,13 +8,31 @@
 #       |_|                    
 #
 # Script        : update
-# Author        : Jens Ochmann
 # Location      : /usr/local/bin
+# Author        : Jens Ochmann
+# Date          : 2024-05-17
 # Description   : Performs updates and cleanup tasks on linux systems.
 # Requires root : Yes
 
+NC='\033[0m' # No Colo
+RED='\033[0;31m'
+
+# Ensure root
+root() {
+if [ "$(id -u)" != "0" ]; then
+   echo -e "${RED}This script must be run as root${NC}" >&2
+   exit 1
+fi
+}
+
+root
+
+# Ask for the username to update
+echo
+read -p "Enter the username to be updated: " USERNAME
+
 # Define User-Dir (HOME)
-USER_DIR="/home/jens"
+USER_DIR="/home/$USERNAME"
 
 # Load config file
 CONFIG_FILE="$USER_DIR/.config/sc.conf"
@@ -26,9 +44,8 @@ else
     exit 1
 fi
 
-root # Ensure root (see sc.conf)
-
 update_packages() {
+    echo
     echo -e "${YELLOW}Updating all installed packages...${NC}"
     apt update && apt full-upgrade -y
     if [ $? -ne 0 ]; then
@@ -38,6 +55,7 @@ update_packages() {
 }
 
 cleanup_system() {
+    echo
     echo -e "${YELLOW}Deleting temporary files...${NC}"
     rm -rf /tmp/* /var/tmp/*
     if [ $? -ne 0 ]; then
@@ -45,6 +63,7 @@ cleanup_system() {
         return 1
     fi
 
+    echo
     echo -e "${YELLOW}Emptying the trash using trash-cli...${NC}"
     trash-empty
     if [ $? -ne 0 ]; then
@@ -52,6 +71,7 @@ cleanup_system() {
         return 1
     fi
 
+    echo
     echo -e "${YELLOW}Cleaning APT cache...${NC}"
     apt autoremove -y && apt autoclean
     if [ $? -ne 0 ]; then
@@ -61,6 +81,7 @@ cleanup_system() {
 }
 
 # Start the maintenance process
+echo
 echo -e "${YELLOW}Starting system maintenance...${NC}"
 update_packages
 update_result=$?
@@ -70,7 +91,11 @@ cleanup_result=$?
 
 # if both update and cleanup were successful
 if [ $update_result -eq 0 ] && [ $cleanup_result -eq 0 ]; then
+    echo
     echo -e "${GREEN}System maintenance completed successfully!${NC}"
+    echo
 else
+    echo
     echo -e "${RED}System maintenance encountered errors.${NC}" >&2
+    echo
 fi

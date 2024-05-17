@@ -10,6 +10,7 @@
 # Script        : gitupd
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
+# Date          : 2024-05-17
 # Description   : Backup and sync local files to GitHub directory.
 # Requires root : No
 
@@ -30,9 +31,11 @@ if [ ! -d "$GITHUB_DIR" ]; then
 	cd $HOME
 	git clone https://github.com/ochi84/github.git
 else
+    echo
 	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
 fi
 
+echo
 echo -e "${YELLOW}Updating configfiles...${NC}"
 
 # define config files
@@ -49,6 +52,7 @@ dconf dump '/com/gexperts/Tilix/' > "$GITHUB_DIR/tilix.conf"  || echo -e "${RED}
 # Awesome-WM background
 cp "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png" || echo -e "${RED}Failed to update background.png${NC}"
 
+echo
 echo -e "${YELLOW}Updating scripts...${NC}"
 
 # Here, you should define a list of specific scripts to be copied.
@@ -57,4 +61,6 @@ for script in "${scripts[@]}"; do
     rsync -avh --progress "/usr/local/bin/$script" "$GITHUB_DIR/$script" || echo -e "${RED}Failed to update $script${NC}"
 done
 
-echo -e "${GREEN}Update process completed.${NC}"
+echo
+echo -e "${GREEN}Git update process completed.${NC}"
+echo

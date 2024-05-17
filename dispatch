@@ -10,6 +10,7 @@
 # Script        : dispatch
 # Location      : /usr/local/bin/
 # Author        : Jens Ochmann
+# Date          : 2024-05-17
 # Description   : Distributes data from the locally cloned GitHub repository to the local system
 # Requires root : Yes
 
@@ -18,6 +19,7 @@ CONFIG_FILE="$HOME/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 else
+    echo
     echo -e "${RED}Error: Configuration file not found.${NC}"
     echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
     exit 1
@@ -32,6 +34,7 @@ then
     exit 1
 fi
 
+echo
 echo -e "${YELLOW}Starting dispatch operations...${NC}"
 
 # Copy scripts and config files
@@ -41,21 +44,27 @@ for file in "${!DIRS[@]}"; do
 
     if [[ $dest == */bin/* ]]; then
         if sudo rsync -avh --progress "$src" "$dest" && sudo chmod +x "$dest$file"; then
-            echo -e "${YELLOW}Copied scripts and set executable: $file${NC}"
+            echo -e "${YELLOW}Copied script and set executable: $file${NC}"
+            echo
         else
-            echo -e "${RED}Failed to copy scripts or set executable: $file${NC}"
+            echo -e "${RED}Failed to copy script or set executable: $file${NC}"
+            echo
         fi
     elif [[ $dest == $HOME/* ]]; then
         if rsync -avh --progress "$src" "$dest"; then
-            echo -e "${YELLOW}Copied config files: $file${NC}"
+            echo -e "${YELLOW}Copied config file: $file${NC}"
+            echo
         else
-            echo -e "${RED}Failed to copy config files: $file${NC}"
+            echo -e "${RED}Failed to copy config file: $file${NC}"
+            echo
         fi
     elif [[ $dest == */awesome/* ]]; then
         if sudo rsync -avh --progress "$src" "$dest"; then
             echo -e "${YELLOW}Copied awesome background: $file${NC}"
+            echo
         else
             echo -e "${RED}Failed to copy awesome background: $file${NC}"
+            echo
         fi
     fi
 <<<<<<< HEAD
@@ -73,6 +82,7 @@ done
 
 # Check if dbus-x11 is installed
 if ! dpkg -s dbus-x11 &> /dev/null; then
+    echo
     echo -e "${YELLOW}Installing dbus-x11...${NC}"
     sudo apt-get install dbus-x11
 fi
@@ -84,11 +94,13 @@ else
     echo -e "${RED}Failed to load tilix.conf.${NC}"
 fi
 
-# Change the owner of /home/jens/.dbus back to jens
+# Change the owner of /home/$USERNAME/.dbus back to $USERNAME
 if [ -d "$HOME/.dbus" ]; then
-    sudo chown -R jens:jens /home/jens/.dbus
-    echo -e "${YELLOW}Changed ownership of /home/jens/.dbus to jens.${NC}"
+    sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/.dbus
+    echo
+    echo -e "${YELLOW}Changed ownership of /home/$USERNAME/.dbus to $USERNAME.${NC}"
 fi
 
 
-echo -e "${YELLOW}All files have been copied successfully.${NC}"
+echo
+echo -e "${YELLOW}All files have been dispatched successfully.${NC}"
