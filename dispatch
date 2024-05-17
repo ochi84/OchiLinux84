@@ -26,7 +26,6 @@ else
 fi
 
 # Warn the user about potential overwrites
-echo
 echo -e "${RED}Warning: This may overwrite key config files. Ensure backups are available.${NC}"
 read -p "Do you want to continue? (y/n) " -n 1 -r
 echo    # move to a new line
@@ -80,10 +79,8 @@ fi
 
 # Load the configuration file for Tilix
 if dconf load '/com/gexperts/Tilix/' < "$GITHUB_DIR/tilix.conf"; then
-    echo
     echo -e "${YELLOW}Tilix configuration loaded successfully.${NC}"
 else
-    echo
     echo -e "${RED}Failed to load tilix.conf.${NC}"
 fi
 
@@ -97,4 +94,3 @@ fi
 
 echo
 echo -e "${YELLOW}All files have been dispatched successfully.${NC}"
-echo
