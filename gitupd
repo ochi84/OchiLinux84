@@ -1,0 +1,60 @@
+#!/bin/bash
+
+#        _ _                   _ 
+#   __ _(_) |_ _   _ _ __   __| |
+#  / _` | | __| | | | '_ \ / _` |
+# | (_| | | |_| |_| | |_) | (_| |
+#  \__, |_|\__|\__,_| .__/ \__,_|
+#  |___/            |_|  
+#
+# Script        : gitupd
+# Location      : /usr/local/bin
+# Author        : Jens Ochmann
+# Description   : Backup and sync local files to GitHub directory.
+# Requires root : No
+
+# Load config file
+CONFIG_FILE="$HOME/.config/sc.conf"
+if [[ -f "$CONFIG_FILE" ]]; then
+    source "$CONFIG_FILE"
+else
+    echo -e "${RED}Error: Configuration file not found.${NC}"
+    echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
+    exit 1
+fi
+
+# Check if the GitHub directory exists
+if [ ! -d "$GITHUB_DIR" ]; then
+    echo -e "${BLUE}$GITHUB_DIR ${YELLOW}does not exist.${NC}"
+    echo -e "${YELLOW}Cloning repository from Github...${NC}"
+	cd $HOME
+	git clone https://github.com/ochi84/github.git
+else
+	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
+fi
+
+echo -e "${YELLOW}Updating configfiles...${NC}"
+
+# define config files
+rsync -avh --progress "$BASHRC_DIR/.bashrc" "$GITHUB_DIR/dot.bashrc"             || echo -e "${RED}Failed to update .bashrc${NC}"
+rsync -avh --progress "$VIMRC_DIR/.vimrc" "$GITHUB_DIR/dot.vimrc"                || echo -e "${RED}Failed to update .vimrc${NC}"
+rsync -avh --progress "$SCCONF_DIR/sc.conf" "$GITHUB_DIR/sc.conf"                || echo -e "${RED}Failed to update sc.conf${NC}"
+rsync -avh --progress "$RCLUA_DIR/rc.lua" "$GITHUB_DIR/rc.lua"                   || echo -e "${RED}Failed to update rc.lua${NC}"
+rsync -avh --progress "$RCLUA_DIR/rc.lua.original" "$GITHUB_DIR/rc.lua.original" || echo -e "${RED}Failed to update rc.lua.original${NC}"
+rsync -avh --progress "$RCCONF_DIR/rc.conf" "$GITHUB_DIR/rc.conf"                || echo -e "${RED}Failed to update rc.conf${NC}"
+rsync -avh --progress "$PICOM_DIR/picom.conf" "$GITHUB_DIR/picom.conf"           || echo -e "${RED}Failed to update picom.conf${NC}"
+rsync -avh --progress "$NFCONF_DIR/config.conf" "$GITHUB_DIR/nf.conf"            || echo -e "${RED}Failed to update (neofetch) config.conf${NC}"
+dconf dump '/com/gexperts/Tilix/' > "$GITHUB_DIR/tilix.conf"  || echo -e "${RED}Failed to dump tilix.conf{$NC}"
+
+# Awesome-WM background
+cp "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png" || echo -e "${RED}Failed to update background.png${NC}"
+
+echo -e "${YELLOW}Updating scripts...${NC}"
+
+# Here, you should define a list of specific scripts to be copied.
+declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup" "bye")
+for script in "${scripts[@]}"; do
+    rsync -avh --progress "/usr/local/bin/$script" "$GITHUB_DIR/$script" || echo -e "${RED}Failed to update $script${NC}"
+done
+
+echo -e "${GREEN}Update process completed.${NC}"

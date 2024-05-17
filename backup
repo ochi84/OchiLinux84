@@ -18,9 +18,30 @@ CONFIG_FILE="$HOME/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 else
-    echo -e "Error: Configuration file not found."
-    echo -e "Please ensure the configuration file 'sc.conf' exists at $HOME/.config/"
+    echo -e "${RED}Error: Configuration file not found.${NC}"
+    echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
     exit 1
+fi
+
+# UUID of the drive
+UUID="B4D48115D480DB4E"
+
+# Mount point
+MOUNT_POINT="/media/jens/Elements"
+
+# Check if the drive is already mounted
+if ! grep -qs "$MOUNT_POINT" /proc/mounts; then
+  # Create the mount point if it doesn't exist
+  sudo mkdir -p "$MOUNT_POINT"
+  
+  echo -e "${YELLOW}Mounting the external drive...${NC}"
+  sudo mount -U "$UUID" "$MOUNT_POINT"
+  if [ $? -ne 0 ]; then
+    echo -e "${RED}Failed to mount the external drive. Exiting.${NC}"
+    exit 1
+  fi
+else
+  echo -e "${YELLOW}External drive is already mounted.${NC}"
 fi
 
 printf "${YELLOW}Starting backup...${NC}\n"
@@ -45,4 +66,8 @@ printf "${YELLOW}Backup copied to external drive.${NC}\n"
 printf "${YELLOW}Copying files for GitHub...${NC}\n"
 gitupd || printf "${RED}Error updating GitHub.${NC}\n"
 
-printf "${YELLOW}Finished all operations.${NC}\n"
+# Optional: Unmount the drive after the backup
+echo -e "${YELLOW}Unmounting the external drive...${NC}"
+sudo umount "$MOUNT_POINT"
+
+printf "${GREEN}Finished all operations.${NC}\n"
