@@ -40,13 +40,13 @@ for file in "${!DIRS[@]}"; do
     dest="${DIRS[$file]}"
 
     if [[ $dest == */bin/* ]]; then
-        if sudo cp "$src" "$dest" && sudo chmod +x "$dest$file"; then
+        if sudo rsync -avh --progress "$src" "$dest" && sudo chmod +x "$dest$file"; then
             echo -e "${YELLOW}Copied scripts and set executable: $file${NC}"
         else
             echo -e "${RED}Failed to copy scripts or set executable: $file${NC}"
         fi
     else
-        if cp "$src" "$dest"; then
+        if rsync -avh --progress "$src" "$dest"; then
             echo -e "${YELLOW}Copied config files: $file${NC}"
         else
             echo -e "${RED}Failed to copy config files: $file${NC}"
