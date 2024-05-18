@@ -11,7 +11,7 @@
 # Author        : Jens Ochmann
 # Date          : 2024-05-18
 # Description   : Mount/Unmount external devices.
-# Requires root : No
+# Requires root : Yes
 
 # Define colors
 YELLOW='\033[0;33m'
