@@ -37,6 +37,13 @@ fi
 echo
 echo -e "${YELLOW}Starting dispatch operations...${NC}"
 
+# Create Nerdfont folder if it does not exist
+if sudo mkdir -p /usr/share/fonts/nerdfonts; then
+    echo -e "${GREEN}Nerdfont directory ready to install nerdfonts${NC}"
+else
+    echo -e "${RED}Error creating Nerdfont directory${NC}"
+fi
+
 # Copy scripts and config files
 for file in "${!DIRS[@]}"; do
     src="$GITHUB_DIR/$file"
