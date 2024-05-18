@@ -10,7 +10,7 @@
 # Script        : backup
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Date          : 2024-05-17
+# Date          : 2024-05-18
 # Description   : Perform local and external backup.
 # Requires root : No
 

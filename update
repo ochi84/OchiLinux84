@@ -10,7 +10,7 @@
 # Script        : update
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Date          : 2024-05-17
+# Date          : 2024-05-18
 # Description   : Performs updates and cleanup tasks on linux systems.
 # Requires root : Yes
 

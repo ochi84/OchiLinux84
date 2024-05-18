@@ -8,9 +8,9 @@
 #             |_|                        
 #
 # Script        : dispatch
-# Location      : /usr/local/bin/
+# Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Date          : 2024-05-17
+# Date          : 2024-05-18
 # Description   : Distributes data from the locally cloned GitHub repository to the local system
 # Requires root : Yes
 
