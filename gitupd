@@ -52,6 +52,9 @@ dconf dump '/com/gexperts/Tilix/' > "$GITHUB_DIR/tilix.conf"  || echo -e "${RED}
 # Awesome-WM background
 cp "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png" || echo -e "${RED}Failed to update background.png${NC}"
 
+# Fonts
+cp -r "$FONTS_DIR" "$GITHUB_DIR/" || echo -e "${RED}Failes to update fonts${NC}"
+
 echo
 echo -e "${YELLOW}Updating scripts...${NC}"
 
