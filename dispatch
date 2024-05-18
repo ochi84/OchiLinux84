@@ -48,6 +48,7 @@ fi
 for file in "${!DIRS[@]}"; do
     src="$GITHUB_DIR/$file"
     dest="${DIRS[$file]}"
+    nerd="${GITHUB_DIR}/nerdfonts/$file"
 
     if [[ $dest == */bin/* ]]; then
         if sudo rsync -avh --progress "$src" "$dest" && sudo chmod +x "$dest$file"; then
@@ -74,7 +75,7 @@ for file in "${!DIRS[@]}"; do
             echo
         fi
     elif [[ $dest == */fonts/* ]]; then
-        if sudo rsync -avh --progress "$src" "$dest"; then
+        if sudo rsync -avh --progress "$nerd" "$dest"; then
             echo -e "${YELLOW}Copied nerdfonts: $file${NC}"
             echo
         else
