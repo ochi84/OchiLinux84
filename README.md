@@ -26,7 +26,7 @@ Included in this repository are several utility scripts to aid in managing and d
   
 - `update`: Combines system update and cleanup tasks into a single script, which updates installed packages, removes obsolete files, and cleans up system logs to ensure optimal performance.
 
-- `mountmanager`:  A script to mount and unmount external hard drives and USB sticks. At the beginning, you can select from a list of available drives. The default mount path is /media/$USER/, and the mount point will use the name of the external drive or USB stick.
+- `mountman`:  A script to mount and unmount external hard drives and USB sticks. At the beginning, you can select from a list of available drives. The default mount path is /media/$USER/, and the mount point will use the name of the external drive or USB stick.
 
 - `sc.conf`: Configuration file for scripts to set colors, directories, files, necessary programs etc.
 
