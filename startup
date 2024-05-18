@@ -143,6 +143,7 @@ case $choice in
         all_packages+=("${minimal_plus[@]}")
         all_packages+=("${expand[@]}")
         all_packages+=("${full[@]}")
+        clone_awesome_widgets
         ;;
     *)
         echo "${RED}Invalid choice. Exiting.${NC}"
