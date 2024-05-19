@@ -29,7 +29,7 @@ if [ ! -d "$GITHUB_DIR" ]; then
     echo -e "${BLUE}$GITHUB_DIR ${YELLOW}does not exist.${NC}"
     echo -e "${YELLOW}Cloning repository from Github...${NC}"
 	cd $HOME
-	git clone https://github.com/ochi84/github.git
+	git clone https://github.com/ochi84/ochilinux84.git
 else
     echo
 	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
