@@ -201,14 +201,14 @@ alias cdl='cd && clear'
 ## programaliases
 alias btop='bpytop -lc'
 alias m='micro'
+alias nf='neofetch'
+alias r='ranger'
 alias web='w3m'
 alias x='cmatrix -b -u8'
-alias rg='ranger'
-alias nf='neofetch'
 
 ## commandaliases
-alias yep='sudo apt install $1'
-alias nop='sudo apt remove $1'
+alias apin='sudo apt install $1'
+alias aprm='sudo apt remove $1'
 alias bye='shutdown -P now'
 alias fz='fzf --preview="cat {}"'
 alias vfz='vim $(fzf --preview="cat {}")'
@@ -217,6 +217,7 @@ alias fz.='find . | fzf --preview="cat {}"'
 alias vfz.='vim $(find . | fzf --preview="cat {}")'
 alias mfz.='micro $(find . | fzf --preview="cat {}")'
 alias cl='clear'
+alias src='source ~/.bashrc'
 
 ## gitaliases
 alias gs='git status'
@@ -233,6 +234,14 @@ alias gm='git merge'            # 1. git checkout main 2. git merge <neuer branc
 alias gpo='git push origin'
 alias gpom='git push origin main'
 alias gr='git restore'
+
+## chmodaliases (from ohmybash)
+alias 640='chmod 640'            # -rw-r----- (user: rw, group: r)
+alias 644='chmod 644'            # -rw-r--r-- (user: rw, group: r, other: r)
+alias 755='chmod 755'            # -rwxr-xr-x (user: rwx, group: rx, other: rx)
+alias 775='chmod 775'            # -rwxrwxr-x (user: rwx, group: rwx, other: rx)
+alias mx='chmod a+x'             # ---x--x--x (user: --x, group: --x, other: --x)
+alias ux='chmod u+x'             # ---x------ (user: --x, group: -, other: -)
 
 ## change awesome background wallpaper
 alias awbg='sudo cp background.png /usr/share/awesome/themes/default/ && cp background.png ~/.config/awesome/themes/default/'
