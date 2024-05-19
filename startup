@@ -154,6 +154,40 @@ esac
 # Install selected packages
 install_packages "${all_packages[@]}"
 
+# Install Nerd Fonts
+echo
+echo -e "${YELLOW}Installing Nerd Fonts...${NC}"
+
+# Define the font directory
+FONT_DIR="/usr/share/fonts"
+
+# Source directory for Nerd Fonts
+NERDFONTS_DIR="$GITHUB_DIR/nerdfonts"
+
+if [ -d "$NERDFONTS_DIR" ]; then
+    sudo cp -r "$NERDFONTS_DIR" "$FONT_DIR/"
+    echo -e "${GREEN}Nerd Fonts installed successfully.${NC}"
+else
+    echo -e "${RED}Nerd Fonts directory not found in the repository.${NC}"
+    exit 1
+fi
+
+## Clear and regenerate font cache
+#echo "Clearing font cache..."
+#rm -rf ~/.cache/fontconfig/*
+#
+#echo "Rebuilding font cache..."
+#fc-cache -fv
+#
+## Verify the installation
+#echo "Verifying installed Nerd Fonts..."
+#if fc-list | grep -iq "Nerd Font"; then
+#    echo -e "${GREEN}Nerd Fonts verification completed successfully.${NC}"
+#else
+#    echo -e "${RED}Nerd Fonts verification failed.${NC}"
+#    exit 1
+#fi
+
 echo
 echo -e "${GREEN}All desired applications have been installed.${NC}"
 echo
