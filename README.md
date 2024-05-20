@@ -1,6 +1,8 @@
 # OchiLinux84's Configuration Files and Scripts
 
-This repository contains personal configuration files and scripts for backup, restoration and easy synchronization across different machines (see how to install and screenshots of my configuration below).
+This repository contains personal configuration files and scripts for backup, restoration and easy synchronization across different machines.
+
+See how to install these settings and screenshots of my configuration below:
 
 ## Contents
 
@@ -44,6 +46,10 @@ To install the configurations and utility scripts, follow these steps:
   cd ochilinux84
   ./startup  # requires root privileges
   ```
+![Bildschirmfoto vom 2024-05-20 17-19-29](https://github.com/ochi84/OchiLinux84/assets/168211337/eb5c72e6-1faf-45c4-8040-2b54f44bfe56)
+![Bildschirmfoto vom 2024-05-20 17-19-32](https://github.com/ochi84/OchiLinux84/assets/168211337/67c5928e-c3a3-4eb9-83c5-ff146ef139f0)
+![Bildschirmfoto vom 2024-05-20 17-19-55](https://github.com/ochi84/OchiLinux84/assets/168211337/b05380f8-cb70-4464-8ead-ea96aba82485)
+
 
 ### This script will:
 
@@ -52,6 +58,7 @@ To install the configurations and utility scripts, follow these steps:
 -  Install the "dispatch" script and run it to apply configurations.
 -  Load the "sc.conf" file for additional settings.
 -  Install selected packages based on the chosen installation type (see below).
+-  Further install some required nerdfonts and a lot of tilix schemes from https://github.com/storm119/Tilix-Themes.git *(I like the "Pnevma" scheme it can be seen in the last picture above)*
 
 ### Installation Options
 
@@ -60,9 +67,9 @@ The script offers different levels of installation:
 -  **Minimal Install:** Basic utilities like mc, vim, micro, ranger.
 -  **Minimal Plus Install:** Adds more advanced VIM plugins and tools.
 -  **Expand Install:** Includes all packages from Minimal Plus and additional tools like git, fzf, exa.
--  **Full Install:** The most comprehensive installation, including window managers and advanced applications.
+-  **Full Install:** The most comprehensive installation, including window managers and advanced applications *(see the last picture above)*.
 
-Details can be found in "sc.conf"
+*Details can be found in "sc.conf"*
 
 ## Risk Advisory
 
