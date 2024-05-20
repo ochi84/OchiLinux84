@@ -9,6 +9,14 @@
 " turn on syntax highlighting
 syntax on
 
+" Color settings
+
+" Set color (you can get great colorschemes from https://github.com/jdpedersen1/dotfiles.git)
+"source ~/.vim/colors/happy_hacking.vim
+
+highlight Search cterm=bold ctermfg=red ctermbg=NONE guifg=red guibg=NONE
+highlight Visual cterm=bold ctermfg=lightyellow ctermbg=NONE guifg=lightyellow guibg=NONE 
+
 " show line numbers
 set number
 

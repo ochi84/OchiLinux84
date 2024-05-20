@@ -1,16 +1,16 @@
 #!/bin/bash
  
-#  _                _
-# | |__   __ _  ___| | ___   _ _ __
+#  _                _                
+# | |__   __ _  ___| | ___   _ _ __ MIT Licence
 # | '_ \ / _` |/ __| |/ / | | | '_ \
 # | |_) | (_| | (__|   <| |_| | |_) |
 # |_.__/ \__,_|\___|_|\_\\__,_| .__/
-#                             |_|    
+#                             |_|                  
 #
 # Script        : backup
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Date          : 2024-05-18
+# Date          : 2024-05-20
 # Description   : Perform local and external backup.
 # Requires root : No
 
