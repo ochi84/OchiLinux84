@@ -76,7 +76,6 @@ for file in "${!DIRS[@]}"; do
     fi
 done
 
-
 # Check if dbus-x11 is installed
 if ! dpkg -s dbus-x11 &> /dev/null; then
     echo
@@ -97,7 +96,6 @@ if [ -d "$HOME/.dbus" ]; then
     echo
     echo -e "${YELLOW}Changed ownership of /home/$USERNAME/.dbus to $USERNAME.${NC}"
 fi
-
 
 echo
 echo -e "${YELLOW}All files have been dispatched successfully.${NC}"

@@ -49,7 +49,26 @@ rsync -avh --progress "$NFCONF_DIR/config.conf" "$GITHUB_DIR/nf.conf"           
 dconf dump '/com/gexperts/Tilix/' > "$GITHUB_DIR/tilix.conf"  || echo -e "${RED}Failed to dump tilix.conf{$NC}"
 
 # Awesome-WM background
-cp "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png" || echo -e "${RED}Failed to update background.png${NC}"
+rsync -avh --progress "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png" || echo -e "${RED}Failed to update background.png${NC}"
+
+# Nerdfonts
+rsync -avh --progress "$FONT_DIR/nerdfonts" "$GITHUB_DIR/" || echo -e "${RED}Failed to update nerdfonts${NC}"
+
+# Tilix schemes
+# Check if the target directory exists
+if [ ! -d "$GITHUB_DIR/schemes/tilix" ]; then
+    echo -e "${BLUE}$GITHUB_DIR/schemes/tilix ${RED}does not exist.${NC}"
+    echo -e "${YELLOW}Creating ${BLUE}$GITHUB_DIR/schemes/tilix${NC}"
+    mkdir -p "$GITHUB_DIR/schemes/tilix"
+fi
+
+# Sync the Tilix schemes
+echo -e "${YELLOW}Copying files from ${BLUE}$SCHEMES_TILIX_DIR ${YELLOW}to ${BLUE}$GITHUB_DIR/schemes/tilix${NC}"
+if rsync -avh --progress "$SCHEMES_TILIX_DIR" "$GITHUB_DIR/schemes/tilix/"; then
+    echo -e "${GREEN}Tilix schemes updated successfully.${NC}"
+else
+    echo -e "${RED}Failed to update Tilix schemes${NC}"
+fi
 
 echo
 echo -e "${YELLOW}Updating scripts...${NC}"
