@@ -163,7 +163,6 @@ FONT_DIR="/usr/share/fonts"
 
 # Source directory for Nerd Fonts
 NERDFONTS_DIR="$GITHUB_DIR/nerdfonts"
-
 if [ -d "$NERDFONTS_DIR" ]; then
     sudo cp -r "$NERDFONTS_DIR" "$FONT_DIR/"
     echo -e "${GREEN}Nerd Fonts installed successfully.${NC}"
@@ -187,6 +186,23 @@ fi
 #    echo -e "${RED}Nerd Fonts verification failed.${NC}"
 #    exit 1
 #fi
+
+# Install Tilix Schemes
+echo
+echo -e "${YELLOW}Installing Tilix Schemes...${NC}"
+
+# Define Tilix Schemes directory
+TILIX_DIR="$HOME/.config/tilix/"
+
+# Source directory for Tilix Schemes
+TILIX_GITHUB_DIR="$GITHUB_DIR/tilix"
+if [ -d "$TILIX_GITHUB_DIR" ]; then
+    cp -r "$TILIX_DIR/schemes" "$TILIX_GITHUB_DIR/"
+    echo -e "${GREEN}Tilix Schemes installed successfully.${NC}"
+else
+    echo -e "${RED}Tilix Schemes directory not found in the repository.${NC}"
+    exit 1
+fi
 
 echo
 echo -e "${GREEN}All desired applications have been installed.${NC}"
