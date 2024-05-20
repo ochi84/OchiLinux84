@@ -74,7 +74,7 @@ for file in "${!DIRS[@]}"; do
             echo
         fi
     elif [[ $dest == */tilix/* ]]; then
-        if sudo rsync -avh --progress "$GITHUB_DIR/tilix/" "$TILIX_DIR"; then
+        if sudo rsync -avh "$GITHUB_DIR/tilix/" "$TILIX_DIR"; then
             echo -e "${YELLOW}Copied awesome background: $file${NC}"
             echo
         else

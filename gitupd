@@ -56,7 +56,7 @@ rsync -avh --progress "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png"       
 rsync -avh --progress "$FONT_DIR/nerdfonts" "$GITHUB_DIR/"                       || echo -e "${RED}Failed to update nerdfonts${NC}"
 
 # Tilix schemes
-rsync -avh --progress "$TILIX_DIR/schemes" "$GITHUB_DIR/tilix/"                  || echo -e "${RED}Failed to update tilix schemes${NC}"
+rsync -avh "$TILIX_DIR/schemes" "$GITHUB_DIR/tilix/"                  || echo -e "${RED}Failed to update tilix schemes${NC}"
 
 echo
 echo -e "${YELLOW}Updating scripts...${NC}"
