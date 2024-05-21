@@ -153,6 +153,5 @@ for script in "${scripts[@]}"; do
     fi
 done
 
-echo
 echo -e "${GREEN}Git update process completed.${NC}"
 echo
