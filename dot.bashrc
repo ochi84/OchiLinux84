@@ -122,7 +122,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # 36    for cyan text
 # 37    for white text
 # LS_COLORS can use these ten codes:
-#EXA_COLORS_DI="di=34;1"  # directories
+EXA_COLORS_DI="di=36;1"  # directories
 #EXA_COLORS_EX="ex=32;1"  # executable files
 #EXA_COLORS_FI="fi=37"    # regular files
 #EXA_COLORS_PI="pi=37"    # named pipes
@@ -160,8 +160,8 @@ EXA_COLORS_UT="ut=31;1"  # the units of a file’s size if it is 1 TB/TiB or hig
 #EXA_COLORS_DS="ds=37"    # a device’s minor ID
 EXA_COLORS_UU="uu=33"    # a user that’s you
 EXA_COLORS_UN="un=31"    # a user that’s someone else
-#EXA_COLORS_GU="gu=32"    # a group that you belong to
-#EXA_COLORS_GN="gn=31"    # a group you aren’t a member of
+EXA_COLORS_GU="gu=33"    # a group that you belong to
+EXA_COLORS_GN="gn=31"    # a group you aren’t a member of
 #EXA_COLORS_LC="lc=37"    # a number of hard links
 #EXA_COLORS_LM="lm=37"    # a number of hard links for a regular file with at least two
 #EXA_COLORS_GA="ga=32"    # a new flag in Git
