@@ -39,24 +39,104 @@ echo
 echo -e "${YELLOW}Updating configfiles...${NC}"
 
 # config files
-rsync -avh --progress "$BASHRC_DIR/.bashrc" "$GITHUB_DIR/dot.bashrc"             || echo -e "${RED}Failed to update .bashrc${NC}"
-rsync -avh --progress "$VIMRC_DIR/.vimrc" "$GITHUB_DIR/dot.vimrc"                || echo -e "${RED}Failed to update .vimrc${NC}"
-rsync -avh --progress "$SCCONF_DIR/sc.conf" "$GITHUB_DIR/sc.conf"                || echo -e "${RED}Failed to update sc.conf${NC}"
-rsync -avh --progress "$RCLUA_DIR/rc.lua" "$GITHUB_DIR/rc.lua"                   || echo -e "${RED}Failed to update rc.lua${NC}"
-rsync -avh --progress "$RCLUA_DIR/rc.lua.original" "$GITHUB_DIR/rc.lua.original" || echo -e "${RED}Failed to update rc.lua.original${NC}"
-rsync -avh --progress "$RCCONF_DIR/rc.conf" "$GITHUB_DIR/rc.conf"                || echo -e "${RED}Failed to update rc.conf${NC}"
-rsync -avh --progress "$PICOM_DIR/picom.conf" "$GITHUB_DIR/picom.conf"           || echo -e "${RED}Failed to update picom.conf${NC}"
-rsync -avh --progress "$NFCONF_DIR/config.conf" "$GITHUB_DIR/nf.conf"            || echo -e "${RED}Failed to update nf.conf${NC}"
-dconf dump '/com/gexperts/Tilix/' > "$GITHUB_DIR/tilix.conf"                     || echo -e "${RED}Failed to dump tilix.conf{$NC}"
+if rsync -avh --progress "$BASHRC_DIR/.bashrc" "$GITHUB_DIR/dot.bashrc"; then
+    echo -e "${GREEN}Updated .bashrc${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update .bashrc${NC}";
+    echo
+fi
+
+if rsync -avh --progress "$VIMRC_DIR/.vimrc" "$GITHUB_DIR/dot.vimrc"; then
+    echo -e "${GREEN}Updated .vimrc${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update .vimrc${NC}";
+    echo
+fi
+
+if rsync -avh --progress "$SCCONF_DIR/sc.conf" "$GITHUB_DIR/sc.conf"; then
+    echo -e "${GREEN}Updated sc.conf${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update sc.conf${NC}";
+    echo
+fi
+
+if rsync -avh --progress "$RCLUA_DIR/rc.lua" "$GITHUB_DIR/rc.lua"; then
+    echo -e "${GREEN}Updated rc.lua${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update rc.lua${NC}";
+    echo
+fi
+
+if rsync -avh --progress "$RCLUA_DIR/rc.lua.original" "$GITHUB_DIR/rc.lua.original"; then
+    echo -e "${GREEN}Updated rc.lua.original${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update rc.lua.original${NC}";
+    echo
+fi
+
+if rsync -avh --progress "$RCCONF_DIR/rc.conf" "$GITHUB_DIR/rc.conf"; then
+    echo -e "${GREEN}Updated rc.conf${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update rc.conf${NC}";
+    echo
+fi
+
+if rsync -avh --progress "$PICOM_DIR/picom.conf" "$GITHUB_DIR/picom.conf";then
+    echo -e "${GREEN}Updated picom.conf${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update picom.conf${NC}";
+    echo
+fi
+
+if rsync -avh --progress "$NFCONF_DIR/config.conf" "$GITHUB_DIR/nf.conf"; then
+    echo -e "${GREEN}Updated nf.conf${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update nf.conf${NC}";
+    echo
+fi
+
+if dconf dump '/com/gexperts/Tilix/' > "$GITHUB_DIR/tilix.conf"; then
+    echo -e "${GREEN}Updated tilix.conf${NC}";
+    echo
+else
+    echo -e "${RED}Failed to dump tilix.conf${NC}";
+    echo
+fi
 
 # Awesome-WM background
-rsync -avh --progress "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png"        || echo -e "${RED}Failed to update background.png${NC}"
+if rsync -avh --progress "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png"; then
+    echo -e "${GREEN}Updated background.png${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update background.png${NC}";
+    echo
+fi
 
 # Nerdfonts
-rsync -avh --progress "$FONT_DIR/nerdfonts" "$GITHUB_DIR/"                       || echo -e "${RED}Failed to update nerdfonts${NC}"
+if rsync -avh --progress "$FONT_DIR/nerdfonts" "$GITHUB_DIR/"; then
+    echo -e "${GREEN}Updated nerdfonts${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update nerdfonts${NC}";
+    echo
+fi
 
 # Tilix schemes
-rsync -avh "$TILIX_DIR/schemes" "$GITHUB_DIR/tilix/"                  || echo -e "${RED}Failed to update tilix schemes${NC}"
+if rsync -avh "$TILIX_DIR/schemes" "$GITHUB_DIR/tilix/"; then
+    echo -e "${GREEN}Updated tilix schemes${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update tilix schemes${NC}";
+    echo
+fi
 
 echo
 echo -e "${YELLOW}Updating scripts...${NC}"
@@ -64,7 +144,13 @@ echo -e "${YELLOW}Updating scripts...${NC}"
 # Here, you should define a list of specific scripts to be copied.
 declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup" "bye" "mountman")
 for script in "${scripts[@]}"; do
-    rsync -avh --progress "/usr/local/bin/$script" "$GITHUB_DIR/$script"         || echo -e "${RED}Failed to update $script${NC}"
+    if rsync -avh --progress "/usr/local/bin/$script" "$GITHUB_DIR/$script"; then
+        echo -e "${GREEN}Updated $script${NC}";
+        echo
+    else
+        echo -e "${RED}Failed to update $script${NC}";
+        echo
+    fi
 done
 
 echo
