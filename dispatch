@@ -36,6 +36,7 @@ fi
 
 echo
 echo -e "${YELLOW}Starting dispatch operations...${NC}"
+echo
 
 # Create Nerdfont folder if it does not exist
 if sudo mkdir -p /usr/share/fonts/nerdfonts; then
@@ -51,7 +52,7 @@ for file in "${!DIRS[@]}"; do
 
     if [[ $dest == */bin/* ]]; then
         if sudo rsync -avh --progress "$src" "$dest" && sudo chmod +x "$dest$file"; then
-            echo -e "${YELLOW}Copied script and set executable: $file${NC}"
+            echo -e "${GREEN}Copied script and set executable: $file${NC}"
             echo
         else
             echo -e "${RED}Failed to copy script or set executable: $file${NC}"
@@ -59,7 +60,7 @@ for file in "${!DIRS[@]}"; do
         fi
     elif [[ $dest == $HOME/* ]]; then
         if rsync -avh --progress "$src" "$dest"; then
-            echo -e "${YELLOW}Copied config file: $file${NC}"
+            echo -e "${GREEN}Copied config file: $file${NC}"
             echo
         else
             echo -e "${RED}Failed to copy config file: $file${NC}"
@@ -67,7 +68,7 @@ for file in "${!DIRS[@]}"; do
         fi
     elif [[ $dest == */awesome/* ]]; then
         if sudo rsync -avh --progress "$src" "$dest"; then
-            echo -e "${YELLOW}Copied awesome background: $file${NC}"
+            echo -e "${GREEN}Copied awesome background: $file${NC}"
             echo
         else
             echo -e "${RED}Failed to copy awesome background: $file${NC}"
@@ -75,7 +76,7 @@ for file in "${!DIRS[@]}"; do
         fi
     elif [[ $dest == */tilix/* ]]; then
         if sudo rsync -avh "$GITHUB_DIR/tilix/" "$TILIX_DIR"; then
-            echo -e "${YELLOW}Copied awesome background: $file${NC}"
+            echo -e "${GREEN}Copied awesome background: $file${NC}"
             echo
         else
             echo -e "${RED}Failed to copy awesome background: $file${NC}"
@@ -93,7 +94,7 @@ fi
 
 # Load the configuration file for Tilix
 if dconf load '/com/gexperts/Tilix/' < "$GITHUB_DIR/tilix.conf"; then
-    echo -e "${YELLOW}Tilix configuration loaded successfully.${NC}"
+    echo -e "${GREEN}Tilix configuration loaded successfully.${NC}"
 else
     echo -e "${RED}Failed to load tilix.conf.${NC}"
 fi
@@ -106,4 +107,4 @@ if [ -d "$HOME/.dbus" ]; then
 fi
 
 echo
-echo -e "${YELLOW}All files have been dispatched successfully.${NC}"
+echo -e "${GREEN}All files have been dispatched successfully.${NC}"
