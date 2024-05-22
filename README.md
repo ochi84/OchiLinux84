@@ -71,8 +71,8 @@ The script offers different levels of installation:
 ## Tested Environments
 This repository's scripts and configurations have been tested on the following environments:
 
-- With **Ubuntu 22.04** on "HP ProDesk 400 G6 Desktop Mini PC"
-- With **Linux Mint 21.3 Xfce** on "33588BBG ThinkPad Edge E130"
+- **Ubuntu 22.04** on "HP ProDesk 400 G6 Desktop Mini PC"
+- **Linux Mint 21.3 Xfce** on "33588BBG ThinkPad Edge E130"
 
 ## Contribution
 This repository is primarily for personal backup. However, if you have suggestions for improvements, I welcome issues or pull requests.
