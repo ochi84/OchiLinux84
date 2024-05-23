@@ -78,7 +78,7 @@ for file in "${!DIRS[@]}"; do
 done
 
 # Copy tilix schemes
-if rsync -avh --progress "$GITHUB_DIR/tilix/" "$TILIX_DIR"; then
+if rsync -avh "$GITHUB_DIR/tilix/" "$TILIX_DIR"; then
     echo -e "${GREEN}Copied tilix schemes: $file${NC}"
     echo
 else
