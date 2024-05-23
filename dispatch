@@ -74,16 +74,17 @@ for file in "${!DIRS[@]}"; do
             echo -e "${RED}Failed to copy awesome background: $file${NC}"
             echo
         fi
-    elif [[ $dest == */tilix/* ]]; then
-        if sudo rsync -avh "$GITHUB_DIR/tilix/" "$TILIX_DIR"; then
-            echo -e "${GREEN}Copied awesome background: $file${NC}"
-            echo
-        else
-            echo -e "${RED}Failed to copy awesome background: $file${NC}"
-            echo
-        fi
     fi
 done
+
+# Copy tilix schemes
+if rsync -avh --progress "$GITHUB_DIR/tilix/" "$TILIX_DIR"; then
+    echo -e "${GREEN}Copied tilix schemes: $file${NC}"
+    echo
+else
+    echo -e "${RED}Failed to copy tilix schemes: $file${NC}"
+    echo
+fi
 
 # Check if dbus-x11 is installed
 if ! dpkg -s dbus-x11 &> /dev/null; then
