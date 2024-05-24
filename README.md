@@ -33,18 +33,18 @@ To install the configurations and utility scripts, follow these steps:
 
 1. Run the following command to clone the repository:
 
-  `git clone https://github.com/ochi84/ochilinux84.git`
+    `git clone https://github.com/ochi84/ochilinux84.git`
 
 2. Copie "sc.conf" to ~/.config
 
-   `cp ~/ochilinux84/sc.conf ~/.config`
+    `cp ~/ochilinux84/sc.conf ~/.config`
 
 3. Run the startup script by executing the following commands:
 
-  ```bash
-  cd ochilinux84
-  ./startup  # requires root privileges
-  ```
+    ```bash
+    cd ochilinux84
+    ./startup  # requires root privileges
+    ```
 ##### Script flow:
 ![Bildschirmfoto vom 2024-05-20 17-19-29](https://github.com/ochi84/OchiLinux84/assets/168211337/eb5c72e6-1faf-45c4-8040-2b54f44bfe56)
 ![Bildschirmfoto vom 2024-05-20 17-19-32](https://github.com/ochi84/OchiLinux84/assets/168211337/67c5928e-c3a3-4eb9-83c5-ff146ef139f0)
