@@ -35,6 +35,10 @@ To install the configurations and utility scripts, follow these steps:
 
   `git clone https://github.com/ochi84/ochilinux84.git`
 
+2. Copie "sc.conf" to ~/.config
+
+   `cp ~/ochilinux84/sc.conf ~/.config`
+
 3. Run the startup script by executing the following commands:
 
   ```bash
