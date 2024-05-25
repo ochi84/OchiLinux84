@@ -83,10 +83,10 @@ This repository is released under the MIT License.
 
 ## Screenshots of my Awesome-WM configuration
 ##### minimalistic
-![image](https://github.com/ochi84/github/assets/168211337/18199c3a-3833-4363-8f97-92efea49b6ce)
+![Bildschirmfoto vom 2024-05-25 23-38-34](https://github.com/ochi84/OchiLinux84/assets/168211337/9351e8f8-ab55-4eff-a5a0-24f3e2ff76d4)
 
-![neofetch](https://github.com/ochi84/github/assets/168211337/a08bb1ab-34ef-4ef5-a57b-9b1d7aecae57)
+![Bildschirmfoto vom 2024-05-25 23-40-29](https://github.com/ochi84/OchiLinux84/assets/168211337/75a004d5-eea4-43c6-94d2-b2292a1102f7)
 
-![Bildschirmfoto vom 2024-05-11 10-48-44](https://github.com/ochi84/github/assets/168211337/67025829-6154-4ac9-94d8-b9801aca98fc)
+![Bildschirmfoto vom 2024-05-25 23-39-46](https://github.com/ochi84/OchiLinux84/assets/168211337/0e1655e1-068c-421d-a9ee-fee08df0d184)
 ##### scripting and streaming
-![Bildschirmfoto vom 2024-05-11 14-41-23](https://github.com/ochi84/github/assets/168211337/a6ad592d-1fa2-4afa-89bb-59bc89cbaaef)
+![Bildschirmfoto vom 2024-05-25 23-37-43](https://github.com/ochi84/OchiLinux84/assets/168211337/354ec8a6-4f9e-45ec-b274-2b32b9879859)
