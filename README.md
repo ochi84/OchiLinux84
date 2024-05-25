@@ -45,18 +45,13 @@ To install the configurations and utility scripts, follow these steps:
     cd ochilinux84
     ./startup  # requires root privileges
     ```
-##### Script flow:
-![Bildschirmfoto vom 2024-05-20 17-19-29](https://github.com/ochi84/OchiLinux84/assets/168211337/eb5c72e6-1faf-45c4-8040-2b54f44bfe56)
-![Bildschirmfoto vom 2024-05-20 17-19-32](https://github.com/ochi84/OchiLinux84/assets/168211337/67c5928e-c3a3-4eb9-83c5-ff146ef139f0)
-![Bildschirmfoto vom 2024-05-20 17-19-55](https://github.com/ochi84/OchiLinux84/assets/168211337/b05380f8-cb70-4464-8ead-ea96aba82485)
-
 
 ### This script will:
 -  Prompt for your username to set the HOME directory.
 -  Clone the OchiLinux84 repository if it doesn't exist.
--  Install the "dispatch" script and run it to apply configurations.
 -  Load the "sc.conf" file for additional settings.
 -  Install selected packages based on the chosen installation type (see below).
+-  Install the "dispatch" script and run it to apply configurations.
 -  Further install some required nerdfonts and a lot of tilix schemes from https://github.com/storm119/Tilix-Themes.git *(I like the "Pnevma" scheme it can be seen in the last picture above)*
 
 ### Installation Options
