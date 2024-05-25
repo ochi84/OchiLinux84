@@ -72,7 +72,8 @@ This repository's scripts and configurations have been tested on the following e
 
 - **Ubuntu 22.04.4 LTS** on "HP ProDesk 400 G6 Desktop Mini PC"
 - **Ubuntu 22.04.4 LTS (WSL) Windows 10 x86_64** on "HP Z240 Tower Workstation" *( partially! )*
-- **Linux Mint 21.3 Xfce** on "33588BBG ThinkPad Edge E130"
+- **Linux Mint 21.3 Xfce** on "33588BBG ThasdfinkPad Edge E130"
+- **Linux Mint 21.3 Xfce** on "Acer Aspire E11 (ES1-111-C827)"
 
 ## Contribution
 This repository is primarily for personal backup. However, if you have suggestions for improvements, I welcome issues or pull requests.
