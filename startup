@@ -60,30 +60,6 @@ else
 	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
 fi
 
-# Install Dispatch
-if sudo cp $HOME/ochilinux84/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-    echo
-    echo -e "${GREEN}Dispatch successfully installed and made executable.${NC}"
-else
-    echo
-    echo -e "${RED}Failed to install and set execute permission on dispatch.${NC}"
-    exit 1
-fi
-
-echo
-echo -e "${YELLOW}Running dispatch...${NC}"
-echo
-    
-# Ensure dispatch is executable and available
-if /usr/local/bin/dispatch; then
-    echo
-    echo -e "${GREEN}Dispatch executed successfully.${NC}"
-else
-    echo
-    echo -e "${RED}Failed to execute dispatch.${NC}"
-    exit 1
-fi
-
 # Load config file
 CONFIG_FILE="$HOME/.config/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
@@ -143,7 +119,6 @@ case $choice in
         all_packages+=("${minimal_plus[@]}")
         all_packages+=("${expand[@]}")
         all_packages+=("${full[@]}")
-        clone_awesome_widgets
         ;;
     *)
         echo "${RED}Invalid choice. Exiting.${NC}"
@@ -153,6 +128,30 @@ esac
 
 # Install selected packages
 install_packages "${all_packages[@]}"
+
+# Install Dispatch
+if sudo cp $HOME/ochilinux84/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
+    echo
+    echo -e "${GREEN}Dispatch successfully installed and made executable.${NC}"
+else
+    echo
+    echo -e "${RED}Failed to install and set execute permission on dispatch.${NC}"
+    exit 1
+fi
+
+echo
+echo -e "${YELLOW}Running dispatch...${NC}"
+echo
+    
+# Ensure dispatch is executable and available
+if /usr/local/bin/dispatch; then
+    echo
+    echo -e "${GREEN}Dispatch executed successfully.${NC}"
+else
+    echo
+    echo -e "${RED}Failed to execute dispatch.${NC}"
+    exit 1
+fi
 
 # Install Nerd Fonts
 echo
