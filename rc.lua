@@ -584,8 +584,8 @@ awful.rules.rules = {
        properties = { screen = 1, tag = "@" } },
 
     -- Set Thunar to always map on the tag named "file" on screen 1.
-    --  { rule = { class = "Thunar" },
-    --  properties = { screen = 1, tag = "file" } },
+     { rule = { class = "Thunar" },
+      properties = { screen = 1, tag = "&" } },
 }
 -- }}}
 
@@ -654,7 +654,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- gaps
-beautiful.useless_gap = 8
+beautiful.useless_gap = 5
 
 awful.spawn.with_shell("picom")
 awful.spawn.with_shell("caffeine")
