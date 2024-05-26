@@ -1,4 +1,4 @@
-![logo_ochi84_small](https://github.com/ochi84/OchiLinux84/assets/168211337/9a17e828-ced2-46db-8dfe-5d637bbe8f77)
+![logo_ochi84_fleck](https://github.com/ochi84/OchiLinux84/assets/168211337/cfa87585-d867-4408-9817-bfe34c68d482)
 
 # Configuration Files and Scripts
 This repository contains personal configuration files and scripts for my needs to work with Awesome-WM.
