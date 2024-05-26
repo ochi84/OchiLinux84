@@ -61,7 +61,7 @@ else
 fi
 
 # Load config file
-CONFIG_FILE="$HOME/.config/sc.conf"
+CONFIG_FILE="$GITHUB_DIR/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 else
