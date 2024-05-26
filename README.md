@@ -1,4 +1,6 @@
-# OchiLinux84's Configuration Files and Scripts
+![logo_ochi84_small](https://github.com/ochi84/OchiLinux84/assets/168211337/9a17e828-ced2-46db-8dfe-5d637bbe8f77)
+
+# Configuration Files and Scripts
 This repository contains personal configuration files and scripts for backup, restoration and easy synchronization across different machines.
 
 See how to install these settings and screenshots of my configuration below:
