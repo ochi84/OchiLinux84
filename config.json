@@ -1,0 +1,1138 @@
+{
+    "ui": {
+        "theme": "night-owl",
+        "theme-defs": {
+            "default": {
+                "vars": {
+
+                },
+                "styles": {
+                    "identifier": {
+
+                    },
+                    "text": {
+
+                    },
+                    "alt-text": {
+
+                    },
+                    "error": {
+
+                    },
+                    "ok": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "hidden": {
+
+                    },
+                    "adjusted-time": {
+
+                    },
+                    "skewed-time": {
+
+                    },
+                    "offset-time": {
+
+                    },
+                    "popup": {
+
+                    },
+                    "scrollbar": {
+
+                    }
+                },
+                "syntax-styles": {
+                    "keyword": {
+
+                    },
+                    "string": {
+
+                    },
+                    "comment": {
+
+                    },
+                    "variable": {
+
+                    },
+                    "symbol": {
+
+                    },
+                    "number": {
+
+                    },
+                    "re-special": {
+
+                    },
+                    "re-repeat": {
+
+                    },
+                    "diff-delete": {
+
+                    },
+                    "diff-add": {
+
+                    },
+                    "diff-section": {
+
+                    },
+                    "file": {
+
+                    }
+                },
+                "status-styles": {
+                    "text": {
+
+                    },
+                    "warn": {
+
+                    },
+                    "alert": {
+
+                    },
+                    "active": {
+
+                    },
+                    "inactive": {
+
+                    },
+                    "title": {
+
+                    },
+                    "subtitle": {
+
+                    }
+                },
+                "log-level-styles": {
+                    "trace": {
+
+                    },
+                    "debug5": {
+
+                    },
+                    "debug4": {
+
+                    },
+                    "debug3": {
+
+                    },
+                    "debug2": {
+
+                    },
+                    "debug": {
+
+                    },
+                    "info": {
+
+                    },
+                    "stats": {
+
+                    },
+                    "notice": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "error": {
+
+                    },
+                    "critical": {
+
+                    },
+                    "fatal": {
+
+                    }
+                }
+            },
+            "eldar": {
+                "vars": {
+
+                },
+                "styles": {
+                    "identifier": {
+
+                    },
+                    "text": {
+
+                    },
+                    "alt-text": {
+
+                    },
+                    "error": {
+
+                    },
+                    "ok": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "hidden": {
+
+                    },
+                    "adjusted-time": {
+
+                    },
+                    "skewed-time": {
+
+                    },
+                    "offset-time": {
+
+                    },
+                    "popup": {
+
+                    },
+                    "scrollbar": {
+
+                    }
+                },
+                "syntax-styles": {
+                    "keyword": {
+
+                    },
+                    "string": {
+
+                    },
+                    "comment": {
+
+                    },
+                    "variable": {
+
+                    },
+                    "symbol": {
+
+                    },
+                    "number": {
+
+                    },
+                    "re-special": {
+
+                    },
+                    "re-repeat": {
+
+                    },
+                    "diff-delete": {
+
+                    },
+                    "diff-add": {
+
+                    },
+                    "diff-section": {
+
+                    },
+                    "file": {
+
+                    }
+                },
+                "status-styles": {
+                    "text": {
+
+                    },
+                    "warn": {
+
+                    },
+                    "alert": {
+
+                    },
+                    "active": {
+
+                    },
+                    "inactive": {
+
+                    },
+                    "title": {
+
+                    },
+                    "subtitle": {
+
+                    }
+                },
+                "log-level-styles": {
+                    "trace": {
+
+                    },
+                    "debug5": {
+
+                    },
+                    "debug4": {
+
+                    },
+                    "debug3": {
+
+                    },
+                    "debug2": {
+
+                    },
+                    "debug": {
+
+                    },
+                    "info": {
+
+                    },
+                    "stats": {
+
+                    },
+                    "notice": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "error": {
+
+                    },
+                    "critical": {
+
+                    },
+                    "fatal": {
+
+                    }
+                }
+            },
+            "monocai": {
+                "vars": {
+
+                },
+                "styles": {
+                    "identifier": {
+
+                    },
+                    "text": {
+
+                    },
+                    "alt-text": {
+
+                    },
+                    "error": {
+
+                    },
+                    "ok": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "hidden": {
+
+                    },
+                    "adjusted-time": {
+
+                    },
+                    "skewed-time": {
+
+                    },
+                    "offset-time": {
+
+                    },
+                    "popup": {
+
+                    },
+                    "scrollbar": {
+
+                    }
+                },
+                "syntax-styles": {
+                    "keyword": {
+
+                    },
+                    "string": {
+
+                    },
+                    "comment": {
+
+                    },
+                    "variable": {
+
+                    },
+                    "symbol": {
+
+                    },
+                    "number": {
+
+                    },
+                    "re-special": {
+
+                    },
+                    "re-repeat": {
+
+                    },
+                    "diff-delete": {
+
+                    },
+                    "diff-add": {
+
+                    },
+                    "diff-section": {
+
+                    },
+                    "file": {
+
+                    }
+                },
+                "status-styles": {
+                    "text": {
+
+                    },
+                    "warn": {
+
+                    },
+                    "alert": {
+
+                    },
+                    "active": {
+
+                    },
+                    "inactive": {
+
+                    },
+                    "title": {
+
+                    },
+                    "subtitle": {
+
+                    }
+                },
+                "log-level-styles": {
+                    "trace": {
+
+                    },
+                    "debug5": {
+
+                    },
+                    "debug4": {
+
+                    },
+                    "debug3": {
+
+                    },
+                    "debug2": {
+
+                    },
+                    "debug": {
+
+                    },
+                    "info": {
+
+                    },
+                    "stats": {
+
+                    },
+                    "notice": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "error": {
+
+                    },
+                    "critical": {
+
+                    },
+                    "fatal": {
+
+                    }
+                }
+            },
+            "night-owl": {
+                "vars": {
+
+                },
+                "styles": {
+                    "identifier": {
+
+                    },
+                    "text": {
+
+                    },
+                    "alt-text": {
+
+                    },
+                    "error": {
+
+                    },
+                    "ok": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "hidden": {
+
+                    },
+                    "adjusted-time": {
+
+                    },
+                    "skewed-time": {
+
+                    },
+                    "offset-time": {
+
+                    },
+                    "popup": {
+
+                    },
+                    "scrollbar": {
+
+                    }
+                },
+                "syntax-styles": {
+                    "keyword": {
+
+                    },
+                    "string": {
+
+                    },
+                    "comment": {
+
+                    },
+                    "variable": {
+
+                    },
+                    "symbol": {
+
+                    },
+                    "number": {
+
+                    },
+                    "re-special": {
+
+                    },
+                    "re-repeat": {
+
+                    },
+                    "diff-delete": {
+
+                    },
+                    "diff-add": {
+
+                    },
+                    "diff-section": {
+
+                    },
+                    "file": {
+
+                    }
+                },
+                "status-styles": {
+                    "text": {
+
+                    },
+                    "warn": {
+
+                    },
+                    "alert": {
+
+                    },
+                    "active": {
+
+                    },
+                    "inactive": {
+
+                    },
+                    "title": {
+
+                    },
+                    "subtitle": {
+
+                    }
+                },
+                "log-level-styles": {
+                    "trace": {
+
+                    },
+                    "debug5": {
+
+                    },
+                    "debug4": {
+
+                    },
+                    "debug3": {
+
+                    },
+                    "debug2": {
+
+                    },
+                    "debug": {
+
+                    },
+                    "info": {
+
+                    },
+                    "stats": {
+
+                    },
+                    "notice": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "error": {
+
+                    },
+                    "critical": {
+
+                    },
+                    "fatal": {
+
+                    }
+                }
+            },
+            "solarized-dark": {
+                "vars": {
+
+                },
+                "styles": {
+                    "identifier": {
+
+                    },
+                    "text": {
+
+                    },
+                    "alt-text": {
+
+                    },
+                    "error": {
+
+                    },
+                    "ok": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "hidden": {
+
+                    },
+                    "adjusted-time": {
+
+                    },
+                    "skewed-time": {
+
+                    },
+                    "offset-time": {
+
+                    },
+                    "popup": {
+
+                    },
+                    "scrollbar": {
+
+                    }
+                },
+                "syntax-styles": {
+                    "keyword": {
+
+                    },
+                    "string": {
+
+                    },
+                    "comment": {
+
+                    },
+                    "variable": {
+
+                    },
+                    "symbol": {
+
+                    },
+                    "number": {
+
+                    },
+                    "re-special": {
+
+                    },
+                    "re-repeat": {
+
+                    },
+                    "diff-delete": {
+
+                    },
+                    "diff-add": {
+
+                    },
+                    "diff-section": {
+
+                    },
+                    "file": {
+
+                    }
+                },
+                "status-styles": {
+                    "text": {
+
+                    },
+                    "warn": {
+
+                    },
+                    "alert": {
+
+                    },
+                    "active": {
+
+                    },
+                    "inactive": {
+
+                    },
+                    "title": {
+
+                    },
+                    "subtitle": {
+
+                    }
+                },
+                "log-level-styles": {
+                    "trace": {
+
+                    },
+                    "debug5": {
+
+                    },
+                    "debug4": {
+
+                    },
+                    "debug3": {
+
+                    },
+                    "debug2": {
+
+                    },
+                    "debug": {
+
+                    },
+                    "info": {
+
+                    },
+                    "stats": {
+
+                    },
+                    "notice": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "error": {
+
+                    },
+                    "critical": {
+
+                    },
+                    "fatal": {
+
+                    }
+                }
+            },
+            "solarized-light": {
+                "vars": {
+
+                },
+                "styles": {
+                    "identifier": {
+
+                    },
+                    "text": {
+
+                    },
+                    "alt-text": {
+
+                    },
+                    "error": {
+
+                    },
+                    "ok": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "hidden": {
+
+                    },
+                    "adjusted-time": {
+
+                    },
+                    "skewed-time": {
+
+                    },
+                    "offset-time": {
+
+                    },
+                    "popup": {
+
+                    },
+                    "scrollbar": {
+
+                    }
+                },
+                "syntax-styles": {
+                    "keyword": {
+
+                    },
+                    "string": {
+
+                    },
+                    "comment": {
+
+                    },
+                    "variable": {
+
+                    },
+                    "symbol": {
+
+                    },
+                    "number": {
+
+                    },
+                    "re-special": {
+
+                    },
+                    "re-repeat": {
+
+                    },
+                    "diff-delete": {
+
+                    },
+                    "diff-add": {
+
+                    },
+                    "diff-section": {
+
+                    },
+                    "file": {
+
+                    }
+                },
+                "status-styles": {
+                    "text": {
+
+                    },
+                    "warn": {
+
+                    },
+                    "alert": {
+
+                    },
+                    "active": {
+
+                    },
+                    "inactive": {
+
+                    },
+                    "title": {
+
+                    },
+                    "subtitle": {
+
+                    }
+                },
+                "log-level-styles": {
+                    "trace": {
+
+                    },
+                    "debug5": {
+
+                    },
+                    "debug4": {
+
+                    },
+                    "debug3": {
+
+                    },
+                    "debug2": {
+
+                    },
+                    "debug": {
+
+                    },
+                    "info": {
+
+                    },
+                    "stats": {
+
+                    },
+                    "notice": {
+
+                    },
+                    "warning": {
+
+                    },
+                    "error": {
+
+                    },
+                    "critical": {
+
+                    },
+                    "fatal": {
+
+                    }
+                }
+            }
+        },
+        "keymap-defs": {
+            "uk": {
+                "x22": {
+
+                },
+                "xc2xa3": {
+
+                }
+            },
+            "fr": {
+                "x22": {
+
+                },
+                "x26": {
+
+                },
+                "x27": {
+
+                },
+                "x28": {
+
+                },
+                "x2d": {
+
+                },
+                "x31": {
+
+                },
+                "x32": {
+
+                },
+                "x33": {
+
+                },
+                "x34": {
+
+                },
+                "x35": {
+
+                },
+                "x36": {
+
+                },
+                "x37": {
+
+                },
+                "xc3xa8": {
+
+                },
+                "xc3xa9": {
+
+                }
+            },
+            "us": {
+                "x21": {
+
+                },
+                "x23": {
+
+                },
+                "x24": {
+
+                },
+                "x25": {
+
+                },
+                "x31": {
+
+                },
+                "x32": {
+
+                },
+                "x33": {
+
+                },
+                "x34": {
+
+                },
+                "x35": {
+
+                },
+                "x36": {
+
+                },
+                "x37": {
+
+                },
+                "x38": {
+
+                },
+                "x40": {
+
+                },
+                "x5e": {
+
+                }
+            },
+            "default": {
+                "x06": {
+
+                },
+                "x0c": {
+
+                },
+                "x12": {
+
+                },
+                "x21": {
+
+                },
+                "x23": {
+
+                },
+                "x24": {
+
+                },
+                "x25": {
+
+                },
+                "x31": {
+
+                },
+                "x32": {
+
+                },
+                "x33": {
+
+                },
+                "x34": {
+
+                },
+                "x35": {
+
+                },
+                "x36": {
+
+                },
+                "x37": {
+
+                },
+                "x38": {
+
+                },
+                "x3d": {
+
+                },
+                "x3f": {
+
+                },
+                "x40": {
+
+                },
+                "x45": {
+
+                },
+                "x4e": {
+
+                },
+                "x50": {
+
+                },
+                "x51": {
+
+                },
+                "x57": {
+
+                },
+                "x58": {
+
+                },
+                "x59": {
+
+                },
+                "x5e": {
+
+                },
+                "x63": {
+
+                },
+                "x65": {
+
+                },
+                "x67": {
+
+                },
+                "x69": {
+
+                },
+                "x6d": {
+
+                },
+                "x6e": {
+
+                },
+                "x71": {
+
+                },
+                "x76": {
+
+                },
+                "x77": {
+
+                },
+                "x79": {
+
+                },
+                "x7b": {
+
+                },
+                "x7d": {
+
+                }
+            },
+            "de": {
+                "x21": {
+
+                },
+                "x22": {
+
+                },
+                "x24": {
+
+                },
+                "x25": {
+
+                },
+                "x26": {
+
+                },
+                "x31": {
+
+                },
+                "x32": {
+
+                },
+                "x33": {
+
+                },
+                "x34": {
+
+                },
+                "x35": {
+
+                },
+                "x36": {
+
+                },
+                "x37": {
+
+                },
+                "x38": {
+
+                },
+                "xc2xa7": {
+
+                }
+            }
+        }
+    },
+    "global": {
+
+    }
+}

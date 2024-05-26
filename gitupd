@@ -111,6 +111,14 @@ else
     echo
 fi
 
+if rsync -avh --progress "$LNAV_DIR/config.json" "$GITHUB_DIR/config.json"; then
+    echo -e "${GREEN}Updated config.json${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update config.json${NC}";
+    echo
+fi
+
 # Awesome-WM background
 if rsync -avh --progress "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png"; then
     echo -e "${GREEN}Updated background.png${NC}";
