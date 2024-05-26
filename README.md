@@ -50,9 +50,9 @@ To install the configurations and utility scripts, follow these steps:
 -  Prompt for your username to set the HOME directory.
 -  Clone the OchiLinux84 repository if it doesn't exist.
 -  Load the "sc.conf" file for additional settings.
--  Install selected packages based on the chosen installation type (see below).
+-  Install selected packages based on the chosen installation type.
 -  Install the "dispatch" script and run it to apply configurations.
--  Further install some required nerdfonts and a lot of tilix schemes from https://github.com/storm119/Tilix-Themes.git *(I like the "Pnevma" scheme it can be seen in the last picture above)*
+-  Further install some required nerdfonts and a lot of tilix schemes from https://github.com/storm119/Tilix-Themes.git
 
 ### Installation Options
 The script offers different levels of installation:
@@ -62,7 +62,9 @@ The script offers different levels of installation:
 -  **Expand Install:** Includes all packages from Minimal Plus and additional tools like git, fzf, exa.
 -  **Full Install:** The most comprehensive installation, including window managers and advanced applications *(see the last picture above)*.
 
-*Details can be found in "sc.conf"*
+##### Details can be found in "sc.conf":
+![Bildschirmfoto vom 2024-05-26 09-01-17](https://github.com/ochi84/OchiLinux84/assets/168211337/20cd5729-749a-4957-b8a6-8c8ccfcf21f4)
+
 
 ## Risk Advisory
 **Please note:** Running scripts can significantly alter the behavior of your system. It is highly advised to review each script to understand what changes will be made to your system. For safety, test the scripts in a controlled, virtual environment before applying them on your primary machine. This helps prevent unintended system behavior or data loss.
