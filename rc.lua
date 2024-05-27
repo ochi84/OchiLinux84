@@ -582,10 +582,15 @@ awful.rules.rules = {
     -- Set Firefox to always map on the tag named "web" on screen 1.
      { rule = { class = "firefox" },
        properties = { screen = 1, tag = "@" } },
+    -- Set Firefox not to float so that it adapts to the layouts
+     { rule_any = { class = "firefox" },
+     properties = {floating = false} },
 
     -- Set Thunar to always map on the tag named "file" on screen 1.
      { rule = { class = "Thunar" },
       properties = { screen = 1, tag = "&" } },
+
+
 }
 -- }}}
 
