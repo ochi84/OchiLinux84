@@ -49,11 +49,13 @@ if [ ! -d "$HOME" ]; then
 fi
 
 # Check if the GitHub directory exists
-GITHUB_DIR="$HOME/ochilinux84"
-if [ ! -d "$GITHUB_DIR" ]; then
-    echo -e "${BLUE}$GITHUB_DIR ${YELLOW}does not exist.${NC}"
+OCHILINUX_DIR="$HOME/github/ochilinux84"
+
+if [ ! -d "$OCHILINUX_DIR" ]; then
+    echo -e "${BLUE}$OCHILINUX_DIR ${YELLOW}does not exist.${NC}"
     echo -e "${YELLOW}Cloning repository from Github...${NC}"
-	cd $HOME
+    mkdir $HOME/github
+    cd $HOME/github
 	sudo -u $USERNAME git clone https://github.com/ochi84/ochilinux84.git
 else
     echo
@@ -61,7 +63,7 @@ else
 fi
 
 # Load config file
-CONFIG_FILE="$GITHUB_DIR/sc.conf"
+CONFIG_FILE="$OCHILINUX_DIR/sc.conf"
 if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 else
@@ -130,7 +132,7 @@ esac
 install_packages "${all_packages[@]}"
 
 # Install Dispatch
-if sudo cp $HOME/ochilinux84/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
+if sudo cp $OCHILINUX_DIR/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
     echo
     echo -e "${GREEN}Dispatch successfully installed and made executable.${NC}"
 else
@@ -161,7 +163,7 @@ echo -e "${YELLOW}Installing Nerd Fonts...${NC}"
 FONT_DIR="/usr/share/fonts"
 
 # Source directory for Nerd Fonts
-NERDFONTS_DIR="$GITHUB_DIR/nerdfonts"
+NERDFONTS_DIR="$OCHILINUX_DIR/nerdfonts"
 if [ -d "$NERDFONTS_DIR" ]; then
     sudo cp -r "$NERDFONTS_DIR" "$FONT_DIR/"
     echo -e "${GREEN}Nerd Fonts installed successfully.${NC}"
@@ -194,9 +196,9 @@ echo -e "${YELLOW}Installing Tilix Schemes...${NC}"
 TILIX_DIR="$HOME/.config/tilix/"
 
 # Source directory for Tilix Schemes
-TILIX_GITHUB_DIR="$GITHUB_DIR/tilix"
-if [ -d "$TILIX_GITHUB_DIR" ]; then
-    cp -r "$TILIX_DIR/schemes" "$TILIX_GITHUB_DIR/"
+TILIX_OCHILINUX_DIR="$OCHILINUX_DIR/tilix"
+if [ -d "$TILIX_OCHILINUX_DIR" ]; then
+    cp -r "$TILIX_DIR/schemes" "$TILIX_OCHILINUX_DIR/"
     echo -e "${GREEN}Tilix Schemes installed successfully.${NC}"
 else
     echo -e "${RED}Tilix Schemes directory not found in the repository.${NC}"

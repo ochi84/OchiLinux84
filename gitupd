@@ -25,8 +25,8 @@ else
 fi
 
 # Check if the GitHub directory exists
-if [ ! -d "$GITHUB_DIR" ]; then
-    echo -e "${BLUE}$GITHUB_DIR ${YELLOW}does not exist.${NC}"
+if [ ! -d "$OCHILINUX_DIR" ]; then
+    echo -e "${BLUE}$OCHILINUX_DIR ${YELLOW}does not exist.${NC}"
     echo -e "${YELLOW}Cloning repository from Github...${NC}"
 	cd $HOME
 	git clone https://github.com/ochi84/ochilinux84.git
@@ -39,7 +39,7 @@ echo
 echo -e "${YELLOW}Updating configfiles...${NC}"
 
 # config files
-if rsync -avh --progress "$BASHRC_DIR/.bashrc" "$GITHUB_DIR/dot.bashrc"; then
+if rsync -avh --progress "$BASHRC_DIR/.bashrc" "$OCHILINUX_DIR/dot.bashrc"; then
     echo -e "${GREEN}Updated .bashrc${NC}";
     echo
 else
@@ -47,7 +47,7 @@ else
     echo
 fi
 
-if rsync -avh --progress "$VIMRC_DIR/.vimrc" "$GITHUB_DIR/dot.vimrc"; then
+if rsync -avh --progress "$VIMRC_DIR/.vimrc" "$OCHILINUX_DIR/dot.vimrc"; then
     echo -e "${GREEN}Updated .vimrc${NC}";
     echo
 else
@@ -55,7 +55,7 @@ else
     echo
 fi
 
-if rsync -avh --progress "$SCCONF_DIR/sc.conf" "$GITHUB_DIR/sc.conf"; then
+if rsync -avh --progress "$SCCONF_DIR/sc.conf" "$OCHILINUX_DIR/sc.conf"; then
     echo -e "${GREEN}Updated sc.conf${NC}";
     echo
 else
@@ -63,7 +63,7 @@ else
     echo
 fi
 
-if rsync -avh --progress "$RCLUA_DIR/rc.lua" "$GITHUB_DIR/rc.lua"; then
+if rsync -avh --progress "$RCLUA_DIR/rc.lua" "$OCHILINUX_DIR/rc.lua"; then
     echo -e "${GREEN}Updated rc.lua${NC}";
     echo
 else
@@ -71,7 +71,7 @@ else
     echo
 fi
 
-if rsync -avh --progress "$RCLUA_DIR/rc.lua.original" "$GITHUB_DIR/rc.lua.original"; then
+if rsync -avh --progress "$RCLUA_DIR/rc.lua.original" "$OCHILINUX_DIR/rc.lua.original"; then
     echo -e "${GREEN}Updated rc.lua.original${NC}";
     echo
 else
@@ -79,7 +79,7 @@ else
     echo
 fi
 
-if rsync -avh --progress "$RCCONF_DIR/rc.conf" "$GITHUB_DIR/rc.conf"; then
+if rsync -avh --progress "$RCCONF_DIR/rc.conf" "$OCHILINUX_DIR/rc.conf"; then
     echo -e "${GREEN}Updated rc.conf${NC}";
     echo
 else
@@ -87,7 +87,7 @@ else
     echo
 fi
 
-if rsync -avh --progress "$PICOM_DIR/picom.conf" "$GITHUB_DIR/picom.conf";then
+if rsync -avh --progress "$PICOM_DIR/picom.conf" "$OCHILINUX_DIR/picom.conf";then
     echo -e "${GREEN}Updated picom.conf${NC}";
     echo
 else
@@ -95,7 +95,7 @@ else
     echo
 fi
 
-if rsync -avh --progress "$NFCONF_DIR/config.conf" "$GITHUB_DIR/nf.conf"; then
+if rsync -avh --progress "$NFCONF_DIR/config.conf" "$OCHILINUX_DIR/nf.conf"; then
     echo -e "${GREEN}Updated nf.conf${NC}";
     echo
 else
@@ -103,7 +103,7 @@ else
     echo
 fi
 
-if dconf dump '/com/gexperts/Tilix/' > "$GITHUB_DIR/tilix.conf"; then
+if dconf dump '/com/gexperts/Tilix/' > "$OCHILINUX_DIR/tilix.conf"; then
     echo -e "${GREEN}Updated tilix.conf${NC}";
     echo
 else
@@ -111,7 +111,7 @@ else
     echo
 fi
 
-if rsync -avh --progress "$LNAV_DIR/config.json" "$GITHUB_DIR/config.json"; then
+if rsync -avh --progress "$LNAV_DIR/config.json" "$OCHILINUX_DIR/config.json"; then
     echo -e "${GREEN}Updated config.json${NC}";
     echo
 else
@@ -120,7 +120,7 @@ else
 fi
 
 # Awesome-WM background
-if rsync -avh --progress "$AWMBG_DIR/background.png" "$GITHUB_DIR/awmbg.png"; then
+if rsync -avh --progress "$AWMBG_DIR/background.png" "$OCHILINUX_DIR/awmbg.png"; then
     echo -e "${GREEN}Updated background.png${NC}";
     echo
 else
@@ -129,7 +129,7 @@ else
 fi
 
 # Nerdfonts
-if rsync -avh --progress "$FONT_DIR/nerdfonts" "$GITHUB_DIR/"; then
+if rsync -avh --progress "$FONT_DIR/nerdfonts" "$OCHILINUX_DIR/"; then
     echo -e "${GREEN}Updated nerdfonts${NC}";
     echo
 else
@@ -138,7 +138,7 @@ else
 fi
 
 # Tilix schemes
-if rsync -avh "$TILIX_DIR/schemes" "$GITHUB_DIR/tilix/"; then
+if rsync -avh "$TILIX_DIR/schemes" "$OCHILINUX_DIR/tilix/"; then
     echo -e "${GREEN}Updated tilix schemes${NC}";
     echo
 else
@@ -152,7 +152,7 @@ echo -e "${YELLOW}Updating scripts...${NC}"
 # Here, you should define a list of specific scripts to be copied.
 declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup" "bye" "mountman")
 for script in "${scripts[@]}"; do
-    if rsync -avh --progress "/usr/local/bin/$script" "$GITHUB_DIR/$script"; then
+    if rsync -avh --progress "/usr/local/bin/$script" "$OCHILINUX_DIR/$script"; then
         echo -e "${GREEN}Updated $script${NC}";
         echo
     else
