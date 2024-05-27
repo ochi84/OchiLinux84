@@ -63,8 +63,7 @@ The script offers different levels of installation:
 -  **Full Install:** The most comprehensive installation, including window managers and advanced applications *(see the last picture above)*.
 
 ##### Details can be found in "sc.conf":
-![Bildschirmfoto vom 2024-05-26 09-01-17](https://github.com/ochi84/OchiLinux84/assets/168211337/20cd5729-749a-4957-b8a6-8c8ccfcf21f4)
-
+![Bildschirmfoto vom 2024-05-27 17-45-02](https://github.com/ochi84/OchiLinux84/assets/168211337/888dab03-ffe0-4965-a95d-c0e163e34174)
 
 ## Risk Advisory
 **Please note:** Running scripts can significantly alter the behavior of your system. It is highly advised to review each script to understand what changes will be made to your system. For safety, test the scripts in a controlled, virtual environment before applying them on your primary machine. This helps prevent unintended system behavior or data loss.
