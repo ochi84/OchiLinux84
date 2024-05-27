@@ -47,7 +47,7 @@ fi
 
 # Copy scripts and config files
 for file in "${!DIRS[@]}"; do
-    src="$GITHUB_DIR/$file"
+    src="$OCHILINUX_DIR/$file"
     dest="${DIRS[$file]}"
 
     if [[ $dest == */bin/* ]]; then
@@ -78,7 +78,7 @@ for file in "${!DIRS[@]}"; do
 done
 
 # Copy tilix schemes
-if rsync -avh "$GITHUB_DIR/tilix/" "$TILIX_DIR"; then
+if rsync -avh "$OCHILINUX_DIR/tilix/" "$TILIX_DIR"; then
     echo -e "${GREEN}Copied tilix schemes: $file${NC}"
     echo
 else
@@ -94,7 +94,7 @@ if ! dpkg -s dbus-x11 &> /dev/null; then
 fi
 
 # Load the configuration file for Tilix
-if dconf load '/com/gexperts/Tilix/' < "$GITHUB_DIR/tilix.conf"; then
+if dconf load '/com/gexperts/Tilix/' < "$OCHILINUX_DIR/tilix.conf"; then
     echo -e "${GREEN}Tilix configuration loaded successfully.${NC}"
 else
     echo -e "${RED}Failed to load tilix.conf.${NC}"
