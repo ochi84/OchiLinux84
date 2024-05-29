@@ -40,7 +40,7 @@ To install the configurations and utility scripts, follow these steps:
 2. Run the startup script by executing the following commands:
 
     ```bash
-    cd ochilinux84
+    cd ~/github/ochilinux84
     sudo ./startup
     ```
 
