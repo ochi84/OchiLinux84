@@ -22,6 +22,23 @@ require("awful.hotkeys_popup.keys")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
+-- Get username
+local user = os.getenv("USER")
+
+-- Load logo
+local logo = wibox.widget {
+    {
+        image = "/home/" .. user .. "/.config/awesome/ochilogo.png",
+        resize = true,
+        widget = wibox.widget.imagebox,
+    },
+    widget = wibox.container.background,
+    shape = gears.shape.circle,
+    shape_clip = true,
+    shape_border_width = 2,
+    shape_border_color = beautiful.bg_normal,
+}
+
 -- Load "streetturtle" Widgets
 local volume_widget     = require('awesome-wm-widgets.volume-widget.volume')
 local cpu_widget        = require("awesome-wm-widgets.cpu-widget.cpu-widget")
@@ -31,7 +48,7 @@ local net_speed_widget  = require("awesome-wm-widgets.net-speed-widget.net-speed
 -- Define separator
 local separator1 = wibox.widget.textbox(" | ")
 local separator2 = wibox.widget.textbox(" ")
-local separator3 = wibox.widget.textbox("     ")
+local separator3 = wibox.widget.textbox("   ")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -258,31 +275,14 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            -- wibox.widget.systray(),
-            -- mykeyboardlayout,
-            -- github_contributions_widget({
-            --     username = '<ochi84>',
-            --     days     = 10,
-            --     theme    = default,
-            -- }),
-            -- net_speed_widget(),
-            -- separator1,
-            -- cpu_widget({
-            --     width        = 70,
-            --     step_width   = 2,
-            --     step_spacing = 0,
-            --     color        = beautiful.fg_normal,
-            --     -- color     = '#434c5e',
-            --     }),
-            -- separator1,
             mytextclock,
             separator1,
             separator2,
             volume_widget({
                 widget_type = 'arc'
                 }),
-            separator2,    
-            separator3,
+            separator3,    
+            logo,
             -- s.mylayoutbox,
         },
     }
@@ -579,14 +579,14 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
-    -- Set Firefox to always map on the tag named "web" on screen 1.
+    -- Set Firefox to always map on the tag named "@".
      { rule = { class = "firefox" },
        properties = { screen = 1, tag = "@" } },
     -- Set Firefox not to float so that it adapts to the layouts
      { rule_any = { class = "firefox" },
      properties = {floating = false} },
 
-    -- Set Thunar to always map on the tag named "file" on screen 1.
+    -- Set Thunar to always map on the tag named "&".
      { rule = { class = "Thunar" },
       properties = { screen = 1, tag = "&" } },
 
