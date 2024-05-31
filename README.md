@@ -81,7 +81,11 @@ This repository is primarily for personal backup. However, if you have suggestio
 This repository is released under the MIT License.
 
 ## Screenshots of my Awesome-WM configuration
-##### minimalistic
+minimalistic
+
+![wibar](https://github.com/ochi84/OchiLinux84/assets/168211337/962c8f0f-e890-43cf-9801-476ab4fc0d05)
+
+
 ![Bildschirmfoto vom 2024-05-31 08-37-48](https://github.com/ochi84/OchiLinux84/assets/168211337/639171f6-d2da-4de9-b1bc-f2ff406abad5)
 
 ![Bildschirmfoto vom 2024-05-31 08-34-05](https://github.com/ochi84/OchiLinux84/assets/168211337/6db53cae-9a44-4463-9705-21ff7321cb80)
