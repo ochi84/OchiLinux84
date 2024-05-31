@@ -36,11 +36,15 @@ Included in this repository are several utility scripts to aid in managing and d
 ## How to Install
 To install the configurations and utility scripts, follow these steps:
 
-1. Run the following command to clone the repository:
+1. Run the following commands to clone the repository:
 
-    `git clone https://github.com/ochi84/ochilinux84.git`
+   ```bash
+    mkdir ~/github
+    cd ~/github
+    git clone https://github.com/ochi84/ochilinux84.git
+    ```
 
-2. Run the startup script by executing the following commands:
+3. Run the startup script by executing the following commands:
 
     ```bash
     cd ~/github/ochilinux84
