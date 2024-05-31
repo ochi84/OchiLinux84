@@ -13,14 +13,28 @@
 # Date          : 2024-05-20
 # Description   : Mount/Unmount external devices.
 # Requires root : Yes
-
 # Define colors
+
 YELLOW='\033[0;33m'
 RED='\033[0;31m'
+BLUE='\033[0;34m'
 NC='\033[0m'
 
 # Default mount path
 MOUNT_BASE="/media/$USER"
+
+# Function to clear the screen
+clear_screen() {
+    clear
+}
+
+# Function to display the header
+display_header() {
+    clear_screen
+    echo -e "${BLUE}"
+    echo -e " Mountman - mount/unmount external devices"
+    echo -e "${NC}"
+}
 
 # Function to mount a device
 mount_device() {
@@ -44,6 +58,7 @@ unmount_device() {
     local device=$1
     sudo umount "$device"
     if [[ $? -eq 0 ]]; then
+        echo -e ""
         echo -e "${YELLOW}The device $device has been successfully unmounted.${NC}"
     else
         echo -e "${RED}Failed to unmount $device.${NC}"
@@ -57,10 +72,18 @@ list_devices() {
 
 # Main menu
 main_menu() {
+    display_header
     echo -e "${YELLOW}Available external devices:${NC}"
-    list_devices
+    devices=$(list_devices)
+    
+    if [[ -z "$devices" ]]; then
+        echo -e "${RED}No external devices available. Exiting.${NC}"
+        exit 1
+    fi
+    
+    echo "$devices"
     echo ""
-    echo -e "${YELLOW}Enter the device name (e.g., sdb1):${NC}"
+    echo -e "${YELLOW}Enter the device name:${NC}"
     read device_name
 
     if [[ -z $device_name ]]; then
@@ -74,10 +97,11 @@ main_menu() {
         echo -e "${RED}Invalid device. Exiting.${NC}"
         exit 1
     fi
-
+    
+    echo -e ""
     echo -e "${YELLOW}Select an action:${NC}"
-    echo -e "${YELLOW}1) Mount${NC}"
-    echo -e "${YELLOW}2) Unmount${NC}"
+    echo -e "${YELLOW}1: Mount${NC}"
+    echo -e "${YELLOW}2: Unmount${NC}"
     read action
 
     case $action in
@@ -86,7 +110,7 @@ main_menu() {
             if [[ -z $label ]]; then
                 label=$device_name
             fi
-            # Ersetze alle nicht alphanumerischen Zeichen durch nichts
+            # Replace all non-alphanumeric characters with nothing
             label=$(echo $label | tr -cd '[:alnum:]')
             mount_point="$MOUNT_BASE/$label"
 
