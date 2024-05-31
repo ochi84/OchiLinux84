@@ -128,6 +128,15 @@ else
     echo
 fi
 
+# Ochi-Logo
+if rsync -avh --progress "$OCHILOGO_DIR/ochilogo.png" "$OCHILINUX_DIR/ochilogo.png"; then
+    echo -e "${GREEN}Updated ochilogo.png${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update ochilogo.png${NC}";
+    echo
+fi
+
 # Nerdfonts
 if rsync -avh --progress "$FONT_DIR/nerdfonts" "$OCHILINUX_DIR/"; then
     echo -e "${GREEN}Updated nerdfonts${NC}";
