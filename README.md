@@ -61,7 +61,7 @@ The script offers different levels of installation:
 -  **Full Install:** The most comprehensive installation, including window managers and advanced applications *(see the last picture above)*.
 
 ##### Details can be found in "sc.conf":
-![Bildschirmfoto vom 2024-05-27 17-45-02](https://github.com/ochi84/OchiLinux84/assets/168211337/888dab03-ffe0-4965-a95d-c0e163e34174)
+![Bildschirmfoto vom 2024-05-31 08-32-55](https://github.com/ochi84/OchiLinux84/assets/168211337/ed54a58c-a649-4a74-a811-0fd26b9a7c62)
 
 ## Risk Advisory
 **Please note:** Running scripts can significantly alter the behavior of your system. It is highly advised to review each script to understand what changes will be made to your system. For safety, test the scripts in a controlled, virtual environment before applying them on your primary machine. This helps prevent unintended system behavior or data loss.
@@ -82,10 +82,10 @@ This repository is released under the MIT License.
 
 ## Screenshots of my Awesome-WM configuration
 ##### minimalistic
-![Bildschirmfoto vom 2024-05-25 23-38-34](https://github.com/ochi84/OchiLinux84/assets/168211337/9351e8f8-ab55-4eff-a5a0-24f3e2ff76d4)
+![Bildschirmfoto vom 2024-05-31 08-37-48](https://github.com/ochi84/OchiLinux84/assets/168211337/639171f6-d2da-4de9-b1bc-f2ff406abad5)
 
-![Bildschirmfoto vom 2024-05-25 23-40-29](https://github.com/ochi84/OchiLinux84/assets/168211337/75a004d5-eea4-43c6-94d2-b2292a1102f7)
+![Bildschirmfoto vom 2024-05-31 08-34-05](https://github.com/ochi84/OchiLinux84/assets/168211337/6db53cae-9a44-4463-9705-21ff7321cb80)
 
-![Bildschirmfoto vom 2024-05-25 23-39-46](https://github.com/ochi84/OchiLinux84/assets/168211337/0e1655e1-068c-421d-a9ee-fee08df0d184)
+![Bildschirmfoto vom 2024-05-31 08-35-15](https://github.com/ochi84/OchiLinux84/assets/168211337/0f2f2485-fd1c-4c4e-965f-993a2ea0bdb9)
 ##### scripting and streaming
 ![Bildschirmfoto vom 2024-05-25 23-37-43](https://github.com/ochi84/OchiLinux84/assets/168211337/354ec8a6-4f9e-45ec-b274-2b32b9879859)
