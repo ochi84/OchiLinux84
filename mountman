@@ -15,25 +15,30 @@
 # Requires root : Yes
 # Define colors
 
-YELLOW='\033[0;33m'
-RED='\033[0;31m'
-BLUE='\033[0;34m'
-NC='\033[0m'
+# Load config file
+CONFIG_FILE="$HOME/.config/sc.conf"
+if [[ -f "$CONFIG_FILE" ]]; then
+    source "$CONFIG_FILE"
+else
+    echo -e "${RED}Error: Configuration file not found.${NC}"
+    echo -e "${RED}Please ensure the configuration file 'sc.con' exists at $HOME/.config/${NC}"
+    exit 1
+fi
 
 # Default mount path
 MOUNT_BASE="/media/$USER"
 
-# Function to clear the screen
-clear_screen() {
-    clear
-}
+## Function to clear the screen
+#clear_screen() {
+#    clear
+#}
 
 # Function to display the header
 display_header() {
     clear_screen
-    echo -e "${BLUE}"
-    echo -e " Mountman - mount/unmount external devices"
-    echo -e "${NC}"
+    echo -e ""
+    echo -e "${BLUE}Mountman - mount/unmount external devices${NC}"
+    echo -e ""
 }
 
 # Function to mount a device
@@ -47,8 +52,10 @@ mount_device() {
 
     sudo mount "$device" "$mount_point"
     if [[ $? -eq 0 ]]; then
-        echo -e "${YELLOW}The device $device has been successfully mounted to $mount_point.${NC}"
+        echo ""
+        echo -e "${GREEN}The device $device has been successfully mounted to $mount_point.${NC}"
     else
+        echo ""
         echo -e "${RED}Failed to mount $device.${NC}"
     fi
 }
@@ -59,7 +66,7 @@ unmount_device() {
     sudo umount "$device"
     if [[ $? -eq 0 ]]; then
         echo -e ""
-        echo -e "${YELLOW}The device $device has been successfully unmounted.${NC}"
+        echo -e "${GREEN}The device $device has been successfully unmounted.${NC}"
     else
         echo -e "${RED}Failed to unmount $device.${NC}"
     fi
