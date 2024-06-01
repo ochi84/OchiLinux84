@@ -63,7 +63,7 @@ mkdir -p "$BACKUP_DIR"
 tar -czf "$BACKUP_DIR/$BACKUP_FILE" --exclude="$BACKUP_DIR" "$HOME" || printf "${RED}Error creating backup archive.${NC}\n"
 
 # Copy files from local backup to external hard drive using rsync
-rsync -avh --progress $BACKUP_DIR/ $BACKUP_DIR_EXT/ || printf "${RED}Error: rsync failed to copy files.${NC}\n"
+rsync -avh --delete --progress $BACKUP_DIR/ $BACKUP_DIR_EXT/ || printf "${RED}Error: rsync failed to copy files.${NC}\n"
 printf "${GREEN}Backup copied to external drive.${NC}\n"
 
 # Copy files from local to GitHub folder using gitupd

@@ -90,7 +90,7 @@ fi
 if ! dpkg -s dbus-x11 &> /dev/null; then
     echo
     echo -e "${YELLOW}Installing dbus-x11...${NC}"
-    sudo apt-get install dbus-x11
+    sudo apt-get install -y dbus-x11
 fi
 
 # Load the configuration file for Tilix
