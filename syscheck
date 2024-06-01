@@ -90,6 +90,16 @@ else
     echo -e "${GREEN}No rootkits found.${NC}"
 fi
 
+# Final check and user feedback
+if [ ! -s $LOG_FILE ]; then
+    echo "Security issues found. Please review the log file."
+    echo "Security Audit Report - $(date)" | cat - $LOG_FILE > temp && mv temp $LOG_FILE
+    echo "Potential issues detected. Immediate attention required." | cat - $LOG_FILE > temp && mv temp $LOG_FILE
+    vi $LOG_FILE
+else
+    echo -e "${GREEN}No security issues found. Your system is secure.${NC}"
+fi
+
 # Ask if the user wants to run ClamAV scan
 echo -e "${RED}Do you want to perform a malware scan with ClamAV? This might take some time (y/n): ${NC}"
 read -n 1 -r
@@ -109,24 +119,15 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
     # Start clamscan in background
     echo -e "${YELLOW}Running malware scan, this might take a while...${NC}"
-    CLAMSCAN_LOG=$(mktemp)
-    clamscan -r --bell -i /$HOME --log=$CLAMSCAN_LOG
-    if grep -q "Infected files: 0" $CLAMSCAN_LOG; then
-        echo -e "${GREEN}No malware found.${NC}"
-    else
-        log_finding "Malware detected. See details below:"
-        log_finding "$(grep -E 'Infected files|FOUND' $CLAMSCAN_LOG)"
-    fi
-    rm $CLAMSCAN_LOG
+#    CLAMSCAN_LOG=$(mktemp)
+    clamscan -r --bell -i /home #--log=$CLAMSCAN_LOG
+#    if grep -q "Infected files: 0" $CLAMSCAN_LOG; then
+#        echo -e "${GREEN}No malware found.${NC}"
+#    else
+#        log_finding "Malware detected. See details below:"
+#        log_finding "$(grep -E 'Infected files|FOUND' $CLAMSCAN_LOG)"
+#    fi
+#    rm $CLAMSCAN_LOG
 fi
 
-# Final check and user feedback
-if [ ! -s $LOG_FILE ]; then
-    echo "Security issues found. Please review the log file."
-    echo "Security Audit Report - $(date)" | cat - $LOG_FILE > temp && mv temp $LOG_FILE
-    echo "Potential issues detected. Immediate attention required." | cat - $LOG_FILE > temp && mv temp $LOG_FILE
-    vi $LOG_FILE
-else
-    echo -e "${GREEN}No security issues found. Your system is secure.${NC}"
-fi
 
