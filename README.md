@@ -2,7 +2,7 @@
 
 
 # My "Ochilinux84" Configuration Files and Scripts
-This repository contains personal configuration files and scripts for my needs to work with Awesome-WM.
+This repository contains personal configuration files and scripts for my needs to work with Ubuntu and Awesome-WM.
 
 If anyone likes it, I would be happy if my repository helps you set up your personal Awesome-WM configuration.
 
