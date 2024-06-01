@@ -33,6 +33,8 @@ Included in this repository are several utility scripts to aid in managing and d
 
 -  **mountman**  : A script to mount and unmount external hard drives and USB sticks. At the beginning, you can select from a list of available drives. The default mount path is /media/$USER/, and the mount point will use the name of the external drive or USB stick.
 
+-  **syscheck**  : This Bash script performs a comprehensive security audit of your system. It checks for security-relevant aspects such as available updates and potential rootkits. The script logs only security-relevant findings. If no issues are found, the user receives positive feedback. Otherwise, a detailed log file is opened, indicating potential security problems and signaling the need for action. This script can be extended to include checks for open network ports, users with empty passwords, SUID/SGID files, and world-writable files.
+
 ## How to Install
 To install the configurations and utility scripts, follow these steps:
 
