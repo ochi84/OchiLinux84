@@ -10,7 +10,7 @@
 # Script        : gitupd
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Date          : 2024-05-20
+# Date          : 2024-06-01
 # Description   : Backup and sync local files to GitHub directory.
 # Requires root : No
 

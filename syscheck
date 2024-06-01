@@ -1,6 +1,18 @@
 #!/bin/bash
 
-# Security Audit Script
+#                     _               _    
+#  ___ _   _ ___  ___| |__   ___  ___| | __ MIT License
+# / __| | | / __|/ __| '_ \ / _ \/ __| |/ /
+# \__ \ |_| \__ \ (__| | | |  __/ (__|   < 
+# |___/\__, |___/\___|_| |_|\___|\___|_|\_\
+#      |___/                              
+#
+# Script        : syscheck
+# Location      : /usr/local/bin
+# Author        : Jens Ochmann
+# Date          : 2024-06-01
+# Description   : Perform security audit.
+# Requires root : Yes
 
 # Colors
 export NC='\033[0m' # No Color
