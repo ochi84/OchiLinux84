@@ -35,7 +35,7 @@ Included in this repository are several utility scripts to aid in managing and d
 
 -  **syscheck**  : This Bash script performs a comprehensive security audit of your system. It checks for security-relevant aspects such as available updates and potential rootkits. The script logs only security-relevant findings. If no issues are found, the user receives positive feedback. Otherwise, a detailed log file is opened, indicating potential security problems and signaling the need for action. This script can be extended to include checks for open network ports, users with empty passwords, SUID/SGID files, and world-writable files. Optional: A malware check with ClamAV is performed in the user's home directory.
 
-## How to Install
+## How to Install "Ochilinux84"
 To install the configurations and utility scripts, follow these steps:
 
 1. Run the following commands to clone the repository:
