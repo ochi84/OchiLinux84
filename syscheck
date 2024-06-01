@@ -1,0 +1,90 @@
+#!/bin/bash
+
+# Security Audit Script
+
+# Colors
+export NC='\033[0m' # No Color
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+
+# Check for root privileges
+if [[ $EUID -ne 0 ]]; then
+   echo -e "${RED}This script must be run as root${NC}"
+   exit 1
+fi
+
+# Initialize the log file
+LOG_FILE="$HOME/syscheck.log"
+> $LOG_FILE
+
+# Function to log findings
+log_finding() {
+    echo "$1"
+    echo "$1" >> $LOG_FILE
+}
+
+# Update the system
+echo -e "${YELLOW}Updating the system...${NC}"
+apt-get update && apt-get upgrade -y
+
+# Check for available security updates
+echo -e "${YELLOW}Checking for security updates...${NC}"
+apt-get install unattended-upgrades -y
+SEC_UPDATES=$(unattended-upgrades --dry-run | grep "No packages found" -c)
+if [ $SEC_UPDATES -eq 0 ]; then
+    log_finding "Security updates are available."
+fi
+
+## Check for listening network ports
+#echo "Checking for listening network ports..."
+#LISTENING_PORTS=$(netstat -tuln | grep -v '127.0.0.1' | grep -v '::1')
+#if [ ! -z "$LISTENING_PORTS" ]; then
+#    log_finding "Non-local listening ports found:"
+#    log_finding "$LISTENING_PORTS"
+#fi
+
+## Check for users with empty passwords
+#echo "Checking for users with empty passwords..."
+#EMPTY_PASSWORDS=$(awk -F: '($2 == "") {print $1}' /etc/shadow)
+#if [ ! -z "$EMPTY_PASSWORDS" ]; then
+#    log_finding "Users with empty passwords found: $EMPTY_PASSWORDS"
+#fi
+
+# Check for SUID/SGID files
+#echo "Checking for SUID/SGID files..."
+#SUID_SGID_FILES=$(find / -type f \( -perm -4000 -o -perm -2000 \) -exec ls -lg {} \;)
+#if [ ! -z "$SUID_SGID_FILES" ]; then
+#    log_finding "SUID/SGID files found:"
+#    log_finding "$SUID_SGID_FILES"
+#fi
+
+## Check for world writable files
+#echo -e "${YELLOW}Checking for world writable files...${NC}"
+#WORLD_WRITABLE_FILES=$(find / -type f -perm -o+w -exec ls -l {} \;)
+#if [ ! -z "$WORLD_WRITABLE_FILES" ]; then
+#    log_finding "World writable files found:"
+#    log_finding "$WORLD_WRITABLE_FILES"
+#fi
+
+# Check for rootkits
+echo -e "${YELLOW}Checking for rootkits...${NC}"
+apt-get install chkrootkit -y
+ROOTKIT_CHECK=$(chkrootkit)
+if echo "$ROOTKIT_CHECK" | grep -q "INFECTED"; then
+    log_finding "Rootkits detected:"
+    log_finding "$ROOTKIT_CHECK"
+else
+    echo -e "${GREEN}No rootkits found.${NC}"
+fi
+
+# Final check and user feedback
+if [ ! -s $LOG_FILE ]; then
+    echo "Security issues found. Please review the log file."
+    echo "Security Audit Report - $(date)" | cat - $LOG_FILE > temp && mv temp $LOG_FILE
+    echo "Potential issues detected. Immediate attention required." | cat - $LOG_FILE > temp && mv temp $LOG_FILE
+    vi $LOG_FILE
+else
+    echo -e "${GREEN}No security issues found. Your system is secure.${NC}"
+fi
+
