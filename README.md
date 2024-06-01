@@ -48,6 +48,7 @@ To install the configurations and utility scripts, follow these steps:
 
     ```bash
     cd ~/github/ochilinux84
+    chmod +x startup
     sudo ./startup
     ```
 
