@@ -68,9 +68,9 @@ The script ("startup") offers different levels of installation:
 -  **Minimal Install:** Basic utilities like mc, vim, micro, ranger.
 -  **Minimal Plus Install:** Adds more advanced VIM plugins and tools.
 -  **Expand Install:** Includes all packages from Minimal Plus and additional tools like git, fzf, exa.
--  **Full Install:** The most comprehensive installation, including window managers and advanced applications *(see the last picture above)*.
+-  **Full Install:** The most comprehensive installation, including window managers and advanced applications.
 
-##### Details can be found in "sc.conf":
+##### Details of the install packages can be found in "sc.conf":
 ![Bildschirmfoto vom 2024-05-31 08-32-55](https://github.com/ochi84/OchiLinux84/assets/168211337/ed54a58c-a649-4a74-a811-0fd26b9a7c62)
 
 ## Risk Advisory
