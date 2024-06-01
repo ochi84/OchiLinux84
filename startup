@@ -56,6 +56,7 @@ if [ ! -d "$OCHILINUX_DIR" ]; then
     echo -e "${YELLOW}Cloning repository from Github...${NC}"
     mkdir $HOME/github
     cd $HOME/github
+    sudo apt install git -y
 	sudo -u $USERNAME git clone https://github.com/ochi84/ochilinux84.git
 else
     echo
