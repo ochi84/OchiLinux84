@@ -119,6 +119,14 @@ else
     echo
 fi
 
+if rsync -avh --progress "$CLAMD_DIR/clamd.conf" "$OCHILINUX_DIR/clamd.conf"; then
+    echo -e "${GREEN}Updated clamd.conf${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update clamd.conf${NC}";
+    echo
+fi
+
 # Awesome-WM background
 if rsync -avh --progress "$AWMBG_DIR/background.png" "$OCHILINUX_DIR/awmbg.png"; then
     echo -e "${GREEN}Updated background.png${NC}";

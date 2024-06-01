@@ -34,7 +34,7 @@ LOG_FILE="$HOME/syscheck.log"
 log_finding() {
     echo "$1"
     echo "$1" >> $LOG_FILE
-}
+} 
 
 # Update the system
 echo -e "${YELLOW}Updating the system...${NC}"
@@ -88,6 +88,36 @@ if echo "$ROOTKIT_CHECK" | grep -q "INFECTED"; then
     log_finding "$ROOTKIT_CHECK"
 else
     echo -e "${GREEN}No rootkits found.${NC}"
+fi
+
+# Ask if the user wants to run ClamAV scan
+echo -e "${RED}Do you want to perform a malware scan with ClamAV? This might take some time (y/n): ${NC}"
+read -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo -e "${YELLOW}Checking for malware...${NC}"
+    apt-get install clamav clamav-daemon -y
+
+    # Stop the freshclam service if it's running
+    systemctl stop clamav-freshclam
+
+    # Update ClamAV database
+    freshclam
+
+    # Restart the freshclam service
+    systemctl start clamav-freshclam
+
+    # Start clamscan in background
+    echo -e "${YELLOW}Running malware scan, this might take a while...${NC}"
+    CLAMSCAN_LOG=$(mktemp)
+    clamscan -r --bell -i /$HOME --log=$CLAMSCAN_LOG
+    if grep -q "Infected files: 0" $CLAMSCAN_LOG; then
+        echo -e "${GREEN}No malware found.${NC}"
+    else
+        log_finding "Malware detected. See details below:"
+        log_finding "$(grep -E 'Infected files|FOUND' $CLAMSCAN_LOG)"
+    fi
+    rm $CLAMSCAN_LOG
 fi
 
 # Final check and user feedback
