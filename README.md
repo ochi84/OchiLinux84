@@ -6,7 +6,7 @@ This repository contains personal configuration files and scripts for my needs t
 
 If anyone likes it, I would be happy if my repository helps you set up your personal Awesome-WM configuration.
 
-**See how to install these settings quickly and some screenshots of my configuration below:**
+**See how to install these settings quickly and some screenshots of my "Ochilinux84" configuration below:**
 
 ## Contents
 Here are some of the key files included in this repository:
@@ -54,7 +54,7 @@ To install the configurations and utility scripts, follow these steps:
     sudo ./startup
     ```
 
-### This script will:
+### This script ("startup") will:
 -  Prompt for your username to set the HOME directory.
 -  Clone the OchiLinux84 repository if it doesn't exist.
 -  Load the "sc.conf" file for additional settings.
@@ -63,7 +63,7 @@ To install the configurations and utility scripts, follow these steps:
 -  Further install some required nerdfonts and a lot of tilix schemes from https://github.com/storm119/Tilix-Themes.git
 
 ### Installation Options
-The script offers different levels of installation:
+The script ("startup") offers different levels of installation:
 
 -  **Minimal Install:** Basic utilities like mc, vim, micro, ranger.
 -  **Minimal Plus Install:** Adds more advanced VIM plugins and tools.
@@ -90,7 +90,7 @@ This repository is primarily for personal backup. However, if you have suggestio
 ## License
 This repository is released under the MIT License.
 
-## Screenshots of my Awesome-WM configuration
+## Screenshots of my "Ochilinux84" Configuration
 minimalistic
 
 ![wibar](https://github.com/ochi84/OchiLinux84/assets/168211337/962c8f0f-e890-43cf-9801-476ab4fc0d05)
