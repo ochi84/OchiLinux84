@@ -10,7 +10,8 @@
 # Script        : dispatch
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Date          : 2024-06-01
+# E-Mail        : ochilinux84@gmail.com
+# Date          : 2024-06-02
 # Description   : Distributes data from the locally cloned GitHub repository to the local system
 # Requires root : Yes
 

@@ -10,7 +10,8 @@
 # Script        : backup
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Date          : 2024-06-01
+# E-Mail        : ochilinux84@gmail.com
+# Date          : 2024-06-02
 # Description   : Perform local and external backup.
 # Requires root : No
 

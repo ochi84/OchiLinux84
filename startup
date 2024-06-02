@@ -10,7 +10,8 @@
 # Script        : startup
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Date          : 2024-05-20
+# E-Mail        : ochilinux84@gmail.com
+# Date          : 2024-06-02
 # Description   : Install specified applications and run the dispatch script to dispatch files from GitHub repository
 # Requires root : Yes
 
