@@ -10,7 +10,6 @@
 # Script        : mountman
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# E-Mail        : ochilinux84@gmail.com
 # Date          : 2024-06-02
 # Description   : Mount/Unmount external devices.
 # Requires root : Yes
