@@ -163,6 +163,15 @@ else
     echo
 fi
 
+# Vim colors
+if rsync -avh "$VIM_DIR/colors" "$OCHILINUX_DIR/vim"; then
+    echo -e "${GREEN}Updated vim colors${NC}";
+    echo
+else
+    echo -e "${RED}Failed to update vim colors${NC}";
+    echo
+fi
+
 echo
 echo -e "${YELLOW}Updating scripts...${NC}"
 

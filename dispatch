@@ -115,5 +115,14 @@ if [ -d "$HOME/.dbus" ]; then
     echo -e "${YELLOW}Changed ownership of /home/$USERNAME/.dbus to $USERNAME.${NC}"
 fi
 
+# Copy Vim colors 
+if rsync -avh "$OCHILINUX_DIR/vim/colors" "$VIM_DIR"; then
+    echo -e "${GREEN}Copied vim colors: $file${NC}"
+    echo
+else
+    echo -e "${RED}Failed to copy vim colors: $file${NC}"
+    echo
+fi
+
 echo
 echo -e "${GREEN}All files have been dispatched successfully.${NC}"

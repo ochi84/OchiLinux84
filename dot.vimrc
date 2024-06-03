@@ -12,7 +12,7 @@ syntax on
 " Color settings
 
 " Set color (you can get great colorschemes from https://github.com/jdpedersen1/dotfiles.git)
-"source ~/.vim/colors/happy_hacking.vim
+source ~/.vim/colors/afterglow.vim
 
 highlight Search cterm=bold ctermfg=lightyellow ctermbg=NONE guifg=lightyellow guibg=NONE
 highlight Visual cterm=bold ctermfg=lightyellow ctermbg=NONE guifg=lightyellow guibg=NONE 
