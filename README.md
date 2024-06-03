@@ -60,7 +60,9 @@ To install the configurations and utility scripts, follow these steps:
 -  Load the "sc.conf" file for additional settings.
 -  Install selected packages based on the chosen installation type.
 -  Install the "dispatch" script and run it to apply configurations.
--  Further install some required nerdfonts and a lot of tilix schemes from https://github.com/storm119/Tilix-Themes.git
+-  Further install some required nerdfonts -> https://www.nerdfonts.com
+-  a lot of tilix schemes from https://github.com/storm119/Tilix-Themes.git
+-  and great vim color settings from https://github.com/jdpedersen1/dotfiles.git
 
 ### Installation Options
 The script ("startup") offers different levels of installation:
