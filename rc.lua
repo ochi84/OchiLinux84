@@ -611,7 +611,7 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
 
-    local classes_to_focus = { "Firefox", "Gimp", "Thunar" }
+    local classes_to_focus = { "firefox", "Gimp", "Thunar" }
 
     if gears.table.hasitem(classes_to_focus, c.class) then
         local t = c:tags()[1]
