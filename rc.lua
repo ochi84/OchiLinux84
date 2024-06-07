@@ -590,6 +590,9 @@ awful.rules.rules = {
      { rule = { class = "Thunar" },
       properties = { screen = 1, tag = "&" } },
 
+    -- Set Thunar to always map on the tag named "&".
+     { rule = { class = "Gimp" },
+      properties = { screen = 1, tag = "&" } },
 
 }
 -- }}}
@@ -607,6 +610,16 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+
+    local classes_to_focus = { "Firefox", "Gimp", "Thunar" }
+
+    if gears.table.hasitem(classes_to_focus, c.class) then
+        local t = c:tags()[1]
+        if t then
+            t:view_only()
+        end
+    end
+
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
