@@ -36,7 +36,7 @@ MOUNT_BASE="/media/$USER"
 
 # Function to display the header
 display_header() {
-    clear_screen
+    #clear_screen
     echo -e ""
     echo -e "${BLUE}Mountman - mount/unmount external devices${NC}"
     echo -e ""
