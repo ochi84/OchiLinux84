@@ -207,6 +207,62 @@ else
     exit 1
 fi
 
+# Install and activate "Uncomplicated Firewall"
+# Check if ufw is installed
+if ! dpkg -l | grep -qw ufw; then
+    echo
+    echo -e "${YELLOW}Installing ufw (Firewall)...${NC}"
+    apt update
+    apt install -y ufw
+else
+    echo
+    echo -e "${GREEN}ufw (Firewall) is already installed.${NC}"
+fi
+
+# Check if SSH is allowed
+if ! ufw status | grep -qw '22/tcp'; then
+    echo
+    echo -e "${YELLOW}Allowing SSH connections (port 22)...${NC}"
+    ufw allow ssh
+else
+    echo
+    echo -e "${GREEN}SSH connections are already allowed.${NC}"
+fi
+
+# Enable ufw if not already enabled
+if ! ufw status | grep -qw 'Status: active'; then
+    echo
+    echo -e "${YELLOW}Enabling ufw...${NC}"
+    ufw enable
+else
+    echo
+    echo -e "${GREEN}ufw is already enabled.${NC}"
+fi
+
+# Ensure ufw is enabled at startup
+if ! systemctl is-enabled ufw | grep -qw 'enabled'; then
+    echo
+    echo -e "${YELLOW}Enabling ufw to start at boot...${NC}"
+    echo
+    systemctl enable ufw
+else
+    echo
+fi
+
+# Check ufw status
+echo -e "${YELLOW}Checking ufw status...${NC}"
+ufw_status=$(ufw status verbose)
+echo -e "${GREEN}${ufw_status}${NC}"
+
+# Check systemd service status
+echo
+echo -e "${YELLOW}Checking systemd service status of ufw...${NC}"
+service_status=$(systemctl status ufw)
+echo -e "${GREEN}${service_status}${NC}"
+
+echo
+echo -e "${GREEN}ufw has been successfully installed and enabled.${NC}"
+
 echo
 echo -e "${GREEN}All desired applications have been installed.${NC}"
 echo
