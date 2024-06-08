@@ -401,14 +401,13 @@ awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sse
               end,
               {description = "lua execute prompt", group = "awesome"}),
 
-    -- Menubar
-    -- awful.key({ modkey }, "p", function() menubar.show() end,
-    --           {description = "show the menubar", group = "launcher"})
+       -- Menubar
+       --awful.key({ modkey }, "p", function() menubar.show() end,
+       --          {description = "show the menubar", group = "launcher"})
 
        -- dmenu
        awful.key({ modkey }, "p", function() awful.util.spawn ("dmenu_run") end,
                  {description = "launch dmenu", group = "launcher"}),
-
        -- launch browser
        awful.key({ modkey }, "b", function() awful.util.spawn ("qutebrowser") end,
                  {description = "launch browser", group = "launcher"})
