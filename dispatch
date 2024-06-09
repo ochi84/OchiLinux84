@@ -67,7 +67,7 @@ for file in "${!DIRS[@]}"; do
             echo -e "${RED}Failed to copy config file: $file${NC}"
             echo
         fi
-    elif [[ $dest == */awesome/* ]]; then
+    elif [[ $dest == */share/awesome/* ]]; then
         if sudo rsync -avh --progress "$src" "$dest"; then
             echo -e "${GREEN}Copied awesome background: $file${NC}"
             echo
