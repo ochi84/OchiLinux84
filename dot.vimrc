@@ -12,7 +12,7 @@ syntax on
 " Color settings
 
 " Set color (you can get great colorschemes from https://github.com/jdpedersen1/dotfiles.git)
-"source ~/.vim/colors/256_noir.vim "afterglow.vim
+"source ~/.vim/colors/256_noir.vim 
 
 highlight Search cterm=bold ctermfg=lightyellow ctermbg=NONE guifg=lightyellow guibg=NONE
 highlight Visual cterm=bold ctermfg=lightyellow ctermbg=NONE guifg=lightyellow guibg=NONE 
@@ -81,6 +81,9 @@ set tabstop=4
 " Smarteres Einrücken
 set smartindent
 
+" Start vim with nerdtree
+"autocmd VimEnter * NERDTree
+
 " PLUGINS
 let g:airline_theme='angr'
 let g:airline#extensions#whitespace#enabled = 0
@@ -90,11 +93,9 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+" plugin syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 1
-
-" Start vim with nerdtree
-"autocmd VimEnter * NERDTree
