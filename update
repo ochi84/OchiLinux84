@@ -53,6 +53,14 @@ update_packages() {
         echo -e "${RED}Failed to update packages.${NC}" >&2
         return 1
     fi
+
+ 	echo
+    echo -e "${YELLOW}Updating snap packages...${NC}"
+    snap refresh
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}Failed to update snap packages.${NC}" >&2
+        return 1
+    fi
 }
 
 cleanup_system() {
