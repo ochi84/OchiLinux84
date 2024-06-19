@@ -585,10 +585,16 @@ awful.rules.rules = {
      { rule_any = { class = "firefox" },
      properties = {floating = true} },
 
+    -- Set Brave to always map on the tag named "@" on screen 1
+     { rule = { class = "Brave" },
+       properties = { screen = 1, tag = "@", floating = false, maximized = false } },
+ 	-- Set Brave not to float so that it adapts to the layouts
+     { rule_any = { class = { "Brave", "brave" } },
+       properties = { floating = false, maximized = false } },
+
     -- Set Thunar to always map on the tag named "&".
      { rule = { class = "Thunar" },
       properties = { screen = 1, tag = "&" } },
-
     -- Set Thunar to always map on the tag named "&".
      { rule = { class = "Gimp" },
       properties = { screen = 1, tag = "&" } },
@@ -610,7 +616,7 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
 
-    local classes_to_focus = { "firefox", "Gimp", "Thunar" }
+    local classes_to_focus = { "firefox", "Brave", "Gimp", "Thunar" }
 
     if gears.table.hasitem(classes_to_focus, c.class) then
         local t = c:tags()[1]
