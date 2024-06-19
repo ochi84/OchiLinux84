@@ -72,7 +72,7 @@ echo
 printf "${YELLOW}Copying files for GitHub...${NC}\n"
 gitupd || printf "${RED}Error updating GitHub.${NC}\n"
 
-# Optional: Unmount the drive after the backup
+# Unmount the drive after the backup
 echo
 echo -e "${YELLOW}Unmounting the external drive...${NC}"
 sudo umount "$MOUNT_POINT"
