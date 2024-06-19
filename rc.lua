@@ -583,7 +583,7 @@ awful.rules.rules = {
        properties = { screen = 1, tag = "@" } },
     -- Set Firefox not to float so that it adapts to the layouts
      { rule_any = { class = "firefox" },
-     properties = {floating = false} },
+     properties = {floating = true} },
 
     -- Set Thunar to always map on the tag named "&".
      { rule = { class = "Thunar" },
