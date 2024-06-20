@@ -578,6 +578,10 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
+    -- Set Tilix to always map on the tag named "#".
+     { rule = { class = "Tilix" },
+       properties = { screen = 1, tag = "#" } },
+
     -- Set Firefox to always map on the tag named "@".
      { rule = { class = "firefox" },
        properties = { screen = 1, tag = "@" } },
@@ -595,7 +599,8 @@ awful.rules.rules = {
     -- Set Thunar to always map on the tag named "&".
      { rule = { class = "Thunar" },
       properties = { screen = 1, tag = "&" } },
-    -- Set Thunar to always map on the tag named "&".
+
+    -- Set Gimp to always map on the tag named "&".
      { rule = { class = "Gimp" },
       properties = { screen = 1, tag = "&" } },
 
@@ -616,7 +621,7 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
 
-    local classes_to_focus = { "firefox", "Brave", "Gimp", "Thunar" }
+    local classes_to_focus = { "Tilix", "firefox", "Brave", "Gimp", "Thunar" }
 
     if gears.table.hasitem(classes_to_focus, c.class) then
         local t = c:tags()[1]
