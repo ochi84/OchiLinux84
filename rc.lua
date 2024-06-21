@@ -275,6 +275,7 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            separator1,
             mytextclock,
             separator1,
             separator2,
@@ -408,9 +409,12 @@ awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sse
        -- dmenu
        awful.key({ modkey }, "p", function() awful.util.spawn ("dmenu_run") end,
                  {description = "launch dmenu", group = "launcher"}),
-       -- launch browser
+       -- brave
        awful.key({ modkey }, "b", function() awful.util.spawn ("brave") end,
-                 {description = "launch browser", group = "launcher"})
+                 {description = "launch browser", group = "launcher"}),
+       -- thunar
+       awful.key({ modkey }, "t", function() awful.util.spawn ("thunar") end,
+                 {description = "launch thunar", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
