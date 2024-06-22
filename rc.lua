@@ -417,7 +417,10 @@ awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse sse
                  {description = "launch thunar", group = "launcher"}),
        -- qutebrowser
        awful.key({ modkey }, "q", function() awful.util.spawn ("qutebrowser") end,
-                 {description = "launch qutebrowser", group = "launcher"})
+                 {description = "launch qutebrowser", group = "launcher"}),
+       -- gimp
+       awful.key({ modkey }, "g", function() awful.util.spawn ("gimp") end,
+                 {description = "launch gimp", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
