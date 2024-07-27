@@ -597,14 +597,15 @@ awful.rules.rules = {
        properties = { screen = 1, tag = "@" } },
     -- Set Firefox not to float so that it adapts to the layouts
      { rule_any = { class = "firefox" },
-     properties = {floating = true} },
+     properties = { floating = true } },
 
     -- Set Brave to always map on the tag named "@" on screen 1
      { rule = { class = "Brave" },
        properties = { screen = 1, tag = "@", floating = false, maximized = false } },
  	-- Set Brave not to float so that it adapts to the layouts
      { rule_any = { class = { "Brave", "brave" } },
-       properties = { floating = false, maximized = false } },
+       properties = { floating = true, maximized = false } },
+       --properties = { floating = true } },
 
     -- Set Thunar to always map on the tag named "&".
      { rule = { class = "Thunar" },
