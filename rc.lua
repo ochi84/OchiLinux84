@@ -601,11 +601,10 @@ awful.rules.rules = {
 
     -- Set Brave to always map on the tag named "@" on screen 1
      { rule = { class = "Brave" },
-       properties = { screen = 1, tag = "@", floating = false, maximized = false } },
+       properties = { screen = 1, tag = "@" } },
  	-- Set Brave not to float so that it adapts to the layouts
-     { rule_any = { class = { "Brave", "brave" } },
-       properties = { floating = true, maximized = false } },
-       --properties = { floating = true } },
+     { rule_any = { class = { "brave" } },
+       properties = { floating = true } },
 
     -- Set Thunar to always map on the tag named "&".
      { rule = { class = "Thunar" },
