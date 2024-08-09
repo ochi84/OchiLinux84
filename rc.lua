@@ -698,6 +698,7 @@ awful.spawn.with_shell("picom")
 awful.spawn.with_shell("caffeine")
 awful.spawn.with_shell("xset s off")
 awful.spawn.with_shell("xset -dpms")
+awful.spawn.with_shell("numlockx on")
 
 client.connect_signal("manage", function(c)
     c.shape = function(cr, w, h)
