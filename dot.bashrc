@@ -207,8 +207,8 @@ alias web='w3m'
 alias x='cmatrix -b -u8'
 
 ## commandaliases
-alias apin='sudo apt install $1'
-alias aprm='sudo apt remove $1'
+alias apin='sudo apt install $1 -y'
+alias aprm='sudo apt remove $1 -y'
 alias bye='shutdown -P now'
 alias fz='fzf --preview="cat {}"'
 alias vfz='vim $(fzf --preview="cat {}")'
