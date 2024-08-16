@@ -7,9 +7,10 @@
 " (_)_/ |_|_| |_| |_|_|  \___|
 "
 " turn on syntax highlighting
-syntax on
+syntax off
 
 " Color settings
+"set termguicolors
 
 " Set color (you can get great colorschemes from https://github.com/jdpedersen1/dotfiles.git)
 "source ~/.vim/colors/256_noir.vim 
@@ -19,6 +20,8 @@ highlight Visual cterm=bold ctermfg=lightyellow ctermbg=NONE guifg=lightyellow g
 
 " show line numbers
 set number
+highlight LineNr ctermfg=white
+highlight CursorLineNr ctermfg=yellow
 
 " show file stats
 set ruler

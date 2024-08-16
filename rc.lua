@@ -588,9 +588,9 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
-    -- Set Tilix to always map on the tag named "#".
-     { rule = { class = "Tilix" },
-       properties = { screen = 1, tag = "#" } },
+    ---- Set Tilix to always map on the tag named "#".
+    -- { rule = { class = "Tilix" },
+    --   properties = { screen = 1, tag = "#" } },
 
     -- Set Firefox to always map on the tag named "@".
      { rule = { class = "firefox" },
