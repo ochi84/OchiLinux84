@@ -7,7 +7,7 @@
 " (_)_/ |_|_| |_| |_|_|  \___|
 "
 " turn on syntax highlighting
-syntax off
+syntax on
 
 " Color settings
 "set termguicolors
