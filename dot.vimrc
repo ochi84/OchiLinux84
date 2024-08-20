@@ -11,6 +11,7 @@ syntax on
 
 " Color settings
 "set termguicolors
+highlight Normal ctermbg=black guibg=black
 
 " Set color (you can get great colorschemes from https://github.com/jdpedersen1/dotfiles.git)
 source ~/.vim/colors/one.vim 
