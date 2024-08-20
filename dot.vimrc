@@ -13,7 +13,7 @@ syntax on
 "set termguicolors
 
 " Set color (you can get great colorschemes from https://github.com/jdpedersen1/dotfiles.git)
-"source ~/.vim/colors/256_noir.vim 
+source ~/.vim/colors/one.vim 
 
 highlight Search cterm=bold ctermfg=lightyellow ctermbg=NONE guifg=lightyellow guibg=NONE
 highlight Visual cterm=bold ctermfg=lightyellow ctermbg=NONE guifg=lightyellow guibg=NONE 

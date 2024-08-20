@@ -96,9 +96,9 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+     awful.layout.suit.tile,
     -- awful.layout.suit.floating,
     -- awful.layout.suit.fair,
-    awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
@@ -218,7 +218,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "#", "@", "&" }, s, awful.layout.layouts[1])
+    awful.tag({ " ", "#", "@", "&" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -588,31 +588,29 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
-    ---- Set Tilix to always map on the tag named "#".
-    -- { rule = { class = "Tilix" },
-    --   properties = { screen = 1, tag = "#" } },
-
-    -- Set Firefox to always map on the tag named "@".
-     { rule = { class = "firefox" },
-       properties = { screen = 1, tag = "@" } },
-    -- Set Firefox not to float so that it adapts to the layouts
-     { rule_any = { class = "firefox" },
-     properties = { floating = true } },
+    -- Set Tilix to always map on the tag named "#".
+     { rule = { class = "Tilix" },
+       properties = { screen = 1, tag = "#" } },
 
     -- Set Brave to always map on the tag named "@" on screen 1
      { rule = { class = "Brave" },
-       properties = { screen = 1, tag = "@" } },
- 	-- Set Brave not to float so that it adapts to the layouts
-     { rule_any = { class = { "brave" } },
-       properties = { floating = true } },
+       properties = { screen = 1, tag  = "@" } },
 
     -- Set Thunar to always map on the tag named "&".
      { rule = { class = "Thunar" },
       properties = { screen = 1, tag = "&" } },
+ 	-- Set Thunar not to float so that it adapts to the layouts
+     { rule_any = { class = { "Thunar" } },
+       properties = { maximized = false, floating = false } },
 
     -- Set Gimp to always map on the tag named "&".
      { rule = { class = "Gimp" },
       properties = { screen = 1, tag = "&" } },
+
+ 	-- Set Gedit not to float so that it adapts to the layouts
+     { rule_any = { class = { "Gedit" } },
+       properties = { maximized = false, floating = false } },
+
 
 }
 -- }}}
