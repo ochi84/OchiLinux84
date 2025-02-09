@@ -17,6 +17,8 @@
 
 NC='\033[0m' # No Colo
 RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
 
 # Ensure root
 root() {
@@ -27,6 +29,11 @@ fi
 }
 
 root
+
+# Display a warning that a reboot may be required after the update
+echo -e "${RED}Warning: The system will need to be restarted after the update.${NC}"
+echo -e "${YELLOW}Please ensure you save all your work before proceeding.${NC}"
+echo
 
 # Ask for the username to update
 echo
@@ -98,13 +105,15 @@ update_result=$?
 cleanup_system
 cleanup_result=$?
 
-# if both update and cleanup were successful
+# If both update and cleanup were successful
 if [ $update_result -eq 0 ] && [ $cleanup_result -eq 0 ]; then
     echo
     echo -e "${GREEN}System maintenance completed successfully!${NC}"
-    echo
+    echo -e "${YELLOW}The system will now reboot to apply changes.${NC}"
+    reboot
 else
     echo
     echo -e "${RED}System maintenance encountered errors.${NC}" >&2
     echo
 fi
+reboot
