@@ -30,9 +30,21 @@ fi
 
 root
 
+# Get terminal width
+TERM_WIDTH=$(tput cols)
+
+# Function to center text
+center_text() {
+    local text="$1"
+    local text_length=${#text}
+    local padding=$(( (TERM_WIDTH - text_length) / 2 ))
+    printf "%*s%s\n" "$padding" "" "$text"
+}
+
 # Display a warning that a reboot may be required after the update
-echo -e "${RED}Warning: The system will need to be restarted after the update.${NC}"
-echo -e "${YELLOW}Please ensure you save all your work before proceeding.${NC}"
+echo
+center_text "${RED}Warning: The system will need to be restarted after the update.${NC}"
+center_text "${YELLOW}Please ensure you save all your work before proceeding.${NC}"
 echo
 
 # Ask for the username to update
