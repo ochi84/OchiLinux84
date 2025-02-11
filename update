@@ -15,7 +15,8 @@
 # Description   : Performs updates and cleanup tasks on linux systems.
 # Requires root : Yes
 
-NC='\033[0m' # No Colo
+# Define colors
+NC='\033[0m' # No Color
 RED='\033[0;31m'
 YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
@@ -30,21 +31,30 @@ fi
 
 root
 
+# Define colors
+NC='\033[0m' # No Color
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+
 # Get terminal width
 TERM_WIDTH=$(tput cols)
 
-# Function to center text
+# Function to center text with colors
 center_text() {
     local text="$1"
-    local text_length=${#text}
+    local color="$2"
+    local plain_text=$(echo -e "$text" | sed 's/\x1B\[[0-9;]*m//g')  # Remove color codes for length calculation
+    local text_length=${#plain_text}
     local padding=$(( (TERM_WIDTH - text_length) / 2 ))
-    printf "%*s%s\n" "$padding" "" "$text"
+
+    # Print text with color, ensuring colors are correctly interpreted
+    echo -e "$(printf "%*s" "$padding")${color}${text}${NC}"
 }
 
 # Display a warning that a reboot may be required after the update
 echo
-center_text "${RED}Warning: The system will need to be restarted after the update.${NC}"
-center_text "${YELLOW}Please ensure you save all your work before proceeding.${NC}"
+center_text "Warning: The system will need to be restarted after the update." "$RED"
+center_text "Please ensure you save all your work before proceeding." "$YELLOW"
 echo
 
 # Ask for the username to update
