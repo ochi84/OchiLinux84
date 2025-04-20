@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+#
 #        _ _                   _ 
 #   __ _(_) |_ _   _ _ __   __| |
 #  / _` | | __| | | | '_ \ / _` |
@@ -10,183 +10,97 @@
 # Script        : gitupd
 # Location      : /usr/local/bin
 # Author        : Jens Ochmann
-# Date          : 2024-06-02
-# LIcense       : MIT
-# Description   : Backup and sync local files to GitHub directory.
+# Date          : 2025‑04‑20
+# License       : MIT
+# Description   : Backup and sync local files to the OchiLinux84 GitHub repository.
 # Requires root : No
+#
 
-# Load config file
-CONFIG_FILE="$HOME/.config/sc.conf"
-if [[ -f "$CONFIG_FILE" ]]; then
-    source "$CONFIG_FILE"
-else
-    echo -e "${RED}Error: Configuration file not found.${NC}"
-    echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
-    exit 1
+set -euo pipefail
+
+#–––––––––––––––– Default‑Farbcodes (falls in sc.conf nicht definiert) ––––––––
+RED=${RED:-"\033[0;31m"}
+GREEN=${GREEN:-"\033[0;32m"}
+YELLOW=${YELLOW:-"\033[0;33m"}
+BLUE=${BLUE:-"\033[0;34m"}
+NC=${NC:-"\033[0m"}
+
+info()   { printf "%b%s%b\n"  "${YELLOW}" "$*" "${NC}"; }
+ok()     { printf "%b%s%b\n"  "${GREEN}"  "$*" "${NC}"; }
+err()    { printf "%b%s%b\n"  "${RED}"    "$*" "${NC}" >&2; }
+
+#–––––––––––––––– Konfiguration laden ––––––––––––––––––––––––––––––––––––––––––
+CONFIG_FILE="${HOME}/.config/sc.conf"
+if [[ ! -f "${CONFIG_FILE}" ]]; then
+  err "Configuration file not found: ${CONFIG_FILE}"
+  exit 1
 fi
+# shellcheck source=/dev/null
+source "${CONFIG_FILE}"
 
-# Check if the GitHub directory exists
-if [ ! -d "$OCHILINUX_DIR" ]; then
-    echo -e "${BLUE}$OCHILINUX_DIR ${YELLOW}does not exist.${NC}"
-    echo -e "${YELLOW}Cloning repository from Github...${NC}"
-	cd $HOME
-	git clone https://github.com/ochi84/ochilinux84.git
+: "${OCHILINUX_DIR:?OCHILINUX_DIR not set in sc.conf}"
+
+#–––––––––––––––– Repository sicherstellen –––––––––––––––––––––––––––––––––––––
+if ! git -C "${OCHILINUX_DIR}" rev-parse --is-inside-work-tree &>/dev/null; then
+  info "${BLUE}${OCHILINUX_DIR}${YELLOW} is missing – cloning repository …"
+  git clone --depth 1 https://github.com/ochi84/ochilinux84.git "${OCHILINUX_DIR}"
 else
-    echo
-	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
+  ok "Repository found at ${OCHILINUX_DIR}"
 fi
-
 echo
-echo -e "${YELLOW}Updating configfiles...${NC}"
 
-# config files
-if rsync -avh --progress "$BASHRC_DIR/.bashrc" "$OCHILINUX_DIR/dot.bashrc"; then
-    echo -e "${GREEN}Updated .bashrc${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update .bashrc${NC}";
-    echo
-fi
+#–––––––––––––––– Kleine rsync‑Hilfe­funktion ––––––––––––––––––––––––––––––––––
+rsync_safe() {                    # rsync_safe SRC DEST
+  local src=$1 dest=$2
+  if [[ -e "${src}" ]]; then
+    rsync -a --progress "${src}" "${dest}" \
+      && ok "Updated $(basename "${dest}")" \
+      || err "Failed to update $(basename "${dest}")"
+  else
+    info "Skip: ${src} not found"
+  fi
+  echo
+}
 
-if rsync -avh --progress "$VIMRC_DIR/.vimrc" "$OCHILINUX_DIR/dot.vimrc"; then
-    echo -e "${GREEN}Updated .vimrc${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update .vimrc${NC}";
-    echo
-fi
+info "Synchronising configuration files …"
 
-if rsync -avh --progress "$SCCONF_DIR/sc.conf" "$OCHILINUX_DIR/sc.conf"; then
-    echo -e "${GREEN}Updated sc.conf${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update sc.conf${NC}";
-    echo
-fi
+#–––––––––––––––– Einfache Datei­zuordnungen (Quelle → Zielname) –––––––––––––––
+declare -A FILES=(
+  ["${BASHRC_DIR}/.bashrc"]="dot.bashrc"
+  ["${VIMRC_DIR}/.vimrc"]="dot.vimrc"
+  ["${SCCONF_DIR}/sc.conf"]="sc.conf"
+  ["${RCLUA_DIR}/rc.lua"]="rc.lua"
+  ["${RCLUA_DIR}/rc.lua.original"]="rc.lua.original"
+  ["${RCCONF_DIR}/rc.conf"]="rc.conf"
+  ["${PICOM_DIR}/picom.conf"]="picom.conf"
+  ["${NFCONF_DIR}/config.conf"]="nf.conf"
+  ["${AWMBG_DIR}/background.png"]="awmbg.png"
+  ["${OCHILOGO_DIR}/ochilogo.png"]="ochilogo.png"
+)
 
-if rsync -avh --progress "$RCLUA_DIR/rc.lua" "$OCHILINUX_DIR/rc.lua"; then
-    echo -e "${GREEN}Updated rc.lua${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update rc.lua${NC}";
-    echo
-fi
-
-if rsync -avh --progress "$RCLUA_DIR/rc.lua.original" "$OCHILINUX_DIR/rc.lua.original"; then
-    echo -e "${GREEN}Updated rc.lua.original${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update rc.lua.original${NC}";
-    echo
-fi
-
-if rsync -avh --progress "$RCCONF_DIR/rc.conf" "$OCHILINUX_DIR/rc.conf"; then
-    echo -e "${GREEN}Updated rc.conf${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update rc.conf${NC}";
-    echo
-fi
-
-if rsync -avh --progress "$PICOM_DIR/picom.conf" "$OCHILINUX_DIR/picom.conf";then
-    echo -e "${GREEN}Updated picom.conf${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update picom.conf${NC}";
-    echo
-fi
-
-if rsync -avh --progress "$NFCONF_DIR/config.conf" "$OCHILINUX_DIR/nf.conf"; then
-    echo -e "${GREEN}Updated nf.conf${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update nf.conf${NC}";
-    echo
-fi
-
-if dconf dump '/com/gexperts/Tilix/' > "$OCHILINUX_DIR/tilix.conf"; then
-    echo -e "${GREEN}Updated tilix.conf${NC}";
-    echo
-else
-    echo -e "${RED}Failed to dump tilix.conf${NC}";
-    echo
-fi
-
-if rsync -avh --progress "$LNAV_DIR/config.json" "$OCHILINUX_DIR/config.json"; then
-    echo -e "${GREEN}Updated config.json${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update config.json${NC}";
-    echo
-fi
-
-if rsync -avh --progress "$CLAMD_DIR/clamd.conf" "$OCHILINUX_DIR/clamd.conf"; then
-    echo -e "${GREEN}Updated clamd.conf${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update clamd.conf${NC}";
-    echo
-fi
-
-# Awesome-WM background
-if rsync -avh --progress "$AWMBG_DIR/background.png" "$OCHILINUX_DIR/awmbg.png"; then
-    echo -e "${GREEN}Updated background.png${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update background.png${NC}";
-    echo
-fi
-
-# Ochi-Logo
-if rsync -avh --progress "$OCHILOGO_DIR/ochilogo.png" "$OCHILINUX_DIR/ochilogo.png"; then
-    echo -e "${GREEN}Updated ochilogo.png${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update ochilogo.png${NC}";
-    echo
-fi
-
-# Nerdfonts
-if rsync -avh --progress "$FONT_DIR/nerdfonts" "$OCHILINUX_DIR/"; then
-    echo -e "${GREEN}Updated nerdfonts${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update nerdfonts${NC}";
-    echo
-fi
-
-# Tilix schemes
-if rsync -avh "$TILIX_DIR/schemes" "$OCHILINUX_DIR/tilix/"; then
-    echo -e "${GREEN}Updated tilix schemes${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update tilix schemes${NC}";
-    echo
-fi
-
-# Vim colors
-if rsync -avh "$VIM_DIR/colors" "$OCHILINUX_DIR/vim"; then
-    echo -e "${GREEN}Updated vim colors${NC}";
-    echo
-else
-    echo -e "${RED}Failed to update vim colors${NC}";
-    echo
-fi
-
-echo
-echo -e "${YELLOW}Updating scripts...${NC}"
-
-# Here, you should define a list of specific scripts to be copied.
-declare -a scripts=("backup" "gitupd" "snapcrash" "update" "dispatch" "startup" "bye" "mountman" "syscheck")
-for script in "${scripts[@]}"; do
-    if rsync -avh --progress "/usr/local/bin/$script" "$OCHILINUX_DIR/$script"; then
-        echo -e "${GREEN}Updated $script${NC}";
-        echo
-    else
-        echo -e "${RED}Failed to update $script${NC}";
-        echo
-    fi
+for src in "${!FILES[@]}"; do
+  rsync_safe "${src}" "${OCHILINUX_DIR}/${FILES[$src]}"
 done
 
-echo -e "${GREEN}Git update process completed.${NC}"
+#–––––––––––––––– Verzeichnis­syncs ––––––––––––––––––––––––––––––––––––––––––––
+rsync_safe "${FONT_DIR}/nerdfonts" "${OCHILINUX_DIR}/"
+rsync_safe "${TILIX_DIR}/schemes"  "${OCHILINUX_DIR}/tilix/"
+rsync_safe "${VIM_DIR}/colors"     "${OCHILINUX_DIR}/vim/"
+
+# Tilix‑Dump separat, da nicht via rsync
+if dconf dump '/com/gexperts/Tilix/' > "${OCHILINUX_DIR}/tilix.conf"; then
+  ok "Updated tilix.conf"
+else
+  err "Failed to dump tilix.conf"
+fi
 echo
+
+#–––––––––––––––– Lokale Scripts aktualisieren –––––––––––––––––––––––––––––––––
+info "Synchronising local scripts …"
+scripts=(backup gitupd snapcrash update dispatch startup bye mountman syscheck)
+for script in "${scripts[@]}"; do
+  rsync_safe "/usr/local/bin/${script}" "${OCHILINUX_DIR}/${script}"
+done
+
+ok "Git update process completed."
+

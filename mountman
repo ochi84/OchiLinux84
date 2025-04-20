@@ -1,138 +1,120 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+#
 #                              _
 #  _ __ ___   ___  _   _ _ __ | |_ _ __ ___   __ _ _ __
-# | '_ ` _ \ / _ \| | | | '_ \| __| '_ ` _ \ / _` | '_ \
+# | '_ ` _ \\ / _ \\| | | | '_ \\| __| '_ ` _ \\ / _` | '_ \\
 # | | | | | | (_) | |_| | | | | |_| | | | | | (_| | | | |
-# |_| |_| |_|\___/ \__,_|_| |_|\__|_| |_| |_|\__,_|_| |_|
-# 
+# |_| |_| |_|\\___/ \\__,_|_| |_|\\__|_| |_| |_|\\__,_|_| |_|
 #
 # Script        : mountman
-# Location      : /usr/local/bin
+# Location      : /usr/local/bin/mountman
 # Author        : Jens Ochmann
-# Date          : 2024-06-02
+# Date          : 2025-04-20
 # License       : MIT
-# Description   : Mount/Unmount external devices.
-# Requires root : Yes
-# Define colors
+# Description   : Mount / Unmount removable devices.
+#                 mountman            → list USB / RM=1 devices (excl. loop)
+#                 mountman -a|--all   → list all block devices.
+# Requires root : Elevates via sudo if needed
+#
+set -euo pipefail
 
-# Load config file
-CONFIG_FILE="$HOME/.config/sc.conf"
-if [[ -f "$CONFIG_FILE" ]]; then
-    source "$CONFIG_FILE"
-else
-    echo -e "${RED}Error: Configuration file not found.${NC}"
-    echo -e "${RED}Please ensure the configuration file 'sc.con' exists at $HOME/.config/${NC}"
-    exit 1
+# ---------- colours (fallback) ----------
+RED=${RED:-"\033[0;31m"}
+GREEN=${GREEN:-"\033[0;32m"}
+YELLOW=${YELLOW:-"\033[0;33m"}
+BLUE=${BLUE:-"\033[0;34m"}
+NC=${NC:-"\033[0m"}
+
+info() { printf "%b%s%b\n" "${YELLOW}" "$*" "${NC}"; }
+ok()   { printf "%b%s%b\n" "${GREEN}"  "$*" "${NC}"; }
+err()  { printf "%b%s%b\n" "${RED}"    "$*" "${NC}" >&2; }
+
+# ---------- root elevation -------------
+if (( EUID != 0 )); then
+  exec sudo --preserve-env=RED,GREEN,YELLOW,BLUE,NC "$0" "$@"
 fi
 
-# Default mount path
-MOUNT_BASE="/media/$USER"
+# ---------- CLI options ----------------
+SHOW_ALL=false
+while [[ ${1:-} ]]; do
+  case $1 in
+    -a|--all) SHOW_ALL=true; shift ;;
+    -h|--help) echo "Usage: mountman [-a|--all]"; exit 0 ;;
+    *) err "Unknown option: $1"; exit 1 ;;
+  esac
+done
 
-## Function to clear the screen
-#clear_screen() {
-#    clear
-#}
+# ---------- config file (optional) -----
+if [[ -n ${SUDO_USER:-} ]]; then
+  USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+else
+  USER_HOME="$HOME"
+fi
+CONFIG_FILE="${USER_HOME}/.config/sc.conf"
+[[ -f "$CONFIG_FILE" ]] && source "$CONFIG_FILE" || true
 
-# Function to display the header
-display_header() {
-    #clear_screen
-    echo -e ""
-    echo -e "${BLUE}Mountman - mount/unmount external devices${NC}"
-    echo -e ""
-}
+MOUNT_BASE="/media/${SUDO_USER:-$USER}"
 
-# Function to mount a device
+# ---------- helpers --------------------
+list_block_devices() { lsblk -rno NAME,RM,TRAN,SIZE,MOUNTPOINT; }
+
+fmt() { printf "%-12s %-6s %-6s %s\n" "$1" "$4" "$3" "${5:-}"; }
+# fields: 1-name 2-rm 3-tran 4-size 5-mnt (see while read order)
+
 mount_device() {
-    local device=$1
-    local mount_point=$2
-
-    if [[ ! -d $mount_point ]]; then
-        sudo mkdir -p "$mount_point"
-    fi
-
-    sudo mount "$device" "$mount_point"
-    if [[ $? -eq 0 ]]; then
-        echo ""
-        echo -e "${GREEN}The device $device has been successfully mounted to $mount_point.${NC}"
-    else
-        echo ""
-        echo -e "${RED}Failed to mount $device.${NC}"
-    fi
+  local dev="$1" label
+  label=$(lsblk -rno LABEL "/dev/$dev" || true)
+  [[ -z $label ]] && label="$dev"
+  label=$(tr -cd '[:alnum:]' <<<"$label")
+  local mnt="${MOUNT_BASE}/${label}"
+  mkdir -p "$mnt"
+  mount "/dev/$dev" "$mnt" && ok "Mounted /dev/$dev → $mnt" || err "Mount failed"
 }
 
-# Function to unmount a device
 unmount_device() {
-    local device=$1
-    sudo umount "$device"
-    if [[ $? -eq 0 ]]; then
-        echo -e ""
-        echo -e "${GREEN}The device $device has been successfully unmounted.${NC}"
-    else
-        echo -e "${RED}Failed to unmount $device.${NC}"
-    fi
+  local dev="$1" mnt
+  mnt=$(lsblk -rno MOUNTPOINT "/dev/$dev" || true)
+  [[ -z $mnt ]] && { err "/dev/$dev is not mounted"; return; }
+  umount -l "$mnt" && ok "Unmounted $mnt" || err "Failed to unmount"
 }
 
-# List available external devices
-list_devices() {
-    lsblk -o NAME,MODEL,SIZE,TYPE,MOUNTPOINT | grep -E "disk|part" | grep -vE "loop|sr0|nvme0n1"
+is_candidate() {
+  local name=$1 rm=$2 tran=$3
+  $SHOW_ALL && return 0
+  [[ $name == loop* ]] && return 1         # exclude loop devices by default
+  [[ $rm == 1 ]] && return 0               # removable flag
+  [[ $tran == usb ]] && return 0           # usb transport
+  return 1
 }
 
-# Main menu
-main_menu() {
-    display_header
-    echo -e "${YELLOW}Available external devices:${NC}"
-    devices=$(list_devices)
-    
-    if [[ -z "$devices" ]]; then
-        echo -e "${RED}No external devices available. Exiting.${NC}"
-        exit 1
+select_device() {
+  local -a menu=()
+  while read -r name rm tran size mnt; do
+    if is_candidate "$name" "$rm" "$tran"; then
+      menu+=("$(fmt "$name" "$rm" "$tran" "$size" "$mnt")")
     fi
-    
-    echo "$devices"
-    echo ""
-    echo -e "${YELLOW}Enter the device name:${NC}"
-    read device_name
+  done < <(list_block_devices)
 
-    if [[ -z $device_name ]]; then
-        echo -e "${RED}No device selected. Exiting.${NC}"
-        exit 1
-    fi
+  (( ${#menu[@]} )) || { err "No suitable block devices found."; exit 1; }
 
-    local device_path="/dev/$device_name"
-
-    if [[ ! -b $device_path ]]; then
-        echo -e "${RED}Invalid device. Exiting.${NC}"
-        exit 1
-    fi
-    
-    echo -e ""
-    echo -e "${YELLOW}Select an action:${NC}"
-    echo -e "${YELLOW}1: Mount${NC}"
-    echo -e "${YELLOW}2: Unmount${NC}"
-    read action
-
-    case $action in
-        1)
-            local label=$(lsblk -no LABEL $device_path)
-            if [[ -z $label ]]; then
-                label=$device_name
-            fi
-            # Replace all non-alphanumeric characters with nothing
-            label=$(echo $label | tr -cd '[:alnum:]')
-            mount_point="$MOUNT_BASE/$label"
-
-            mount_device "$device_path" "$mount_point"
-            ;;
-        2)
-            unmount_device "$device_path"
-            ;;
-        *)
-            echo -e "${RED}Invalid selection. Exiting.${NC}"
-            exit 1
-            ;;
-    esac
+  printf "%s\n" "${menu[@]}" | nl -w2 -s": "
+  read -rp "Select device [1-${#menu[@]}]: " idx
+  [[ $idx =~ ^[0-9]+$ ]] && (( idx>=1 && idx<=${#menu[@]} )) || { err "Invalid choice"; exit 1; }
+  printf '%s\n' "${menu[idx-1]}" | awk '{print $1}'
 }
 
-# Run script
-main_menu
+# ---------- main -----------------------
+clear
+printf "\n%sMountman – manage removable devices%s\n\n" "$BLUE" "$NC"
+
+device=$(select_device)
+info "Chosen device: /dev/$device"
+
+echo -e "${YELLOW}1) Mount\n2) Unmount${NC}"
+read -rp "Select action [1/2]: " action
+case "$action" in
+  1) mount_device   "$device" ;;
+  2) unmount_device "$device" ;;
+  *) err "Invalid action" ;;
+esac
+

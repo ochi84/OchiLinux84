@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+#
 #                                            _     
 #  ___ _ __   __ _ _ __   ___ _ __ __ _ ___ | |__  
 # / __| '_ \ / _` | '_ \ / __| '__/ _` / __|| '_ \ 
@@ -8,59 +8,68 @@
 #                 |_|                             
 #
 # Script        : snapcrash
-# Location      : /usr/local/bin
+# Location      : /usr/local/bin/snapcrash
 # Author        : Jens Ochmann
-# Date          : 2024-06-02
+# Date          : 2025‑04‑20
 # License       : MIT
-# Description   : Terminates, updates, removes, and reinstalls the Snap Store to resolve common issues.
-# Requires root : Yes
+# Description   : Reset Snap Store by terminating, removing and reinstalling it.
+# Requires root : Elevates via sudo if needed
+#
 
-# Load config file
-CONFIG_FILE="$HOME/.config/sc.conf"
-if [[ -f "$CONFIG_FILE" ]]; then
-    source "$CONFIG_FILE"
-else
-    echo -e "${RED}Error: Configuration file not found.${NC}"
-    echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
-    exit 1
+set -euo pipefail
+
+#–––––––––––––––– Farben (Fallback) ––––––––––––––––––––––––––––––––––––––––––––
+RED=${RED:-"\033[0;31m"}
+GREEN=${GREEN:-"\033[0;32m"}
+YELLOW=${YELLOW:-"\033[0;33m"}
+NC=${NC:-"\033[0m"}
+
+info() { printf "%b%s%b\n" "${YELLOW}" "$*" "${NC}"; }
+ok()   { printf "%b%s%b\n" "${GREEN}"  "$*" "${NC}"; }
+err()  { printf "%b%s%b\n" "${RED}"    "$*" "${NC}" >&2; }
+
+#–––––––––––––––– Root‑Handling ––––––––––––––––––––––––––––––––––––––––––––––––
+if (( EUID != 0 )); then
+  exec sudo --preserve-env=RED,GREEN,YELLOW,NC "$0" "$@"
 fi
 
-echo
-echo -e "${YELLOW}Deleting all Snap Store processes...${NC}"
-killall snap-store
+#–––––––––––––––– Konfiguration laden (optional) ––––––––––––––––––––––––––––––
+CONFIG_FILE="${HOME}/.config/sc.conf"
+[[ -f "${CONFIG_FILE}" ]] && source "${CONFIG_FILE}" || true
 
-if [ $? -eq 0 ]; then
-    echo -e "${GREEN}Snap Store processes successfully terminated.${NC}"
-else
-    echo -e "${RED}Error terminating Snap Store processes. They may not have been active.${NC}"
+#–––––––––––––––– Vorab‑Checks ––––––––––––––––––––––––––––––––––––––––––––––––
+command -v snap >/dev/null 2>&1 || { err "snapd is not installed."; exit 1; }
+
+# apt nur nutzen, wenn vorhanden (Debian/Ubuntu)
+APT_AVAILABLE=false
+if command -v apt-get >/dev/null 2>&1; then
+  APT_AVAILABLE=true
 fi
 
-echo
-echo -e "${YELLOW}Updating Snaps...${NC}"
-sudo snap refresh
+#–––––––––––––––– Snap Store Prozesse beenden ––––––––––––––––––––––––––––––––
+info "Terminating Snap Store processes …"
+pkill -15 snap-store 2>/dev/null || true
+sleep 2
+pkill -0 snap-store 2>/dev/null && { info "Force‑killing remaining processes …"; pkill -9 snap-store || true; }
+ok "Snap Store processes stopped."
 
-echo
-echo -e "${YELLOW}Updating package lists and performing a full upgrade...${NC}"
-if sudo apt update && sudo apt full-upgrade -y; then
-    echo -e "${GREEN}System successfully updated.${NC}"
-else
-    echo -e "${RED}Error updating the system.${NC}"
+#–––––––––––––––– Snap Store entfernen ––––––––––––––––––––––––––––––––––––––––
+info "Removing Snap Store …"
+snap remove snap-store || err "Snap Store removal failed (may not be installed)."
+
+#–––––––––––––––– Snap‑System aktualisieren –––––––––––––––––––––––––––––––––––
+info "Refreshing all snaps …"
+snap refresh || err "snap refresh encountered errors."
+
+#–––––––––––––––– System‑Packages aktualisieren (optional) ––––––––––––––––––––
+if ${APT_AVAILABLE}; then
+  info "Updating package lists & upgrading (apt) …"
+  apt-get update && apt-get -y full-upgrade && ok "System packages updated." || err "apt upgrade failed."
 fi
 
-echo
-echo -e "${YELLOW}Removing Snap Store...${NC}"
-if sudo snap remove snap-store; then
-    echo -e "${GREEN}Snap Store successfully removed.${NC}"
-else
-    echo -e "${RED}Error removing the Snap Store.${NC}"
-fi
+#–––––––––––––––– Snap Store neu installieren ––––––––––––––––––––––––––––––––
+info "Re‑installing Snap Store …"
+snap install snap-store && ok "Snap Store installed successfully." || err "Snap Store installation failed."
 
-echo
-echo -e "${YELLOW}Installing Snap Store...${NC}"
-if sudo snap install snap-store; then
-    echo -e "${GREEN}Snap Store successfully installed.${NC}"
-    echo
-else
-    echo -e "${RED}Error installing the Snap Store.${NC}"
-    echo
-fi
+echo -e "\n${GREEN}snapcrash routine completed.${NC}"
+

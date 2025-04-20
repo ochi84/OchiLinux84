@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+#
 #                  _       _
 #  _   _ _ __   __| | __ _| |_ ___ 
 # | | | | '_ \ / _` |/ _` | __/ _ \
@@ -8,134 +8,88 @@
 #       |_|                    
 #
 # Script        : update
-# Location      : /usr/local/bin
+# Location      : /usr/local/bin/update
 # Author        : Jens Ochmann
-# Date          : 2024-06-02
+# Date          : 2025‑04‑20
 # License       : MIT
-# Description   : Performs updates and cleanup tasks on linux systems.
-# Requires root : Yes
+# Description   : System update & clean‑up with optional reboot.
+# Requires root : Elevates via sudo if needed
+#
 
-# Define colors
-NC='\033[0m' # No Color
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-GREEN='\033[0;32m'
+set -euo pipefail
 
-# Ensure root
-root() {
-if [ "$(id -u)" != "0" ]; then
-   echo -e "${RED}This script must be run as root${NC}" >&2
-   exit 1
-fi
-}
+#–––––––––––– Farben (Fallback) ––––––––––––––––––––––––––––––––––––––––––––––––
+RED=${RED:-"\033[0;31m"} ; GREEN=${GREEN:-"\033[0;32m"}
+YELLOW=${YELLOW:-"\033[0;33m"} ; NC=${NC:-"\033[0m"}
+info() { printf "%b%s%b\n" "${YELLOW}" "$*" "${NC}"; }
+ok()   { printf "%b%s%b\n" "${GREEN}"  "$*" "${NC}"; }
+die()  { printf "%b%s%b\n" "${RED}" "$*" "${NC}" >&2; exit 1; }
 
-root
-
-# Define colors
-NC='\033[0m' # No Color
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-
-# Get terminal width
-TERM_WIDTH=$(tput cols)
-
-# Function to center text with colors
-center_text() {
-    local text="$1"
-    local color="$2"
-    local plain_text=$(echo -e "$text" | sed 's/\x1B\[[0-9;]*m//g')  # Remove color codes for length calculation
-    local text_length=${#plain_text}
-    local padding=$(( (TERM_WIDTH - text_length) / 2 ))
-
-    # Print text with color, ensuring colors are correctly interpreted
-    echo -e "$(printf "%*s" "$padding")${color}${text}${NC}"
-}
-
-# Display a warning that a reboot may be required after the update
-echo
-center_text "Warning: The system will need to be restarted after the update." "$RED"
-center_text "Please ensure you save all your work before proceeding." "$YELLOW"
-echo
-
-# Ask for the username to update
-echo
-read -p "Enter the username to be updated: " USERNAME
-
-# Define User-Dir (HOME)
-USER_DIR="/home/$USERNAME"
-
-# Load config file
-CONFIG_FILE="$USER_DIR/.config/sc.conf"
-if [[ -f "$CONFIG_FILE" ]]; then
-    source "$CONFIG_FILE"
-else
-    echo -e "${RED}Error: Configuration file not found.${NC}"
-    echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
-    exit 1
+#–––––––––––– Root‑Handling ––––––––––––––––––––––––––––––––––––––––––––––––––––
+if (( EUID != 0 )); then
+  exec sudo --preserve-env=RED,GREEN,YELLOW,NC "$0" "$@"
 fi
 
-update_packages() {
-    echo
-    echo -e "${YELLOW}Updating all installed packages...${NC}"
-    apt update && apt full-upgrade -y
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}Failed to update packages.${NC}" >&2
-        return 1
-    fi
+#–––––––––––– Zielbenutzer ermitteln –––––––––––––––––––––––––––––––––––––––––––
+TARGET_USER=${SUDO_USER:-}
+if [[ -z "${TARGET_USER}" ]]; then
+  read -rp "$(printf 'Enter the username to operate on: ')" TARGET_USER
+fi
+HOME_DIR="/home/${TARGET_USER}"
+[[ -d "${HOME_DIR}" ]] || die "User ${TARGET_USER} not found."
 
- 	echo
-    echo -e "${YELLOW}Updating snap packages...${NC}"
-    snap refresh
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}Failed to update snap packages.${NC}" >&2
-        return 1
-    fi
+#–––––––––––– Konfiguration laden ––––––––––––––––––––––––––––––––––––––––––––––
+CONFIG_FILE="${HOME_DIR}/.config/sc.conf"
+[[ -f "${CONFIG_FILE}" ]] && source "${CONFIG_FILE}" || info "sc.conf not found – proceeding with defaults."
+
+#–––––––––––– Terminalbreite für zentrierte Warnung ––––––––––––––––––––––––––––
+cols=$(tput cols 2>/dev/null || echo 80)
+warn() {
+  local msg="$1"
+  local len=${#msg}
+  local pad=$(( (cols - len) / 2 < 0 ? 0 : (cols - len) / 2 ))
+  printf "%*s%b%s%b\n" "$pad" "" "$RED" "$msg" "$NC"
 }
 
-cleanup_system() {
-    echo
-    echo -e "${YELLOW}Deleting temporary files...${NC}"
-    rm -rf /tmp/* /var/tmp/*
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}Failed to delete temporary files.${NC}" >&2
-        return 1
-    fi
-
-    echo
-    echo -e "${YELLOW}Emptying the trash using trash-cli...${NC}"
-    sudo -u $USERNAME trash-empty
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}Failed to empty the trash.${NC}" >&2
-        return 1
-    fi
-
-    echo
-    echo -e "${YELLOW}Cleaning APT cache...${NC}"
-    apt autoremove -y && apt autoclean
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}Failed to clean APT cache.${NC}" >&2
-        return 1
-    fi
-}
-
-# Start the maintenance process
 echo
-echo -e "${YELLOW}Starting system maintenance...${NC}"
-update_packages
-update_result=$?
+warn "Reboot may be required after updates."
+warn "Save your work before continuing."
+echo
 
-cleanup_system
-cleanup_result=$?
+#–––––––––––– Aktualisierungen ––––––––––––––––––––––––––––––––––––––––––––––––
+info "Updating APT packages …"
+DEBIAN_FRONTEND=noninteractive apt-get -qq update
+DEBIAN_FRONTEND=noninteractive apt-get -y full-upgrade
+ok "APT packages updated."
 
-# If both update and cleanup were successful
-if [ $update_result -eq 0 ] && [ $cleanup_result -eq 0 ]; then
-    echo
-    echo -e "${GREEN}System maintenance completed successfully!${NC}"
-    echo -e "${YELLOW}The system will now reboot to apply changes.${NC}"
+if command -v snap &>/dev/null; then
+  info "Refreshing Snap packages …"
+  snap refresh || info "Snap refresh returned non‑zero (ignored)."
+fi
+
+#–––––––––––– Aufräumen –––––––––––––––––––––––––––––––––––––––––––––––––––––––
+info "Cleaning temporary directories …"
+find /tmp /var/tmp -mindepth 1 -delete
+
+if command -v trash-empty &>/dev/null; then
+  info "Emptying trash for ${TARGET_USER} …"
+  sudo -u "${TARGET_USER}" trash-empty || true
+fi
+
+info "Cleaning APT cache …"
+apt-get -y autoremove
+apt-get -y autoclean
+ok "System clean‑up done."
+
+#–––––––––––– Abschluss & Reboot –––––––––––––––––––––––––––––––––––––––––––––––
+echo
+ok "System maintenance completed."
+
+if [[ -t 0 ]]; then   # interaktives Terminal?
+  read -rp "$(printf '%bReboot now? (y/N): %b' "${YELLOW}" "${NC}")" ans
+  if [[ "${ans}" =~ ^[Yy]$ ]]; then
+    info "Rebooting …"
     reboot
-else
-    echo
-    echo -e "${RED}System maintenance encountered errors.${NC}" >&2
-    echo
+  fi
 fi
-reboot
+

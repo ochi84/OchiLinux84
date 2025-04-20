@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+#
 #  _
 # | |__  _   _  ___ 
 # | '_ \| | | |/ _ \
@@ -8,11 +8,36 @@
 #        |___/
 #
 # Script        : bye
-# Location      : /usr/local/bin
+# Location      : /usr/local/bin/bye
 # Author        : Jens Ochmann
-# Date          : 2024-06-02
+# Date          : 2025‑04‑20
 # License       : MIT
-# Description   : Shutdown system
-# Requires root : No
+# Description   : Graceful system shutdown with optional message
+# Requires root : Will elevate via sudo if needed
+#
 
-shutdown -P now
+set -euo pipefail
+
+#––– Helper ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+err() { printf 'bye: %s\n' "$*" >&2; exit 1; }
+
+# Optional Benutzer­nachricht (wird an shutdown übergeben)
+MSG=${1:-"System wird heruntergefahren – bis bald!"}
+
+#––– Privilege handling ––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+if (( EUID != 0 )); then
+  # Script wurde nicht als root gestartet → sudo versuchen
+  exec sudo --preserve-env=MSG "$0" "$MSG"
+fi
+
+#––– Shut down ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+logger -t bye "$MSG"
+
+if command -v systemctl >/dev/null 2>&1; then
+  # systemd‑Way
+  systemctl poweroff
+else
+  # Fallback (SysV / BusyBox u. a.)
+  /sbin/shutdown -P now "$MSG"
+fi
+

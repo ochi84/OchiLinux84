@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+#
 #                     _               _    
 #  ___ _   _ ___  ___| |__   ___  ___| | __ 
 # / __| | | / __|/ __| '_ \ / _ \/ __| |/ /
@@ -8,127 +8,105 @@
 #      |___/                              
 #
 # Script        : syscheck
-# Location      : /usr/local/bin
+# Location      : /usr/local/bin/syscheck
 # Author        : Jens Ochmann
-# Date          : 2024-06-02
+# Date          : 2025‑04‑20
 # License       : MIT
-# Description   : Perform security audit.
-# Requires root : Yes
+# Description   : Perform a basic security audit (updates, rootkits, ports, perms).
+# Requires root : Elevates via sudo if needed
+#
 
-# Colors
-export NC='\033[0m' # No Color
-export RED='\033[0;31m'
-export GREEN='\033[0;32m'
-export YELLOW='\033[0;33m'
+set -euo pipefail
 
-# Check for root privileges
-if [[ $EUID -ne 0 ]]; then
-   echo -e "${RED}This script must be run as root${NC}"
-   exit 1
+#–––––––––––– Farben (Fallback) ––––––––––––––––––––––––––––––––––––––––––––––––
+RED=${RED:-"\033[0;31m"} ; GREEN=${GREEN:-"\033[0;32m"}
+YELLOW=${YELLOW:-"\033[0;33m"} ; NC=${NC:-"\033[0m"}
+info() { printf "%b%s%b\n" "${YELLOW}" "$*" "${NC}"; }
+ok()   { printf "%b%s%b\n" "${GREEN}"  "$*" "${NC}"; }
+err()  { printf "%b%s%b\n" "${RED}"    "$*" "${NC}" >&2; }
+
+#–––––––––––– Root‑Handling ––––––––––––––––––––––––––––––––––––––––––––––––––––
+if (( EUID != 0 )); then
+  exec sudo --preserve-env=RED,GREEN,YELLOW,NC "$0" "$@"
 fi
 
-# Initialize the log file
-LOG_FILE="$HOME/syscheck.log"
-> $LOG_FILE
+#–––––––––––– Log‑Datei ––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+LOG_FILE="/var/log/syscheck-$(date +%F).log"
+: > "${LOG_FILE}"
+log() { printf "%s\n" "$*" | tee -a "${LOG_FILE}"; }
 
-# Function to log findings
-log_finding() {
-    echo "$1"
-    echo "$1" >> $LOG_FILE
-} 
+#–––––––––––– System‑Updates ––––––––––––––––––––––––––––––––––––––––––––––––––
+info "Updating package index …"
+DEBIAN_FRONTEND=noninteractive apt-get -qq update
+DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
 
-# Update the system
-echo -e "${YELLOW}Updating the system...${NC}"
-apt-get update && apt-get upgrade -y
+#–––––––––––– Sicherheits‑Updates prüfen –––––––––––––––––––––––––––––––––––––––
+info "Checking for unapplied security updates …"
+apt-get -s upgrade | grep -i security &>/dev/null \
+  && log "⚠️  Security updates are available." \
+  || ok "No pending security updates."
 
-# Check for available security updates
-echo -e "${YELLOW}Checking for security updates...${NC}"
-apt-get install unattended-upgrades -y
-SEC_UPDATES=$(unattended-upgrades --dry-run | grep "No packages found" -c)
-if [ $SEC_UPDATES -eq 0 ]; then
-    log_finding "Security updates are available."
-fi
-
-## Check for listening network ports
-#echo "Checking for listening network ports..."
-#LISTENING_PORTS=$(netstat -tuln | grep -v '127.0.0.1' | grep -v '::1')
-#if [ ! -z "$LISTENING_PORTS" ]; then
-#    log_finding "Non-local listening ports found:"
-#    log_finding "$LISTENING_PORTS"
-#fi
-
-## Check for users with empty passwords
-#echo "Checking for users with empty passwords..."
-#EMPTY_PASSWORDS=$(awk -F: '($2 == "") {print $1}' /etc/shadow)
-#if [ ! -z "$EMPTY_PASSWORDS" ]; then
-#    log_finding "Users with empty passwords found: $EMPTY_PASSWORDS"
-#fi
-
-# Check for SUID/SGID files
-#echo "Checking for SUID/SGID files..."
-#SUID_SGID_FILES=$(find / -type f \( -perm -4000 -o -perm -2000 \) -exec ls -lg {} \;)
-#if [ ! -z "$SUID_SGID_FILES" ]; then
-#    log_finding "SUID/SGID files found:"
-#    log_finding "$SUID_SGID_FILES"
-#fi
-
-## Check for world writable files
-#echo -e "${YELLOW}Checking for world writable files...${NC}"
-#WORLD_WRITABLE_FILES=$(find / -type f -perm -o+w -exec ls -l {} \;)
-#if [ ! -z "$WORLD_WRITABLE_FILES" ]; then
-#    log_finding "World writable files found:"
-#    log_finding "$WORLD_WRITABLE_FILES"
-#fi
-
-# Check for rootkits
-echo -e "${YELLOW}Checking for rootkits...${NC}"
-apt-get install chkrootkit -y
-ROOTKIT_CHECK=$(chkrootkit)
-if echo "$ROOTKIT_CHECK" | grep -q "INFECTED"; then
-    log_finding "Rootkits detected:"
-    log_finding "$ROOTKIT_CHECK"
+#–––––––––––– Offene Ports ––––––––––––––––––––––––––––––––––––––––––––––––––––
+info "Scanning for listening ports (non‑localhost) …"
+mapfile -t PORTS < <(ss -tulnH | awk '$4 !~ /(^127|^\[::1\])/ {print $0}')
+if (( ${#PORTS[@]} )); then
+  log "⚠️  External listening ports detected:"; printf '%s\n' "${PORTS[@]}" | log
 else
-    echo -e "${GREEN}No rootkits found.${NC}"
+  ok "No external listening ports."
 fi
 
-# Final check and user feedback
-if [ ! -s $LOG_FILE ]; then
-    echo "Security issues found. Please review the log file."
-    echo "Security Audit Report - $(date)" | cat - $LOG_FILE > temp && mv temp $LOG_FILE
-    echo "Potential issues detected. Immediate attention required." | cat - $LOG_FILE > temp && mv temp $LOG_FILE
-    vi $LOG_FILE
+#–––––––––––– Leere Passwörter ––––––––––––––––––––––––––––––––––––––––––––––––
+info "Checking for accounts with empty passwords …"
+EMPTY_PW=$(awk -F: '($2==""){print $1}' /etc/shadow || true)
+[[ -n "${EMPTY_PW}" ]] && log "⚠️  Users without passwords: ${EMPTY_PW}" || ok "No empty passwords."
+
+#–––––––––––– SUID / SGID –––––––––––––––––––––––––––––––––––––––––––––––––––––
+info "Searching for SUID/SGID files (top 20 by size) …"
+SUID_LIST=$(find / -xdev \( -perm -4000 -o -perm -2000 \) -type f 2>/dev/null \
+            -printf '%s %p\n' | sort -rn | head -20)
+[[ -n "${SUID_LIST}" ]] && log "⚠️  SUID/SGID files:\n${SUID_LIST}" || ok "No SUID/SGID files of concern."
+
+#–––––––––––– World‑Writable Dateien ––––––––––––––––––––––––––––––––––––––––––
+info "Checking for world‑writable files (top 20) …"
+WW_LIST=$(find / -xdev -type f -perm -o+w ! -path "/proc/*" 2>/dev/null | head -20)
+[[ -n "${WW_LIST}" ]] && log "⚠️  World‑writable files:\n${WW_LIST}" || ok "No world‑writable files."
+
+#–––––––––––– Rootkit‑Scan ––––––––––––––––––––––––––––––––––––––––––––––––––––
+info "Running chkrootkit …"
+apt-get -qq install -y chkrootkit
+if chkrootkit | tee -a "${LOG_FILE}" | grep -q "INFECTED"; then
+  log "⚠️  Potential rootkit signatures detected."
 else
-    echo -e "${GREEN}No security issues found. Your system is secure.${NC}"
+  ok "No rootkits found."
 fi
 
-# Ask if the user wants to run ClamAV scan
-echo -e "${RED}Do you want to perform a malware scan with ClamAV? This might take some time (y/n): ${NC}"
-read -n 1 -r
+#–––––––––––– Zusammenfassung –––––––––––––––––––––––––––––––––––––––––––––––––
 echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo -e "${YELLOW}Checking for malware...${NC}"
-    apt-get install clamav clamav-daemon -y
-
-    # Stop the freshclam service if it's running
-    systemctl stop clamav-freshclam
-
-    # Update ClamAV database
-    freshclam
-
-    # Restart the freshclam service
-    systemctl start clamav-freshclam
-
-    # Start clamscan in background
-    echo -e "${YELLOW}Running malware scan, this might take a while...${NC}"
-#    CLAMSCAN_LOG=$(mktemp)
-    clamscan -r --bell -i /home #--log=$CLAMSCAN_LOG
-#    if grep -q "Infected files: 0" $CLAMSCAN_LOG; then
-#        echo -e "${GREEN}No malware found.${NC}"
-#    else
-#        log_finding "Malware detected. See details below:"
-#        log_finding "$(grep -E 'Infected files|FOUND' $CLAMSCAN_LOG)"
-#    fi
-#    rm $CLAMSCAN_LOG
+if [[ -s "${LOG_FILE}" ]]; then
+  err "Security issues were detected. Review ${LOG_FILE}"
+else
+  ok "No critical findings. System appears secure."
+  rm -f "${LOG_FILE}"
 fi
 
+#–––––––––––– Optionale ClamAV‑Prüfung ––––––––––––––––––––––––––––––––––––––––
+if [[ -t 0 ]]; then
+  read -rp "$(printf '%bRun ClamAV malware scan (y/N)? %b' "${YELLOW}" "${NC}")" answer
+  if [[ "${answer}" =~ ^[Yy]$ ]]; then
+    info "Installing & updating ClamAV …"
+    apt-get -qq install -y clamav clamav-daemon
+    systemctl stop clamav-freshclam || true
+    freshclam
+    systemctl start clamav-freshclam || true
+
+    TEMP_LOG=$(mktemp)
+    info "Running clamscan (this may take a while) …"
+    clamscan -r --bell -i /home /root > "${TEMP_LOG}"
+    if grep -q "Infected files: 0" "${TEMP_LOG}"; then
+      ok "ClamAV: no infections found."
+    else
+      log "⚠️  Malware detected – see ${TEMP_LOG}"
+    fi
+  fi
+fi
 

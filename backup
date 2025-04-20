@@ -1,5 +1,5 @@
-#!/bin/bash
- 
+#!/usr/bin/env bash
+#
 #  _                _                
 # | |__   __ _  ___| | ___   _ _ __ 
 # | '_ \ / _` |/ __| |/ / | | | '_ \
@@ -8,75 +8,84 @@
 #                             |_|                  
 #
 # Script        : backup
-# Location      : /usr/local/bin
+# Location      : /usr/local/bin/backup
 # Author        : Jens Ochmann
-# Date          : 2024-06-02
+# Date          : 2025‑04‑20
 # License       : MIT
-# Description   : Perform local and external backup.
-# Requires root : No
+# Description   : Perform local and external backups incl. GitHub sync.
+# Requires root : Elevates via sudo if needed
+#
 
-# Load config file
-CONFIG_FILE="$HOME/.config/sc.conf"
-if [[ -f "$CONFIG_FILE" ]]; then
-    source "$CONFIG_FILE"
+set -euo pipefail
+
+#–––––––––––––––– Farben (Fallback falls nicht in sc.conf) ––––––––––––––––––––
+RED=${RED:-"\033[0;31m"}
+GREEN=${GREEN:-"\033[0;32m"}
+YELLOW=${YELLOW:-"\033[0;33m"}
+BLUE=${BLUE:-"\033[0;34m"}
+NC=${NC:-"\033[0m"}
+
+info() { printf "%b%s%b\n" "${YELLOW}" "$*" "${NC}"; }
+ok()   { printf "%b%s%b\n" "${GREEN}"  "$*" "${NC}"; }
+err()  { printf "%b%s%b\n" "${RED}"    "$*" "${NC}" >&2; }
+
+#–––––––––––––––– Root‑Handling ––––––––––––––––––––––––––––––––––––––––––––––––
+if (( EUID != 0 )); then
+  exec sudo --preserve-env=RED,GREEN,YELLOW,BLUE,NC "$0" "$@"
+fi
+
+#–––––––––––––––– Konfiguration laden ––––––––––––––––––––––––––––––––––––––––––
+CONFIG_FILE="${HOME}/.config/sc.conf"
+if [[ -f "${CONFIG_FILE}" ]]; then
+  # shellcheck source=/dev/null
+  source "${CONFIG_FILE}"
 else
-    echo -e "${RED}Error: Configuration file not found.${NC}"
-    echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
-    exit 1
+  err "Configuration file not found: ${CONFIG_FILE}"
+  exit 1
 fi
 
-# UUID of the drive (search for it with 'sudo blkid')
-UUID="B4D48115D480DB4E"
+: "${UUID:?UUID of backup drive not set in sc.conf}"
+: "${BACKUP_DIR:=/tmp/backup}"
+: "${BACKUP_DIR_EXT:=/mnt/backup_ext}"
+BACKUP_FILE=${BACKUP_FILE:-"$(hostname)-$(date +%Y%m%d).tar.gz"}
 
-# Mount point
-MOUNT_POINT="/media/$USERNAME/Elements"
+MOUNT_POINT="/media/${SUDO_USER:-$USER}/backup"
 
-# Check if the drive is already mounted
-if ! grep -qs "$MOUNT_POINT" /proc/mounts; then
-  # Create the mount point if it doesn't exist
-  sudo mkdir -p "$MOUNT_POINT"
-  
-  echo
-  echo -e "${YELLOW}Mounting the external drive...${NC}"
-  sudo mount -U "$UUID" "$MOUNT_POINT"
-  if [ $? -ne 0 ]; then
-    echo
-    echo -e "${RED}Failed to mount the external drive. Exiting.${NC}"
-    exit 1
-  fi
+#–––––––––––––––– Backup‑Platte mounten ––––––––––––––––––––––––––––––––––––––––
+if ! grep -qs "${MOUNT_POINT}" /proc/mounts; then
+  info "Mounting external drive …"
+  mkdir -p "${MOUNT_POINT}"
+  mount -U "${UUID}" "${MOUNT_POINT}" || { err "Mount failed."; exit 1; }
 else
-  echo -e "${YELLOW}External drive is already mounted.${NC}"
+  ok "External drive already mounted."
 fi
 
-echo
-printf "${YELLOW}Starting backup...${NC}\n"
+BACKUP_DIR_EXT="${MOUNT_POINT}"
 
-# Check if the external backup drive is available
-if [ ! -d "$BACKUP_DIR_EXT" ]; then
-    printf "${RED}Error: External backup drive is not available.${NC}\n"
-    exit 1
+#–––––––––––––––– Lokales Backup anlegen –––––––––––––––––––––––––––––––––––––––
+info "Creating local backup archive …"
+mkdir -p "${BACKUP_DIR}"
+tar -czf "${BACKUP_DIR}/${BACKUP_FILE}" --exclude="${BACKUP_DIR}" "${HOME}" \
+  && ok "Archive created: ${BACKUP_FILE}" \
+  || err "Error creating backup archive."
+
+#–––––––––––––––– Auf externe Platte syncen ––––––––––––––––––––––––––––––––––––
+info "Syncing to external drive …"
+rsync -a --delete --progress "${BACKUP_DIR}/" "${BACKUP_DIR_EXT}/" \
+  && ok "Backup copied to external drive." \
+  || err "rsync failed."
+
+#–––––––––––––––– GitHub‑Sync ––––––––––––––––––––––––––––––––––––––––––––––––––
+info "Running gitupd …"
+if command -v gitupd >/dev/null 2>&1; then
+  gitupd && ok "GitHub update finished." || err "gitupd returned errors."
+else
+  err "gitupd not found in PATH."
 fi
 
-# Create the local backup directory if it does not exist
-mkdir -p "$BACKUP_DIR"
+#–––––––––––––––– Laufwerk aushängen –––––––––––––––––––––––––––––––––––––––––––
+info "Unmounting external drive …"
+umount "${MOUNT_POINT}" && ok "Drive unmounted." || err "Failed to unmount drive."
 
-# Create the backup archive
-tar -czf "$BACKUP_DIR/$BACKUP_FILE" --exclude="$BACKUP_DIR" "$HOME" || printf "${RED}Error creating backup archive.${NC}\n"
+echo -e "\n${GREEN}Backup routine completed successfully.${NC}"
 
-# Copy files from local backup to external hard drive using rsync
-rsync -avh --delete --progress $BACKUP_DIR/ $BACKUP_DIR_EXT/ || printf "${RED}Error: rsync failed to copy files.${NC}\n"
-printf "${GREEN}Backup copied to external drive.${NC}\n"
-
-# Copy files from local to GitHub folder using gitupd
-echo
-printf "${YELLOW}Copying files for GitHub...${NC}\n"
-gitupd || printf "${RED}Error updating GitHub.${NC}\n"
-
-# Unmount the drive after the backup
-echo
-echo -e "${YELLOW}Unmounting the external drive...${NC}"
-sudo umount "$MOUNT_POINT"
-
-echo
-printf "${GREEN}Finished all operations.${NC}\n"
-echo

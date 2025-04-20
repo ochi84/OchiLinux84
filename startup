@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+#
 #      _             _               
 #  ___| |_ __ _ _ __| |_ _   _ _ __  
 # / __| __/ _` | '__| __| | | | '_ \ 
@@ -8,276 +8,122 @@
 #                             |_|  
 #
 # Script        : startup
-# Location      : /usr/local/bin
+# Location      : /usr/local/bin/startup
 # Author        : Jens Ochmann
-# Date          : 2024-06-02
+# Date          : 2025‑04‑20
 # License       : MIT
-# Description   : Install specified applications and run the dispatch script to dispatch files from GitHub repository
-# Requires root : Yes
+# Description   : Bootstrap system, install selected package set and run dispatch.
+# Requires root : Elevates via sudo if needed
+#
 
-# Colors
-NC='\033[0m' # No Color
-BLACK='\033[0;30m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
-MAGENTA='\033[0;35m'
-CYAN='\033[0;36m'
-WHITE='\033[0;37m'
+set -euo pipefail
 
-# Ensure root
-root() {
-if [ "$(id -u)" != "0" ]; then
-   echo -e "${RED}This script must be run as root${NC}" >&2
-   exit 1
+#–––––––––––– Farben (Fallback) ––––––––––––––––––––––––––––––––––––––––––––––––
+RED=${RED:-"\033[0;31m"} ; GREEN=${GREEN:-"\033[0;32m"}
+YELLOW=${YELLOW:-"\033[0;33m"} ; NC=${NC:-"\033[0m"}
+info() { printf "%b%s%b\n" "${YELLOW}" "$*" "${NC}"; }
+ok()   { printf "%b%s%b\n" "${GREEN}"  "$*" "${NC}"; }
+err()  { printf "%b%s%b\n" "${RED}"    "$*" "${NC}" >&2; }
+
+#–––––––––––– Root‑Handling ––––––––––––––––––––––––––––––––––––––––––––––––––––
+if (( EUID != 0 )); then
+  exec sudo --preserve-env=RED,GREEN,YELLOW,NC "$0" "$@"
 fi
+
+#–––––––––––– Ziel­benutzer bestimmen ––––––––––––––––––––––––––––––––––––––––––
+TARGET_USER=${SUDO_USER:-}
+if [[ -z "${TARGET_USER}" ]]; then
+  echo
+  read -rp "Please enter the non‑root user for installation: " TARGET_USER
+fi
+
+HOME_DIR="/home/${TARGET_USER}"
+[[ -d "${HOME_DIR}" ]] || { err "User ${TARGET_USER} not found."; exit 1; }
+
+#–––––––––––– Hilfsfunktionen ––––––––––––––––––––––––––––––––––––––––––––––––––
+check() { (( $? == 0 )) || { err "$1 failed."; exit 1; }; }
+
+apt_install() {               # apt_install pkga pkgB …
+  DEBIAN_FRONTEND=noninteractive apt-get -y install "$@" && ok "Installed: $*"
 }
 
-root
+#–––––––––––– Repository klonen ––––––––––––––––––––––––––––––––––––––––––––––––
+OCHILINUX_DIR="${HOME_DIR}/github/ochilinux84"
+if ! git -C "${OCHILINUX_DIR}" rev-parse --is-inside-work-tree &>/dev/null; then
+  info "Cloning repository …"
+  mkdir -p "${HOME_DIR}/github"
+  apt_install git
+  sudo -u "${TARGET_USER}" git clone --depth 1 https://github.com/ochi84/ochilinux84.git "${OCHILINUX_DIR}"
+else
+  ok "Repository present: ${OCHILINUX_DIR}"
+fi
 
-# Prompt the user to enter their username
-echo
-read -p "Please enter your username: " USERNAME
+#–––––––––––– Konfiguration laden ––––––––––––––––––––––––––––––––––––––––––––––
+CONFIG_FILE="${OCHILINUX_DIR}/sc.conf"
 
-# Define HOME directory based on the entered username
-HOME="/home/$USERNAME"
-
-# Check if the entered username exists
-if [ ! -d "$HOME" ]; then
-    echo -e "${RED}Error: User '$USERNAME' does not exist or home directory not found.${NC}"
+if [[ -f "${CONFIG_FILE}" ]]; then
+    OLD_HOME=$HOME            # ← aktuelles root‑HOME sichern
+    export HOME="${HOME_DIR}" # ← Ziel‑User‑HOME für sc.conf
+    # shellcheck source=/dev/null
+    source "${CONFIG_FILE}"
+    export HOME="${OLD_HOME}" # ← root‑HOME zurücksetzen
+else
+    err "sc.conf not found in repo."
     exit 1
 fi
-
-check_command() {
-    if [ "$?" -ne 0 ]; then
-        echo -e "${RED}Error: $1 failed.${NC}" >&2
-        exit 1
-    fi
-}
-
-# Check if the GitHub directory exists
-OCHILINUX_DIR="$HOME/github/ochilinux84"
-
-if [ ! -d "$OCHILINUX_DIR" ]; then
-    echo -e "${BLUE}$OCHILINUX_DIR ${YELLOW}does not exist.${NC}"
-    echo -e "${YELLOW}Cloning repository from Github...${NC}"
-    mkdir $HOME/github
-    cd $HOME/github
-    sudo apt install git -y
-    check_command "Installation of git"
-	sudo -u $USERNAME git clone https://github.com/ochi84/ochilinux84.git
-    check_command "Clone git repository"
-else
-    echo
-	echo -e "${YELLOW}Check for GitHub directory | ${GREEN}ok${NC}"
-fi
-
-# Load config file
-CONFIG_FILE="$OCHILINUX_DIR/sc.conf"
-if [[ -f "$CONFIG_FILE" ]]; then
-    source "$CONFIG_FILE"
-else
-    echo -e "${RED}Error: Configuration file not found.${NC}"
-    echo -e "${RED}Please ensure the configuration file 'sc.conf' exists at $HOME/.config/${NC}"
-    exit 1
-fi
-
+#–––––––––––– Installations­profil wählen ––––––––––––––––––––––––––––––––––––––
 echo
-echo -e "${YELLOW}Starting the installation of applications...${NC}"
+info "Select installation type:"
+printf "1) Minimal\n2) Minimal Plus\n3) Expand\n4) Full\n"
+read -rp "Choice [1‑4]: " choice
 
-# Function to install packages
-install_packages() {
-    local packages=("${@}")
-    local installed=()
-    for app in "${packages[@]}"; do
-        if sudo apt install -y "$app"; then
-            check_command "Installing package"
-            echo -e "${GREEN}Installed $app successfully.${NC}"
-            echo
-            installed+=("$app")  # Add app to the list of successfully installed packages
-        else
-            echo -e "${RED}Failed to install $app. Check if the package exists or if there are network issues.${NC}"
-            echo
-        fi
-    done
-    echo -e "${YELLOW}Successfully installed the following packages:${NC}"
-    printf '%s\n' "${installed[@]}"  # List successfully installed packages
-}
-
-# Display installation options with descriptions
-echo -e "Select the installation type:"
-echo -e "1 - Minimal Install      : ${BLUE}Basic utilities like 'mc', 'vim', 'micro', 'ranger'.${NC}"
-echo -e "2 - Minimal Plus Install : ${BLUE}Adds more advanced VIM plugins and tools on top of the Minimal Install.${NC}"
-echo -e "3 - Expand Install       : ${BLUE}Includes all packages from Minimal Plus and additional tools like 'git', 'fzf', 'exa'.${NC}"
-echo -e "4 - Full Install         : ${BLUE}The most comprehensive installation, including window managers and advanced applications.${NC}"
-read -p "Enter your choice (1-4): " choice
-
-# Prepare installation array based on user choice
-all_packages=()
-case $choice in
-    1)
-        all_packages+=("${minimal[@]}")
-        ;;
-    2)
-        all_packages+=("${minimal[@]}")
-        all_packages+=("${minimal_plus[@]}")
-        ;;
-    3)
-        all_packages+=("${minimal[@]}")
-        all_packages+=("${minimal_plus[@]}")
-        all_packages+=("${expand[@]}")
-        ;;
-    4)
-        all_packages+=("${minimal[@]}")
-        all_packages+=("${minimal_plus[@]}")
-        all_packages+=("${expand[@]}")
-        all_packages+=("${full[@]}")
-        ;;
-    *)
-        echo "${RED}Invalid choice. Exiting.${NC}"
-        exit 1
-        ;;
+declare -a ALL_PKGS
+case "${choice}" in
+  1) ALL_PKGS=("${minimal[@]}") ;;
+  2) ALL_PKGS=("${minimal[@]}" "${minimal_plus[@]}") ;;
+  3) ALL_PKGS=("${minimal[@]}" "${minimal_plus[@]}" "${expand[@]}") ;;
+  4) ALL_PKGS=("${minimal[@]}" "${minimal_plus[@]}" "${expand[@]}" "${full[@]}") ;;
+  *) err "Invalid choice." ;;
 esac
 
-# Install selected packages
-install_packages "${all_packages[@]}"
+#–––––––––––– Pakete installieren –––––––––––––––––––––––––––––––––––––––––––––
+info "Installing packages …"
+apt-get update -qq
+apt_install "${ALL_PKGS[@]}"
 
-# Install Dispatch-Script
-if sudo cp $OCHILINUX_DIR/dispatch /usr/local/bin/ && sudo chmod +x /usr/local/bin/dispatch; then
-    echo
-    echo -e "${GREEN}Dispatch successfully installed and made executable.${NC}"
-else
-    echo
-    echo -e "${RED}Failed to install and set execute permission on dispatch.${NC}"
-    exit 1
+#–––––––––––– Dispatch installieren & ausführen –––––––––––––––––––––––––––––––
+install -m 755 "${OCHILINUX_DIR}/dispatch" /usr/local/bin/dispatch
+ok "dispatch installed."
+
+info "Running dispatch …"
+sudo -u "${TARGET_USER}" /usr/local/bin/dispatch
+check "dispatch"
+
+#–––––––––––– Zusatzressourcen ––––––––––––––––––––––––––––––––––––––––––––––––
+# Nerd‑Fonts
+if [[ -d "${OCHILINUX_DIR}/nerdfonts" ]]; then
+  install -d /usr/share/fonts
+  cp -r "${OCHILINUX_DIR}/nerdfonts" /usr/share/fonts/
+  ok "Nerd Fonts copied."
+  fc-cache -f
 fi
 
-echo
-echo -e "${YELLOW}Running dispatch...${NC}"
-echo
-    
-# Ensure dispatch is executable and available
-if /usr/local/bin/dispatch; then
-    check_command "Execution of dispatch"
-    echo
-    echo -e "${GREEN}Dispatch executed successfully.${NC}"
-else
-    echo
-    echo -e "${RED}Failed to execute dispatch.${NC}"
-    exit 1
+# Tilix schemes
+if [[ -d "${OCHILINUX_DIR}/tilix/schemes" ]]; then
+  install -d "${HOME_DIR}/.config/tilix"
+  cp -r "${OCHILINUX_DIR}/tilix/schemes" "${HOME_DIR}/.config/tilix/"
+  chown -R "${TARGET_USER}:${TARGET_USER}" "${HOME_DIR}/.config/tilix"
+  ok "Tilix schemes installed."
 fi
 
-# Install Nerd Fonts
-echo
-echo -e "${YELLOW}Installing Nerd Fonts...${NC}"
-
-# Define the font directory
-FONT_DIR="/usr/share/fonts"
-
-# Source directory for Nerd Fonts
-NERDFONTS_DIR="$OCHILINUX_DIR/nerdfonts"
-if [ -d "$NERDFONTS_DIR" ]; then
-    sudo cp -r "$NERDFONTS_DIR" "$FONT_DIR/"
-    echo -e "${GREEN}Nerd Fonts installed successfully.${NC}"
-else
-    echo -e "${RED}Nerd Fonts directory not found in the repository.${NC}"
-    exit 1
+# UFW
+if ! dpkg -s ufw &>/dev/null; then
+  apt_install ufw
 fi
+ufw allow ssh 2>/dev/null || true
+ufw --force enable
+systemctl enable ufw
+ok "UFW configured."
 
-## Clear and regenerate font cache
-#echo "Clearing font cache..."
-#rm -rf ~/.cache/fontconfig/*
-#
-#echo "Rebuilding font cache..."
-#fc-cache -fv
-#
-## Verify the installation
-#echo "Verifying installed Nerd Fonts..."
-#if fc-list | grep -iq "Nerd Font"; then
-#    echo -e "${GREEN}Nerd Fonts verification completed successfully.${NC}"
-#else
-#    echo -e "${RED}Nerd Fonts verification failed.${NC}"
-#    exit 1
-#fi
+echo -e "\n${GREEN}Startup routine completed successfully.${NC}"
 
-# Install Tilix Schemes
-echo
-echo -e "${YELLOW}Installing Tilix Schemes...${NC}"
-
-# Define Tilix Schemes directory
-TILIX_DIR="$HOME/.config/tilix/"
-
-# Source directory for Tilix Schemes
-TILIX_OCHILINUX_DIR="$OCHILINUX_DIR/tilix"
-if [ -d "$TILIX_OCHILINUX_DIR" ]; then
-    cp -r "$TILIX_DIR/schemes" "$TILIX_OCHILINUX_DIR/"
-    echo -e "${GREEN}Tilix Schemes installed successfully.${NC}"
-else
-    echo -e "${RED}Tilix Schemes directory not found in the repository.${NC}"
-    exit 1
-fi
-
-# Install and activate "Uncomplicated Firewall"
-# Check if ufw is installed
-if ! dpkg -l | grep -qw ufw; then
-    echo
-    echo -e "${YELLOW}Installing ufw (Firewall)...${NC}"
-    apt update
-    apt install -y ufw
-    check_command "Installation of ufw"
-else
-    echo
-    echo -e "${GREEN}ufw (Firewall) is already installed.${NC}"
-fi
-
-# Check if SSH is allowed
-if ! ufw status | grep -qw '22/tcp'; then
-    echo
-    echo -e "${YELLOW}Allowing SSH connections (port 22)...${NC}"
-    ufw allow ssh
-    check_command "Allowing SSH connections"
-else
-    echo
-    echo -e "${GREEN}SSH connections are already allowed.${NC}"
-fi
-
-# Enable ufw if not already enabled
-if ! ufw status | grep -qw 'Status: active'; then
-    echo
-    echo -e "${YELLOW}Enabling ufw...${NC}"
-    ufw enable
-    check_command "Enabling ufw"
-else
-    echo
-    echo -e "${GREEN}ufw is already enabled.${NC}"
-fi
-
-# Ensure ufw is enabled at startup
-if ! systemctl is-enabled ufw | grep -qw 'enabled'; then
-    echo
-    echo -e "${YELLOW}Enabling ufw to start at boot...${NC}"
-    echo
-    systemctl enable ufw
-    check_command "Enabling ufw to start at boot"
-else
-    echo
-fi
-
-# Check ufw status
-echo -e "${YELLOW}Checking ufw status...${NC}"
-ufw_status=$(ufw status verbose)
-echo -e "${GREEN}${ufw_status}${NC}"
-
-# Check systemd service status
-echo
-echo -e "${YELLOW}Checking systemd service status of ufw...${NC}"
-service_status=$(systemctl status ufw)
-echo -e "${GREEN}${service_status}${NC}"
-
-echo
-echo -e "${GREEN}ufw has been successfully installed and enabled.${NC}"
-
-echo
-echo -e "${GREEN}All desired applications have been installed.${NC}"
-echo
