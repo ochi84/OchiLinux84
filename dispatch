@@ -10,15 +10,16 @@
 # Script        : dispatch
 # Location      : /usr/local/bin/dispatch
 # Author        : Jens Ochmann
-# Date          : 2025-04-20
+# Date          : 2025-04-30
 # License       : MIT
 # Description   : Distribute files from the local OchiLinux84 repo to the system.
 #                 Overwrites user/system configs; asks for confirmation.
-# Requires root : Elevates via sudo if needed
-#
+# Run as user   : Will only elevate specific actions with sudo.
+
+#!/usr/bin/env bash
 set -euo pipefail
 
-# -------- Colours (fallback) ----------
+# -------- Farben ----------
 RED=${RED:-"\033[0;31m"}
 GREEN=${GREEN:-"\033[0;32m"}
 YELLOW=${YELLOW:-"\033[0;33m"}
@@ -28,46 +29,43 @@ info() { printf "%b%s%b\n" "$YELLOW" "$*" "$NC"; }
 ok()   { printf "%b%s%b\n" "$GREEN"  "$*" "$NC"; }
 err()  { printf "%b%s%b\n" "$RED"    "$*" "$NC" >&2; }
 
-# -------- Self‑elevate ----------------
-if (( EUID != 0 )); then
-  exec sudo --preserve-env=RED,GREEN,YELLOW,BLUE,NC "$0" "$@"
-fi
-
-# -------- Config file -----------------
-if [[ -n ${SUDO_USER:-} ]]; then
-  USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
-else
-  USER_HOME="$HOME"
-fi
+# -------- User-Home & Konfig ----------
+USER_HOME=$(getent passwd "$USER" | cut -d: -f6)
 CONFIG_FILE="${USER_HOME}/.config/sc.conf"
 [[ -f "$CONFIG_FILE" ]] || { err "Configuration file not found: $CONFIG_FILE"; exit 1; }
+
 # shellcheck source=/dev/null
 source "$CONFIG_FILE"
 : "${OCHILINUX_DIR:?OCHILINUX_DIR not set in sc.conf}"
 
-# Ensure DIRS associative array
 if ! declare -p DIRS 2>/dev/null | grep -q 'declare -A'; then
   err "DIRS is not an associative array in sc.conf"; exit 1;
 fi
 
-# -------- Confirmation ----------------
+# -------- Bestätigung ----------
 echo -e "\n${RED}⚠ This operation may overwrite configs.${NC}"
 read -rp "Continue? (y/N) " reply
 [[ ! $reply =~ ^[Yy]$ ]] && { info "Aborted."; exit 0; }
 
 info "Starting dispatch …"
 
-# -------- Helper ----------------------
+# -------- Kopierfunktion ----------
 copy_item() {
   local src=$1 dest=$2 perms=${3:-}
   mkdir -p "$(dirname "$dest")"
-  rsync -a --progress "$src" "$dest" && [[ -n $perms ]] && chmod "$perms" "$dest"
+  if [[ $dest == /usr/* || $dest == /etc/* ]]; then
+    sudo rsync -a --progress "$src" "$dest" || return 1
+    [[ -n $perms ]] && sudo chmod "$perms" "$dest"
+  else
+    rsync -a --progress "$src" "$dest" || return 1
+    [[ -n $perms ]] && chmod "$perms" "$dest"
+  fi
 }
 
-# -------- Nerdfonts dir ---------------
-install -d /usr/share/fonts/nerdfonts && ok "Nerdfonts directory ready."
+# -------- Fonts dir ---------------
+sudo install -d /usr/share/fonts/nerdfonts && ok "Nerdfonts directory ready."
 
-# -------- Iterate over DIRS -----------
+# -------- Datei-Verteilung --------
 for file in "${!DIRS[@]}"; do
   src="${OCHILINUX_DIR}/${file}"
   dest="${DIRS[$file]}"
@@ -75,7 +73,7 @@ for file in "${!DIRS[@]}"; do
 
   case $dest in
     */bin/*)
-      copy_item "$src" "$dest" 755 && ok "Script copied: $file" || err "Failed to copy $file" ;;
+      copy_item "$src" "$dest" 755 && ok "Script copied: $file" || err "Failed: $file" ;;
     "$USER_HOME"/*)
       copy_item "$src" "$dest" && ok "User config: $file" || err "Failed: $file" ;;
     */share/awesome/*|*/etc/*)
@@ -86,30 +84,29 @@ for file in "${!DIRS[@]}"; do
   echo
 done
 
-# -------- Tilix schemes ---------------
+# -------- Tilix schemes -----------
 if [[ -d "${OCHILINUX_DIR}/tilix" ]]; then
   copy_item "${OCHILINUX_DIR}/tilix/" "$TILIX_DIR/" && ok "Tilix schemes copied." || err "Tilix schemes failed."
 fi
 
-# -------- Vim colours -----------------
+# -------- Vim colours -------------
 if [[ -d "${OCHILINUX_DIR}/vim/colors" ]]; then
   copy_item "${OCHILINUX_DIR}/vim/colors" "$VIM_DIR/" && ok "Vim colours copied." || err "Vim colours failed."
 fi
 
-# -------- Tilix config load -----------
+# -------- Tilix dconf -------------
 if command -v dconf &>/dev/null && [[ -f "${OCHILINUX_DIR}/tilix.conf" ]]; then
   dconf load '/com/gexperts/Tilix/' < "${OCHILINUX_DIR}/tilix.conf" && ok "Tilix dconf loaded." || err "Tilix dconf failed."
 fi
 
-# -------- dbus‑x11 (Debian/Ubuntu) ----
+# -------- dbus-x11 installieren ---
 if command -v apt-get &>/dev/null && ! dpkg -s dbus-x11 &>/dev/null; then
-  info "Installing dbus-x11 …" && apt-get -y install dbus-x11
+  info "Installing dbus-x11 …" && sudo apt-get -y install dbus-x11
 fi
 
-# -------- Fix ~/.dbus ownership -------
+# -------- .dbus-Rechte fixieren ---
 if [[ -d "${USER_HOME}/.dbus" ]]; then
-  chown -R "${SUDO_USER:-$USER}":"${SUDO_USER:-$USER}" "${USER_HOME}/.dbus" && ok "Fixed ~/.dbus ownership."
+  sudo chown -R "$USER:$USER" "${USER_HOME}/.dbus" && ok "Fixed ~/.dbus ownership."
 fi
 
 echo -e "\n${GREEN}Dispatch completed successfully.${NC}"
-

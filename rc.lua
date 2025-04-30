@@ -111,6 +111,7 @@ root.buttons(gears.table.join(
 
 -- ░░ Globale Tastenkürzel ░░
 local globalkeys = gears.table.join(
+
     -- Programme
     awful.key({ modkey }, "Return", function() awful.spawn(terminal) end,
         {description = "Terminal", group = "launcher"}),
@@ -124,6 +125,7 @@ local globalkeys = gears.table.join(
         {description = "GIMP", group = "launcher"}),
     awful.key({ modkey }, "p",      function() awful.spawn("dmenu_run") end,
         {description = "dmenu", group = "launcher"}),
+
     -- Lautstärke
     awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn("amixer -D pulse sset Master 10%+", false) end,
         {description = "Lauter", group = "media"}),
@@ -131,12 +133,15 @@ local globalkeys = gears.table.join(
         {description = "Leiser", group = "media"}),
     awful.key({}, "XF86AudioMute",        function() awful.spawn("amixer -D pulse sset Master toggle", false) end,
         {description = "Mute", group = "media"}),
+
     -- Hotkeys‑Popup
     awful.key({ modkey }, "s", hotkeys_popup.show_help,
         {description = "Tasten­hilfe", group = "awesome"}),
+
     -- Run‑Prompt
     awful.key({ modkey }, "r", function() awful.screen.focused().mypromptbox:run() end,
         {description = "Run‑Prompt", group = "launcher"}),
+
     -- Tag‑Navigation
     -- Layout‑Wechsel (Tile ↔ Floating)
     awful.key({ modkey }, "space",  function() awful.layout.inc( 1) end,
@@ -147,6 +152,19 @@ local globalkeys = gears.table.join(
     -- Tag‑Navigation
     awful.key({ modkey }, "Left",  awful.tag.viewprev, {description = "vorheriger Tag", group = "tag"}),
     awful.key({ modkey }, "Right", awful.tag.viewnext, {description = "nächster Tag", group = "tag"}),
+
+    -- Fenster-Navigation
+    awful.key({ modkey }, "j", function () awful.client.focus.byidx( 1) end,
+              {description = "focus next by index", group = "client"}),
+        awful.key({ modkey }, "k", function () awful.client.focus.byidx(-1) end,
+              {description = "focus previous by index", group = "client"}),
+    awful.key({ modkey, "Shift" }, "j", function () awful.client.swap.byidx( 1) end,
+              {description = "swap with next client by index", group = "client"}),
+              
+    -- Swap with previous client
+    awful.key({ modkey, "Shift" }, "k", function () awful.client.swap.byidx(-1) end,
+              {description = "swap with previous client by index", group = "client"}),
+
     -- Awesome neu laden / Quit
     awful.key({ modkey, "Control" }, "r", awesome.restart,
         {description = "Awesome neu laden", group = "awesome"}),
@@ -241,7 +259,7 @@ awful.rules.rules = {
             placement    = awful.placement.no_overlap + awful.placement.no_offscreen
         }
     },
-    { rule = { class = "Tilix" }, properties = { tag = "term", switchtotag = true } },
+    -- { rule = { class = "Tilix" }, properties = { tag = "term", switchtotag = true } },
     { rule = { class = "Brave"  }, properties = { tag = "web",   switchtotag = true } },
     { rule = { class = "Thunar" }, properties = { tag = "files", switchtotag = true, floating = false } },
     { rule = { class = "Gimp"   }, properties = { tag = "media", switchtotag = true } },
