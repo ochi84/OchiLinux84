@@ -76,7 +76,7 @@ local separator3 = wibox.widget.textbox("   ")
 
 -- ░░ Widgets (ohne CPU & Net, wie gewünscht) ░░
 local volume_widget     = require("awesome-wm-widgets.volume-widget.volume")
-local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+-- local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 
 -- ░░ Menü ░░
 local myawesomemenu = {
@@ -204,7 +204,7 @@ awful.screen.connect_for_each_screen(function(s)
         nil,
         { layout = wibox.layout.fixed.horizontal,
           separator1, mytextclock, separator1, separator2,
-          brightness_widget(), separator2,
+          -- brightness_widget(), separator2,
           volume_widget{ widget_type = "arc" }, separator3, logo },
     }
 end)
